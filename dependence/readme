@@ -1,0 +1,4 @@
+Before build this framework, you need install some thirdpart package:
+	1) valgrind: ensure framework can found <valgrind/valgrind.h>
+	2) openssl: ensure framework can found <openssl/md5.h> and <openssl/sha.h>
+	2) libmysqlclient: ensure framework can found <mysql.h>

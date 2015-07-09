@@ -1,0 +1,87 @@
+module "S3Coroutine"
+export {
+	S3FirstRequest ={
+		id =1005,
+		field ={
+			{
+				name ="Param1",
+				type ="int64",
+				init_value =0
+			},
+			{
+				name ="Param2",
+				type ="boolean",
+				rquired =true
+			},
+			{
+				name ="Param3",
+				type ="string",
+				min_length =1,
+				max_length =128
+			},
+		}
+	};
+	S3FirstRespond ={
+		id =1006,
+		{
+			name ="Error",
+			type ="int64",
+			init_value =0
+		},
+		{
+			name ="Result1",
+			type ="int64",
+		},
+		{
+			name ="Result2",
+			type ="boolean",
+		},
+		{
+			name ="Result3",
+			type ="string",
+			rquired =true
+		},
+	};
+	S3SecondRequest ={
+		id =1007,
+		field ={
+			{
+				name ="Param1",
+				type ="int64",
+				init_value =0
+			},
+			{
+				name ="Param2",
+				type ="boolean",
+				rquired =true
+			},
+			{
+				name ="Param3",
+				type ="string",
+				min_length =1,
+				max_length =128
+			},
+		}
+	};
+	S3SecondRespond ={
+		id =1008,
+		{
+			name ="Error",
+			type ="int64",
+			init_value =0
+		},
+		{
+			name ="Result1",
+			type ="int64",
+		},
+		{
+			name ="Result2",
+			type ="boolean",
+		},
+		{
+			name ="Result3",
+			type ="string",
+			rquired =true
+		},
+	};
+};

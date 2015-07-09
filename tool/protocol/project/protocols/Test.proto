@@ -1,0 +1,66 @@
+module "Test"
+export {
+	Game ={
+		{
+			name ="Id",
+			type ="int64",
+			init_value =99,
+			min_value =0,
+			max_value =1000000
+		},
+		{
+			name ="Name",
+			type ="string",
+			init_value ="fool",
+			min_length =0,
+			max_length =100
+		},
+		{
+			name ="Desc",
+			type ="string",
+		},
+	};
+	Human ={
+		{
+			name ="Id",
+			type ="int64",
+		},
+		{
+			name ="Name",
+			type ="string",
+		},
+		{
+			name ="Desc",
+			type ="string",
+		},
+		{
+			name ="Book",
+			type ="string",
+			count=0,
+			min_length =0,
+			max_length =100
+		},
+		{
+			name  ="Favorite",
+			type  ="Game",
+			count =3,
+		},
+	};
+
+	Family ={
+		{
+			name ='Father',
+			type  ="Human",
+		},
+		{
+			name ='Mother',
+			type  ="Human",
+		},
+		{
+			name ='Children',
+			type ='Human',
+			count =0
+		},
+	};
+};
+

@@ -1,0 +1,82 @@
+module "BitOp"
+export {
+	BitOp ={
+		qualified_name ="core::BitOp",
+		func ={
+			{
+				static =true,
+				name ="And",
+				arg ={ "uint64", "uint64" },
+				ret ="uint64"
+			},
+			{
+				static =true,
+				name ="Or",
+				arg ={ "uint64", "uint64" },
+				ret ="uint64"
+			},
+			{
+				static =true,
+				name ="Xor",
+				arg ={ "uint64", "uint64" },
+				ret ="uint64"
+			},
+			{
+				static =true,
+				name ="Negate",
+				arg ={ "uint64" },
+				ret ="uint64"
+			},
+			{
+				static =true,
+				name ="Lshift",
+				arg ={ "uint64", "uint64" },
+				ret ="uint64"
+			},
+			{
+				static =true,
+				name ="Rshift",
+				arg ={ "uint64", "uint64" },
+				ret ="uint64"
+			},
+			{
+				static =true,
+				name ="Test",
+				arg ={ "uint64", "uint64" },
+				ret ="boolean"
+			},
+			{
+				static =true,
+				name ="Set",
+				arg ={ "uint64", "uint64" },
+				ret ="uint64"
+			},
+			{
+				static =true,
+				name ="Clear",
+				arg ={ "uint64", "uint64" },
+				ret ="uint64"
+			},
+			{
+				static =true,
+				name ="Flip",
+				arg ={ "uint64", "uint64" },
+				ret ="uint64"
+			},
+			{
+				static =true,
+				name ="Fetch",
+				arg ={ "uint64", "uint64", "uint64" },
+				ret ="uint64"
+			},
+			{
+				static =true,
+				name ="Replace",
+				arg ={ "uint64", "uint64", "uint64", "uint64" },
+				ret ="uint64"
+			},
+		}
+	};
+};
+
+

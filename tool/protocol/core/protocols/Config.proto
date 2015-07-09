@@ -1,0 +1,309 @@
+module "Config"
+export {
+	-- Network --
+	NetworkListenerConfig ={
+		{
+			name ="Type",
+			type ="string",
+		},
+		{
+			name ="Id",
+			type ="int64",
+		},
+		{
+			name ="Path",
+			type ="string",
+			init_value ="localhost",
+		},
+		{
+			name ="Port",
+			type ="int32",
+		},
+		{
+			name ="DeliverBegin",
+			type ="int64",
+			init_value =0
+		},
+		{
+			name ="DeliverRange",
+			type ="int64",
+			init_value =0
+		},
+		{
+			name ="RunnerBegin",
+			type ="int64",
+			init_value =0
+		},
+		{
+			name ="RunnerRange",
+			type ="int64",
+			init_value =10000000
+		},
+	};
+	NetworkConnectionConfig ={
+		{
+			name ="Type",
+			type ="string",
+		},
+		{
+			name ="Id",
+			type ="int64",
+		},
+		{
+			name ="Host",
+			type ="string",
+			init_value ="localhost",
+		},
+		{
+			name ="Port",
+			type ="int32",
+		},
+		{
+			name ="RunnerBegin",
+			type ="int64",
+			init_value =0
+		},
+		{
+			name ="RunnerRange",
+			type ="int64",
+			init_value =10000000
+		},
+	};
+	-- NetworkRouteConfig --
+	NetworkRouteConfig ={
+		{
+			name ="IdService",
+			type ="int64",
+			init_value =0,
+		},
+		{
+			name ="IdBegin",
+			type ="int64",
+			init_value =0,
+		},
+		{
+			name ="IdEnd",
+			type ="int64",
+			init_value =0,
+		},
+		{
+			name ="Algrithm",
+			type ="int64",
+			init_value =0,
+			enum ={
+				{
+					name ="ALG_DEFAULT",
+					value =0,
+				},
+				{
+					name ="ALG_USE_FROM_WHO",
+					value =0,
+				},
+				{
+					name ="ALG_USE_WHO",
+					value =1,
+				},
+				{
+					name ="ALG_USE_FROM",
+					value =2
+				},
+				{
+					name ="ALG_RANDOM",
+					value =3,
+				},
+				{
+					name ="ALG_ROUND_ROBIN",
+					value =4,
+				},
+			},
+		},
+	};
+	NetworkConfig ={
+		{
+			name ="SlaveCount",
+			type ="int64",
+		},
+		{
+			name ="Listener",
+			type ="NetworkListenerConfig",
+			count =0
+		},
+		{
+			name ="Remote",
+			type ="NetworkConnectionConfig",
+			count =0
+		},
+		{
+			name ="Route",
+			type ="NetworkRouteConfig",
+			count =0
+		},
+	};
+	-- ServiceManager --
+	ServiceConfig ={
+		{
+			name ="IdService",
+			type ="int64",
+			init_value =0,
+		},
+		{
+			name ="IdBegin",
+			type ="int64",
+			init_value =0,
+		},
+		{
+			name ="IdEnd",
+			type ="int64",
+			init_value =0,
+		},
+		{
+			name ="Algrithm",
+			type ="int64",
+			init_value =1,
+			enum ={
+				{
+					name ="ALG_DEFAULT",
+					value =0,
+				},
+				{
+					name ="ALG_USE_WHO",
+					value =1,
+				},
+				{
+					name ="ALG_USE_FROM",
+					value =2
+				},
+				{
+					name ="ALG_USE_FROM_WHO",
+					value =3,
+				},
+				{
+					name ="ALG_RANDOM",
+					value =4,
+				},
+			},
+		},
+		{
+			name ="Path",
+			type ="string",
+		},
+	};
+	ServiceManagerConfig ={
+		{
+			name ="Service",
+			type ="ServiceConfig",
+			count =0
+		},
+	};
+	-- ActorManager --
+	ActorConfig ={
+		{
+			name ="TemplateName",
+			type ="string",
+			count =1
+		},
+		{
+			name ="ClassName",
+			type ="string",
+			count =1
+		},
+		{
+			name ="Component",
+			type ="string",
+			count =0
+		},
+		{
+			name ="Observer",
+			type ="string",
+			count =0
+		},
+	},
+	ActorManagerConfig ={
+		{
+			name ="Actor",
+			type ="ActorConfig",
+			count =0
+		},
+	};
+	-- DataService --
+	MysqlConfig ={
+		{
+			name ="Host",
+			type ="string",
+			count =1
+		},
+		{
+			name ="Port",
+			type ="int64",
+			count =1
+		},
+		{
+			name ="User",
+			type ="string",
+			count =1
+		},
+		{
+			name ="Passwd",
+			type ="string",
+			count =1
+		},
+	},
+	RedisConfig ={
+		{
+			name ="Host",
+			type ="string",
+			count =1
+		},
+		{
+			name ="Port",
+			type ="int64",
+			count =1
+		},
+	},
+	DataServiceConfig ={
+		{
+			name ="Mysql",
+			type ="MysqlConfig",
+		},
+		{
+			name ="Redis",
+			type ="RedisConfig",
+		},
+	},
+	-- LogService --
+	LogTargetConfig ={
+		{
+			name ="Type",
+			type ="int64",
+			count =1,
+			min_value =1,
+		},
+		{
+			name ="FileName",
+			type ="string",
+			count =1,
+			min_length=1,
+		},
+		{
+			name ="FileLifeTime",
+			type ="int64",
+			count =1,
+			init_value =1800,
+			min_value =60,
+		},
+		{
+			name ="FlushMode",
+			type ="int64",
+			count =1,
+			init_value =0,
+			min_value =0,
+		},
+	},
+	LogServiceConfig ={
+		{
+			name ="Target",
+			type ="LogTargetConfig",
+			count =0
+		},
+	},
+};

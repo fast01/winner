@@ -1,0 +1,195 @@
+module "Bytes"
+export {
+	Bytes ={
+		qualified_name ="core::Bytes",
+		func ={
+			-- new
+			{
+				static =true,
+				name ="New",
+				ret ="core::Bytes"
+			},
+			-- state
+			{
+				name ="good",
+				ret ="boolean"
+			},
+			{
+				name ="bad",
+				ret ="boolean"
+			},
+			-- cursor
+			{
+				name ="rewind",
+			},
+			{
+				name ="getReadCursor",
+				ret ="int64"
+			},
+			{
+				name ="getWriteCursor",
+				ret ="int64"
+			},
+			{
+				name ="setReadCursor",
+				arg ={ "int64" }
+			},
+			{
+				name ="setWriteCursor",
+				arg ={ "int64" }
+			},
+			{
+				name ="skip",
+				arg ={ "int64" }
+			},
+			-- size
+			{
+				name ="size",
+				ret ="int64"
+			},
+			-- encode, decode
+			{
+				name ="encodeBoolean",
+				arg  ={
+					"boolean",
+				}
+			},
+			{
+				name ="decodeBoolean",
+				ret ="boolean",
+			},
+			{
+				name ="encodeInt64",
+				arg  ={
+					"int64",
+				}
+			},
+			{
+				name ="decodeInt64",
+				ret ="int64",
+			},
+			{
+				name ="encodeUint64",
+				arg  ={
+					"uint64",
+				}
+			},
+			{
+				name ="decodeUint64",
+				ret ="uint64",
+			},
+			{
+				name ="encodeFloat32",
+				arg  ={
+					"float32",
+				}
+			},
+			{
+				name ="decodeFloat32",
+				ret ="float32",
+			},
+			{
+				name ="encodeFloat64",
+				arg  ={
+					"float64",
+				}
+			},
+			{
+				name ="decodeFloat64",
+				ret ="float64",
+			},
+			{
+				name ="encodeString",
+				arg  ={
+					"string",
+				}
+			},
+			{
+				name ="decodeString",
+				ret ="string",
+			},
+
+			-- read, write
+			{
+				name ="readInt8",
+				ret ="int8",
+			},
+			{
+				name ="readInt16",
+				ret ="int16",
+			},
+			{
+				name ="readInt32",
+				ret ="int32",
+			},
+			{
+				name ="readInt64",
+				ret ="int64",
+			},
+			{
+				name ="readUint8",
+				ret ="uint8",
+			},
+			{
+				name ="readUint16",
+				ret ="uint16",
+			},
+			{
+				name ="readUint32",
+				ret ="uint32",
+			},
+			{
+				name ="readUint64",
+				ret ="uint64",
+			},
+			{
+				name ="readFloat32",
+				ret ="float32",
+			},
+			{
+				name ="readFloat64",
+				ret ="float64",
+			},
+			{
+				name ="writeInt8",
+				arg ={ "int8" },
+			},
+			{
+				name ="writeInt16",
+				arg ={ "int16" },
+			},
+			{
+				name ="writeInt32",
+				arg ={ "int32" },
+			},
+			{
+				name ="writeInt64",
+				arg ={ "int64" },
+			},
+			{
+				name ="writeUint8",
+				arg ={ "uint8" },
+			},
+			{
+				name ="writeUint16",
+				arg ={ "uint16" },
+			},
+			{
+				name ="writeUint32",
+				arg ={ "uint32" },
+			},
+			{
+				name ="writeUint64",
+				arg ={ "uint64" },
+			},
+			{
+				name ="writeFloat32",
+				arg ={ "float32" },
+			},
+			{
+				name ="writeFloat64",
+				arg ={ "float64" },
+			},
+		},
+	};
+};

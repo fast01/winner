@@ -1,0 +1,18 @@
+#include "core.h"
+
+namespace core{
+	/*** impl ClassInfo ***/
+	/** ctor & dtor **/
+	ClassInfo::ClassInfo(){
+	}
+	ClassInfo::~ClassInfo(){
+	}
+
+	/** Object **/
+	void ClassInfo::init(){
+		Super::init();
+	}
+	void ClassInfo::finalize(){
+		Super::finalize();
+	}
+}

@@ -1,0 +1,88 @@
+module "S5Lua"
+export {
+	S5FirstRequest ={
+		id =1009,
+		field ={
+			{
+				name ="Param1",
+				type ="int64",
+				init_value =0
+			},
+			{
+				name ="Param2",
+				type ="boolean",
+				rquired =true
+			},
+			{
+				name ="Param3",
+				type ="string",
+				min_length =1,
+				max_length =128
+			},
+		}
+	};
+	S5FirstRespond ={
+		id =1010,
+		{
+			name ="Error",
+			type ="int64",
+			init_value =0
+		},
+		{
+			name ="Result1",
+			type ="int64",
+		},
+		{
+			name ="Result2",
+			type ="boolean",
+		},
+		{
+			name ="Result3",
+			type ="string",
+			rquired =true
+		},
+	};
+	S5SecondRequest ={
+		id =1011,
+		field ={
+			{
+				name ="Param1",
+				type ="int64",
+				init_value =0
+			},
+			{
+				name ="Param2",
+				type ="boolean",
+				rquired =true
+			},
+			{
+				name ="Param3",
+				type ="string",
+				min_length =1,
+				max_length =128
+			},
+		}
+	};
+	S5SecondRespond ={
+		id =1012,
+		{
+			name ="Error",
+			type ="int64",
+			init_value =0
+		},
+		{
+			name ="Result1",
+			type ="int64",
+		},
+		{
+			name ="Result2",
+			type ="boolean",
+		},
+		{
+			name ="Result3",
+			type ="string",
+			rquired =true
+		},
+	};
+};
+

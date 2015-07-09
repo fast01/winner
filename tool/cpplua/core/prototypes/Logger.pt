@@ -1,0 +1,99 @@
+module "Logger"
+export {
+	Logger ={
+		qualified_name ="core::Logger",
+		enum ={
+			"DEBUG", "INFO", "WARN", "ERROR", "FATAL",
+			"USER_MIN_LEVEL",
+			"USER_MAX_LEVEL",
+
+			"SHOW_ALL",
+			"SHOW_NONE",
+
+			"FLUSH_MODE_FLUSH",
+			"FLUSH_MODE_SYNC",
+			"FLUSH_MODE_DEFAULT"
+		},
+		func ={
+			-- print
+			{
+				static =true,
+				name ="Printf",
+				arg ={ "string" },
+			},
+			-- log
+			{
+				static =true,
+				name ="Log",
+				arg ={ "int64", "string" },
+			},
+			{
+				static =true,
+				name ="Info",
+				arg ={ "string" },
+			},
+			{
+				static =true,
+				name ="Warn",
+				arg ={ "string" },
+			},
+			{
+				static =true,
+				name ="Error",
+				arg ={ "string" },
+			},
+			{
+				static =true,
+				name ="Fatal",
+				arg ={ "string" },
+			},
+			{
+				static =true,
+				name ="Debug",
+				arg ={ "string" },
+			},
+
+			-- ctrl
+			{
+				static =true,
+				name ="SetName",
+				arg ={ "string" },
+			},
+			{
+				static =true,
+				name ="GetName",
+				ret ="string"
+			},
+			{
+				static =true,
+				name ="SetLevel",
+				arg ={ "int64" },
+			},
+			{
+				static =true,
+				name ="GetLevel",
+				ret ="int64"
+			},
+			{
+				static =true,
+				name ="SetFileLifeTime",
+				arg ={ "int64" },
+			},
+			{
+				static =true,
+				name ="GetFileLifeTime",
+				ret ="int64"
+			},
+			{
+				static =true,
+				name ="SetFlushMode",
+				arg ={ "int64" },
+			},
+			{
+				static =true,
+				name ="GetFlushMode",
+				ret ="int64"
+			},
+		}
+	};
+};

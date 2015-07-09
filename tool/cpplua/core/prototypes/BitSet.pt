@@ -1,0 +1,62 @@
+module "BitSet"
+export {
+	BitSet ={
+		qualified_name ="core::BitSet",
+		func ={
+			{
+				static =true,
+				name ="New",
+				ret ="BitSet"
+			},
+			{
+				name ="fromString",
+				arg ={ "string" },
+			},
+			{
+				name ="toString",
+				ret ="string",
+			},
+			{
+				name ="setUint64",
+				arg ={ "uint64" },
+			},
+			{
+				name ="asUint64",
+				ret ="uint64"
+			},
+			{
+				name ="count",
+				ret ="uint64"
+			},
+			{
+				name ="test",
+				arg ={ "uint64" },
+				ret ="boolean"
+			},
+			{
+				name ="set",
+				arg ={ "uint64" },
+			},
+			{
+				name ="flip",
+				arg ={ "uint64" },
+			},
+			{
+				name ="clear",
+				arg ={ "uint64" },
+			},
+			{
+				name ="clearAll",
+			},
+			{
+				name ="fetch",
+				arg ={ "uint64", "uint64" },
+				ret ="uint64"
+			},
+			{
+				name ="replace",
+				arg ={ "uint64", "uint64", "uint64" },
+			}
+		}
+	}
+}

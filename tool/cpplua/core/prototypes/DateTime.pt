@@ -1,0 +1,14 @@
+module "DateTime"
+export {
+	DateTime ={
+		qualified_name ="core::DateTime",
+		func ={
+			-- log
+			{
+				static =true,
+				name ="Now",
+				ret ="int64"
+			},
+		}
+	};
+};

@@ -1,0 +1,18 @@
+#ifndef H_${HEADER_ID}_H__
+#define H_${HEADER_ID}_H__
+
+namespace ${NAMESPACE}{
+	/** ${CLASS} **/
+	class ${CLASS}: public ${SUPER}{
+		SUPPORT_NEWABLE
+		typedef ${SUPER} Super;
+	private:
+		${CLASS}();
+		virtual ~${CLASS}();
+	public:
+		virtual void init();
+		virtual void finalize();
+	};
+}
+
+#endif

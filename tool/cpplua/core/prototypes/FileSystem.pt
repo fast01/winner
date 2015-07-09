@@ -1,0 +1,39 @@
+module "FileSystem"
+export {
+	FileSystem ={
+		qualified_name ="core::FileSystem",
+		func ={
+			{
+				static =true,
+				name ="CleanPath",
+				arg ={ "string" },
+				ret ="string"
+			},
+			{
+				static =true,
+				name ="ParseDir",
+				arg ={ "string" },
+				ret ="string"
+			},
+			{
+				static =true,
+				name ="ParseExt",
+				arg ={ "string" },
+				ret ="string"
+			},
+			{
+				static =true,
+				name ="ParseName",
+				arg ={ "string" },
+				ret ="string"
+			},
+			{
+				static =true,
+				name ="Join",
+				arg ={ "string", "string" },
+				ret ="string"
+			},
+		}
+	};
+};
+

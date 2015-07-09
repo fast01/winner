@@ -1,0 +1,87 @@
+module "S4Lua"
+export {
+	S4FirstRequest ={
+		id =1013,
+		field ={
+			{
+				name ="Param1",
+				type ="int64",
+				init_value =0
+			},
+			{
+				name ="Param2",
+				type ="boolean",
+				rquired =true
+			},
+			{
+				name ="Param3",
+				type ="string",
+				min_length =1,
+				max_length =128
+			},
+		}
+	};
+	S4FirstRespond ={
+		id =1014,
+		{
+			name ="Error",
+			type ="int64",
+			init_value =0
+		},
+		{
+			name ="Result1",
+			type ="int64",
+		},
+		{
+			name ="Result2",
+			type ="boolean",
+		},
+		{
+			name ="Result3",
+			type ="string",
+			rquired =true
+		},
+	};
+	S4SecondRequest ={
+		id =1015,
+		field ={
+			{
+				name ="Param1",
+				type ="int64",
+				init_value =0
+			},
+			{
+				name ="Param2",
+				type ="boolean",
+				rquired =true
+			},
+			{
+				name ="Param3",
+				type ="string",
+				min_length =1,
+				max_length =128
+			},
+		}
+	};
+	S4SecondRespond ={
+		id =1016,
+		{
+			name ="Error",
+			type ="int64",
+			init_value =0
+		},
+		{
+			name ="Result1",
+			type ="int64",
+		},
+		{
+			name ="Result2",
+			type ="boolean",
+		},
+		{
+			name ="Result3",
+			type ="string",
+			rquired =true
+		},
+	};
+};

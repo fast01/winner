@@ -1,0 +1,932 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+ASSIGN_POINTER	../core/macro.hpp	22;"	d
+Array	../core/Array.cpp	/^	Array::Array()$/;"	f	class:core::Array
+Array	../core/Array.h	/^	class Array : public Container{$/;"	c	namespace:core
+ArrayIterator	../core/Array.cpp	/^	ArrayIterator::ArrayIterator()$/;"	f	class:core::ArrayIterator
+ArrayIterator	../core/Array.cpp	/^	ArrayIterator::ArrayIterator(Array* arr)$/;"	f	class:core::ArrayIterator
+ArrayIterator	../core/Array.h	/^	class ArrayIterator: public Iterator{$/;"	c	namespace:core
+BASE_CAPACITY	../core/Memory.h	/^		enum{ SLOT_COUNT =10, BASE_CAPACITY =16 };$/;"	e	enum:core::Memory::__anon8
+Boolean	../core/Boolean.cpp	/^	Boolean::Boolean()$/;"	f	class:core::Boolean
+Boolean	../core/Boolean.cpp	/^	Boolean::Boolean(bool v)$/;"	f	class:core::Boolean
+Boolean	../core/Boolean.h	/^	class Boolean : public Object{$/;"	c	namespace:core
+Bytes	../core/Bytes.cpp	/^	Bytes::Bytes()$/;"	f	class:core::Bytes
+Bytes	../core/Bytes.cpp	/^	Bytes::Bytes(const void* data, const int64_t len)$/;"	f	class:core::Bytes
+Bytes	../core/Bytes.h	/^	class Bytes : public Object{$/;"	c	namespace:core
+CAST_POINTER	../core/macro.hpp	23;"	d
+CC	../build/Makefile	/^CC       := g++$/;"	m
+CHECK_ABORT	../core/macro.hpp	34;"	d
+CHECK_EXIT	../core/macro.hpp	33;"	d
+CHECK_LOG	../core/macro.hpp	28;"	d
+CHECK_LOG_RETURN	../core/macro.hpp	29;"	d
+CHECK_LOG_RETURN_VALUE	../core/macro.hpp	30;"	d
+CHECK_OOM	../core/macro.hpp	36;"	d
+CHECK_OUT_OF_MEMORY	../core/macro.hpp	35;"	d
+CHECK_RETURN	../core/macro.hpp	31;"	d
+CHECK_RETURN_VALUE	../core/macro.hpp	32;"	d
+CLAMP	../core/macro.hpp	76;"	d
+CLEAN_POINTER	../core/macro.hpp	21;"	d
+CSTR	../core/macro.hpp	40;"	d
+CService	../core/CService.cpp	/^	CService::CService()$/;"	f	class:core::CService
+CService	../core/CService.h	/^	class CService: public Service {$/;"	c	namespace:core
+CXXFLAGS	../build/Makefile	/^CXXFLAGS := -Wall -g -c -std=c++0x$/;"	m
+CalcHashCode	../core/String.cpp	/^	int64_t String::CalcHashCode(const char* str, int64_t len){$/;"	f	class:core::String
+CompareFunc	../core/template.hpp	/^	int64_t CompareFunc(Object* a, Object* b){$/;"	f	namespace:core
+Container	../core/Container.hpp	/^	class Container : public Object{$/;"	c	namespace:core
+CppDelete	../core/template.hpp	/^	inline void CppDelete(Object* o){$/;"	f	namespace:core
+CppNew	../core/template.hpp	/^	inline T* CppNew(){$/;"	f	namespace:core
+CppNew	../core/template.hpp	/^	inline T* CppNew(A1 a1){$/;"	f	namespace:core
+CppNew	../core/template.hpp	/^	inline T* CppNew(A1 a1, A2 a2){$/;"	f	namespace:core
+CppNew	../core/template.hpp	/^	inline T* CppNew(A1 a1, A2 a2, A3 a3){$/;"	f	namespace:core
+CppNew	../core/template.hpp	/^	inline T* CppNew(A1 a1, A2 a2, A3 a3, A4 a4){$/;"	f	namespace:core
+CppNew	../core/template.hpp	/^	inline T* CppNew(A1 a1, A2 a2, A3 a3, A4 a4, A5 a5){$/;"	f	namespace:core
+CppNew	../core/template.hpp	/^	inline T* CppNew(A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6){$/;"	f	namespace:core
+CppNew	../core/template.hpp	/^	inline T* CppNew(A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7){$/;"	f	namespace:core
+CppNew	../core/template.hpp	/^	inline T* CppNew(A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8){$/;"	f	namespace:core
+CppNew	../core/template.hpp	/^	inline T* CppNew(A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9){$/;"	f	namespace:core
+CycleBuffer	../core/CycleBuffer.cpp	/^	CycleBuffer::CycleBuffer()$/;"	f	class:core::CycleBuffer
+CycleBuffer	../core/CycleBuffer.h	/^	class CycleBuffer : public Object{$/;"	c	namespace:core
+DEBUG	../core/Log.h	/^			DEBUG, INFO, WARN, ERROR, FATAL,$/;"	e	enum:core::Log::__anon10
+DEBUG	../core/macro.hpp	11;"	d
+DECLARE_NUMBER_CLASS	../core/number.h	5;"	d
+DECLARE_POD_ARRAY_CLASS	../core/PODArray.h	5;"	d
+DECLARE_PROCESS_LOCAL_SINGLETON	../core/macro.hpp	63;"	d
+DECLARE_PROPERTY	../core/macro.hpp	80;"	d
+DECLARE_PROPERTY_DYNAMIC_ARRAY	../core/macro.hpp	96;"	d
+DECLARE_PROPERTY_FIXED_ARRAY	../core/macro.hpp	118;"	d
+DECLARE_THREAD_LOCAL_SINGLETON	../core/macro.hpp	52;"	d
+DEFINE_NUMBER_CLASS	../core/number.h	28;"	d
+DEFINE_POD_ARRAY_CLASS	../core/PODArray.cpp	4;"	d	file:
+DEFINE_PROCESS_LOCAL_SINGLETON	../core/macro.hpp	67;"	d
+DEFINE_PROPERTY	../core/macro.hpp	87;"	d
+DEFINE_PROPERTY_DYNAMIC_ARRAY	../core/macro.hpp	108;"	d
+DEFINE_PROPERTY_FIXED_ARRAY	../core/macro.hpp	126;"	d
+DEFINE_PROPERTY_FIXED_ARRAY_P	../core/macro.hpp	131;"	d
+DEFINE_PROPERTY_P	../core/macro.hpp	91;"	d
+DEFINE_THREAD_LOCAL_SINGLETON	../core/macro.hpp	56;"	d
+DELETE_POINTER	../core/macro.hpp	20;"	d
+ERROR	../core/Log.h	/^			DEBUG, INFO, WARN, ERROR, FATAL,$/;"	e	enum:core::Log::__anon10
+ERROR	../core/macro.hpp	14;"	d
+Equals	../core/Object.cpp	/^	bool Object::Equals(Object* obj1, Object* obj2){$/;"	f	class:core::Object
+FATAL	../core/Log.h	/^			DEBUG, INFO, WARN, ERROR, FATAL,$/;"	e	enum:core::Log::__anon10
+FATAL	../core/macro.hpp	15;"	d
+FDBuffer	../core/FDBuffer.cpp	/^	FDBuffer::FDBuffer()$/;"	f	class:core::FDBuffer
+FDBuffer	../core/FDBuffer.h	/^	class FDBuffer : public CycleBuffer{$/;"	c	namespace:core
+FLUSH_MODE_DEFAULT	../core/Log.h	/^			FLUSH_MODE_DEFAULT =FLUSH_MODE_IMMEDIATELY$/;"	e	enum:core::Log::__anon12
+FLUSH_MODE_DEFAULT	../core/Record.h	/^			FLUSH_MODE_DEFAULT =FLUSH_MODE_IMMEDIATELY$/;"	e	enum:core::Record::__anon4
+FLUSH_MODE_IMMEDIATELY	../core/Log.h	/^			FLUSH_MODE_IMMEDIATELY =0,$/;"	e	enum:core::Log::__anon12
+FLUSH_MODE_IMMEDIATELY	../core/Record.h	/^			FLUSH_MODE_IMMEDIATELY =0,$/;"	e	enum:core::Record::__anon4
+FLUSH_MODE_NOT_IMMEDIATELY	../core/Log.h	/^			FLUSH_MODE_NOT_IMMEDIATELY =1,$/;"	e	enum:core::Log::__anon12
+FLUSH_MODE_NOT_IMMEDIATELY	../core/Record.h	/^			FLUSH_MODE_NOT_IMMEDIATELY =1,$/;"	e	enum:core::Record::__anon4
+Format	../core/String.cpp	/^	String* String::Format(String* fmt, ...){$/;"	f	class:core::String
+Format	../core/String.cpp	/^	String* String::Format(const char* fmt, ...){$/;"	f	class:core::String
+FormatV	../core/String.cpp	/^	String* String::FormatV(String* fmt, va_list vl){$/;"	f	class:core::String
+FormatV	../core/String.cpp	/^	String* String::FormatV(const char* fmt, va_list vl){$/;"	f	class:core::String
+FromBytes	../core/frombytes.hpp	/^	inline bool FromBytes(Bytes* bytes, Bytes*& v){$/;"	f	namespace:core
+FromBytes	../core/frombytes.hpp	/^	inline bool FromBytes(Bytes* bytes, String*& v){$/;"	f	namespace:core
+FromBytes	../core/frombytes.hpp	/^	inline bool FromBytes(Bytes* bytes, T& v){$/;"	f	namespace:core
+FromBytes	../core/frombytes.hpp	/^	inline bool FromBytes(Bytes* bytes, bool& v){$/;"	f	namespace:core
+FromBytes	../core/frombytes.hpp	/^	inline bool FromBytes(Bytes* bytes, float32_t& v){$/;"	f	namespace:core
+FromBytes	../core/frombytes.hpp	/^	inline bool FromBytes(Bytes* bytes, float64_t& v){$/;"	f	namespace:core
+FromLua	../core/fromlua.hpp	/^	inline bool FromLua(lua_State* L, Bytes*& v){$/;"	f	namespace:core
+FromLua	../core/fromlua.hpp	/^	inline bool FromLua(lua_State* L, String*& v){$/;"	f	namespace:core
+FromLua	../core/fromlua.hpp	/^	inline bool FromLua(lua_State* L, T& v){$/;"	f	namespace:core
+FromLua	../core/fromlua.hpp	/^	inline bool FromLua(lua_State* L, bool& v){$/;"	f	namespace:core
+Get	../core/StringTable.cpp	/^	String* StringTable::Get(String* str){$/;"	f	class:core::StringTable
+Get	../core/StringTable.cpp	/^	String* StringTable::Get(const char* str){$/;"	f	class:core::StringTable
+HPP_CORE_COMPAREABLE__	../core/ICompareable.hpp	2;"	d
+H_BOOLEAN__	../core/Boolean.h	2;"	d
+H_CORE_ARRAY__	../core/Array.h	2;"	d
+H_CORE_BASIC__	../core/build_in_type.hpp	2;"	d
+H_CORE_BYTES__	../core/Bytes.h	2;"	d
+H_CORE_CONTAINER__	../core/Container.hpp	2;"	d
+H_CORE_CYCLE_BUFFER__	../core/CycleBuffer.h	2;"	d
+H_CORE_C_SERVICE_H__	../core/CService.h	2;"	d
+H_CORE_DATE_TIME_H__	../core/DateTime.h	2;"	d
+H_CORE_ERROR_H__	../core/error.cpp	2;"	d	file:
+H_CORE_ERROR_H__	../core/error.h	2;"	d
+H_CORE_FD_BUFFER__	../core/FDBuffer.h	2;"	d
+H_CORE_FROM_BYTES_H__	../core/frombytes.hpp	2;"	d
+H_CORE_FROM_LUA_H__	../core/fromlua.hpp	2;"	d
+H_CORE_HASH__	../core/Hash.h	2;"	d
+H_CORE_LIST__	../core/List.h	2;"	d
+H_CORE_LOG__	../core/Log.h	2;"	d
+H_CORE_LUA_SERVICE_H__	../core/LuaService.h	2;"	d
+H_CORE_MEMORY__	../core/Memory.h	2;"	d
+H_CORE_NUMBER__	../core/number.h	2;"	d
+H_CORE_OBJECT_POOL__	../core/ObjectPool.h	2;"	d
+H_CORE_OBJECT__	../core/Object.h	2;"	d
+H_CORE_PACKET_H__	../core/packet.hpp	2;"	d
+H_CORE_PIPE_BUFFER__	../core/PipeBuffer.h	2;"	d
+H_CORE_POD_ARRAY__	../core/PODArray.h	2;"	d
+H_CORE_POINTER__	../core/Pointer.h	2;"	d
+H_CORE_PROCESS_LOCAL_H__	../core/ProcessLocal.h	2;"	d
+H_CORE_RECORD__	../core/Record.h	2;"	d
+H_CORE_SERVICE_CENTER_H__	../core/ServiceCenter.h	2;"	d
+H_CORE_SERVICE_H__	../core/Service.h	2;"	d
+H_CORE_SETUP_H__	../core/setup.hpp	2;"	d
+H_CORE_STRING__	../core/String.h	2;"	d
+H_CORE_THREAD_LOCAL_H__	../core/ThreadLocal.h	2;"	d
+H_CORE_TO_BYTES_H__	../core/tobytes.hpp	2;"	d
+H_CORE_TO_LUA_H__	../core/tolua.hpp	2;"	d
+H_CORE__	../core/core.h	2;"	d
+H_MACRO__	../core/macro.hpp	2;"	d
+H_PLATFORM_H__	../core/platform.h	2;"	d
+H_PROTOCOL_AUTO_GEN_CODE_H__	../gen/protocol/protocol.h	2;"	d
+H_PROTOCOL_BASE_H__	../core/ProtocolBase.hpp	2;"	d
+H_STRING_TABLE__	../core/StringTable.h	2;"	d
+H_TEMPLATE__	../core/template.hpp	2;"	d
+H_TEST_ARRAY_H__	../test/test_array.h	2;"	d
+H_TEST_BYTES_H__	../test/test_bytes.h	2;"	d
+H_TEST_CYCLE_BUFFER_H__	../test/test_cycle_buffer.h	2;"	d
+H_TEST_HASH_H__	../test/test_hash.h	2;"	d
+H_TEST_MEMORY_H__	../test/test_memory.h	2;"	d
+H_TEST_STRING_H__	../test/test_string.h	2;"	d
+H_TO_STRING__	../core/tostring.hpp	2;"	d
+Hash	../core/Hash.cpp	/^	Hash::Hash()$/;"	f	class:core::Hash
+Hash	../core/Hash.h	/^	class Hash : public Container{$/;"	c	namespace:core
+HashIterator	../core/Hash.cpp	/^	HashIterator::HashIterator()$/;"	f	class:core::HashIterator
+HashIterator	../core/Hash.cpp	/^	HashIterator::HashIterator(Hash* hash)$/;"	f	class:core::HashIterator
+HashIterator	../core/Hash.h	/^	class HashIterator : public Iterator{$/;"	c	namespace:core
+ICompareable	../core/ICompareable.hpp	/^class ICompareable{$/;"	c	namespace:core
+INFO	../core/Log.h	/^			DEBUG, INFO, WARN, ERROR, FATAL,$/;"	e	enum:core::Log::__anon10
+INFO	../core/macro.hpp	12;"	d
+INVALID_FD	../core/FDBuffer.h	/^			INVALID_FD = -1	$/;"	e	enum:core::FDBuffer::__anon7
+IS_A	../core/macro.hpp	24;"	d
+IS_NULL	../core/macro.hpp	25;"	d
+Instance	../core/ProcessLocal.cpp	/^	ProcessLocal* ProcessLocal::Instance(){$/;"	f	class:core::ProcessLocal
+Instance	../core/ThreadLocal.cpp	/^	ThreadLocal* ThreadLocal::Instance(){$/;"	f	class:core::ThreadLocal
+Iterator	../core/Container.hpp	/^	class Iterator: public Object{$/;"	c	namespace:core
+LDFLAGS	../build/Makefile	/^LDFLAGS  := -ldl -llua$/;"	m
+LIST_NODE	../core/List.h	/^		}LIST_NODE, *PLIST_NODE;$/;"	t	class:core::List	typeref:struct:core::List::tagLIST_NODE
+LOCAL_STORAGE_SIZE	../core/Service.h	/^			LOCAL_STORAGE_SIZE =1024*1024	$/;"	e	enum:core::Service::__anon1
+LOG	../core/macro.hpp	10;"	d
+LessObject	../core/Array.h	/^			LessObject(const PFN_OBJECT_LESS fn) : m_fn(fn){}$/;"	f	class:core::Array::LessObject
+LessObject	../core/Array.h	/^		class LessObject{$/;"	c	class:core::Array
+List	../core/List.cpp	/^	List::List()$/;"	f	class:core::List
+List	../core/List.h	/^	class List : public Container{$/;"	c	namespace:core
+ListIterator	../core/List.cpp	/^	ListIterator::ListIterator(List* l, List::PLIST_NODE node, const bool bReverse)$/;"	f	class:core::ListIterator
+ListIterator	../core/List.h	/^	class ListIterator: public Iterator{$/;"	c	namespace:core
+Log	../core/Log.cpp	/^	Log::Log()$/;"	f	class:core::Log
+Log	../core/Log.h	/^	class Log: public Object{$/;"	c	namespace:core
+LuaService	../core/LuaService.cpp	/^	LuaService::LuaService()$/;"	f	class:core::LuaService
+LuaService	../core/LuaService.h	/^	class LuaService: public Service {$/;"	c	namespace:core
+MAIN_H	../test/main.h	2;"	d
+MAX	../core/macro.hpp	74;"	d
+MAX_STRING_LENGTH	../core/StringTable.h	/^			MAX_STRING_LENGTH =64	$/;"	e	enum:core::StringTable::__anon3
+MEMORY_NODE	../core/Memory.h	/^	}MEMORY_NODE, *PMEMORY_NODE;$/;"	t	namespace:core	typeref:struct:core::tagMEMORY_NODE
+MEMORY_POOL_ENABLE	../core/setup.hpp	4;"	d
+MEMORY_SLOT	../core/Memory.h	/^	}MEMORY_SLOT, *PMEMORY_SLOT;$/;"	t	namespace:core	typeref:struct:core::tagMEMORY_SLOT
+MIN	../core/macro.hpp	75;"	d
+Memory	../core/Memory.cpp	/^	Memory::Memory()$/;"	f	class:core::Memory
+Memory	../core/Memory.h	/^	class Memory : public Object{$/;"	c	namespace:core
+NODE	../core/Hash.h	/^		}NODE, *PNODE;$/;"	t	class:core::Hash	typeref:struct:core::Hash::tagNODE
+New	../core/template.hpp	/^	inline T* New(){$/;"	f	namespace:core
+New	../core/template.hpp	/^	inline T* New(A1 a1){$/;"	f	namespace:core
+New	../core/template.hpp	/^	inline T* New(A1 a1, A2 a2){$/;"	f	namespace:core
+New	../core/template.hpp	/^	inline T* New(A1 a1, A2 a2, A3 a3){$/;"	f	namespace:core
+New	../core/template.hpp	/^	inline T* New(A1 a1, A2 a2, A3 a3, A4 a4){$/;"	f	namespace:core
+New	../core/template.hpp	/^	inline T* New(A1 a1, A2 a2, A3 a3, A4 a4, A5 a5){$/;"	f	namespace:core
+New	../core/template.hpp	/^	inline T* New(A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6){$/;"	f	namespace:core
+New	../core/template.hpp	/^	inline T* New(A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7){$/;"	f	namespace:core
+New	../core/template.hpp	/^	inline T* New(A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8){$/;"	f	namespace:core
+New	../core/template.hpp	/^	inline T* New(A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9){$/;"	f	namespace:core
+NewString	../core/String.cpp	/^	String* String::NewString(){$/;"	f	class:core::String
+NewString	../core/String.cpp	/^	String* String::NewString(const char* str){$/;"	f	class:core::String
+NewString	../core/String.cpp	/^	String* String::NewString(const char* str, const int64_t len){$/;"	f	class:core::String
+OPH	../core/ObjectPool.h	38;"	d
+OPT_ZOMBIE	../core/packet.hpp	/^	OPT_ZOMBIE =1 << 0	$/;"	e	enum:__anon6
+Object	../core/Object.cpp	/^	Object::Object()$/;"	f	class:core::Object
+Object	../core/Object.h	/^	class Object{$/;"	c	namespace:core
+ObjectPool	../core/ObjectPool.cpp	/^	ObjectPool::ObjectPool()$/;"	f	class:core::ObjectPool
+ObjectPool	../core/ObjectPool.h	/^	class ObjectPool : public Object{$/;"	c	namespace:core
+ObjectPoolHelper	../core/ObjectPool.h	/^		ObjectPoolHelper()$/;"	f	class:core::ObjectPoolHelper
+ObjectPoolHelper	../core/ObjectPool.h	/^	class ObjectPoolHelper{$/;"	c	namespace:core
+OutputDebug	../core/platform.cpp	/^void OutputDebug(const char* fmt, ...){$/;"	f
+PACKET	../core/packet.hpp	/^}PACKET, *PPACKET;$/;"	t	typeref:struct:tagPACKET
+PFN_OBJECT_LESS	../core/Array.h	/^		typedef bool (*PFN_OBJECT_LESS)(Object*, Object*);$/;"	t	class:core::Array
+PFN_OBJECT_LESS	../core/Hash.h	/^		typedef bool (*PFN_OBJECT_LESS)(Object*, Object*);$/;"	t	class:core::Hash
+PFN_ON_LOAD	../core/CService.h	/^		typedef int (*PFN_ON_LOAD)();$/;"	t	class:core::CService
+PFN_ON_MESSAGE	../core/CService.h	/^		typedef int (*PFN_ON_MESSAGE)(PPACKET header, void* body);$/;"	t	class:core::CService
+PFN_ON_UNLOAD	../core/CService.h	/^		typedef void (*PFN_ON_UNLOAD)();$/;"	t	class:core::CService
+PLATFORM_NAME	../core/platform.h	14;"	d
+PLIST_NODE	../core/List.h	/^		}LIST_NODE, *PLIST_NODE;$/;"	t	class:core::List	typeref:struct:core::List::tagLIST_NODE
+PMEMORY_NODE	../core/Memory.h	/^	}MEMORY_NODE, *PMEMORY_NODE;$/;"	t	namespace:core	typeref:struct:core::tagMEMORY_NODE
+PMEMORY_SLOT	../core/Memory.h	/^	}MEMORY_SLOT, *PMEMORY_SLOT;$/;"	t	namespace:core	typeref:struct:core::tagMEMORY_SLOT
+PNODE	../core/Hash.h	/^		}NODE, *PNODE;$/;"	t	class:core::Hash	typeref:struct:core::Hash::tagNODE
+PPACKET	../core/packet.hpp	/^}PACKET, *PPACKET;$/;"	t	typeref:struct:tagPACKET
+PROTOCOL_COUNT	../gen/protocol/protocol.h	/^	PROTOCOL_COUNT =PROTOCOL_COUNT____-1$/;"	e	enum:protocol::__anon13
+PROTOCOL_COUNT____	../gen/protocol/protocol.h	/^	PROTOCOL_COUNT____,$/;"	e	enum:protocol::__anon13
+PROTOCOL_PLAYERDATA	../gen/protocol/protocol.h	/^	PROTOCOL_PLAYERDATA, $/;"	e	enum:protocol::__anon13
+PROTOCOL_WEAPON	../gen/protocol/protocol.h	/^	PROTOCOL_WEAPON, $/;"	e	enum:protocol::__anon13
+PROTOCOL____	../gen/protocol/protocol.h	/^	PROTOCOL____,$/;"	e	enum:protocol::__anon13
+PipeBuffer	../core/PipeBuffer.cpp	/^	PipeBuffer::PipeBuffer()$/;"	f	class:core::PipeBuffer
+PipeBuffer	../core/PipeBuffer.h	/^	class PipeBuffer : public CycleBuffer{$/;"	c	namespace:core
+PlayerData	../gen/protocol/protocol.cpp	/^PlayerData::PlayerData(){$/;"	f	class:protocol::PlayerData
+PlayerData	../gen/protocol/protocol.h	/^class PlayerData: public ProtocolBase{$/;"	c	namespace:protocol
+Pointer	../core/Pointer.cpp	/^	Pointer::Pointer()$/;"	f	class:core::Pointer
+Pointer	../core/Pointer.cpp	/^	Pointer::Pointer(void* v)$/;"	f	class:core::Pointer
+Pointer	../core/Pointer.h	/^	class Pointer : public Object{$/;"	c	namespace:core
+ProcessLocal	../core/ProcessLocal.cpp	/^	ProcessLocal::ProcessLocal()$/;"	f	class:core::ProcessLocal
+ProcessLocal	../core/ProcessLocal.h	/^	class ProcessLocal: public Object{$/;"	c	namespace:core
+ProtocolBase	../core/ProtocolBase.hpp	/^class ProtocolBase: public Object{$/;"	c	namespace:core
+RELEASE_POINTER	../core/macro.hpp	19;"	d
+RETAIN_POINTER	../core/macro.hpp	18;"	d
+Record	../core/Record.cpp	/^	Record::Record()$/;"	f	class:core::Record
+Record	../core/Record.h	/^	class Record: public Object{$/;"	c	namespace:core
+Release	../core/ProcessLocal.cpp	/^	void ProcessLocal::Release(){$/;"	f	class:core::ProcessLocal
+Release	../core/ThreadLocal.cpp	/^	void ThreadLocal::Release(){$/;"	f	class:core::ThreadLocal
+Repeat	../core/String.cpp	/^	String* String::Repeat(const char ch, const int64_t cnt){$/;"	f	class:core::String
+Request	../core/Service.cpp	/^	bool Service::Request(const void* msg, const int64_t len){$/;"	f	class:core::Service
+Result	../core/template.hpp	/^			Result =sizeof(haha((T1*)0)) == sizeof(int8_t)$/;"	e	enum:core::can_cast::__anon5
+Result	../core/template.hpp	/^		typedef T Result;$/;"	t	struct:core::remove_const
+Result	../core/template.hpp	/^		typedef T Result;$/;"	t	struct:core::remove_pointer
+Result	../core/template.hpp	/^		typedef T Result;$/;"	t	struct:core::remove_reference
+Result	../core/template.hpp	/^		typedef T Result;$/;"	t	struct:core::remove_volatile
+Result	../core/template.hpp	/^		typedef typename remove_reference<typename remove_pointer<typename remove_const_volatile<T>::Result>::Result>::Result Result;$/;"	t	struct:core::remove_all
+Result	../core/template.hpp	/^		typedef typename remove_volatile<typename remove_const<T>::Result>::Result Result;$/;"	t	struct:core::remove_const_volatile
+SHOW_BOTH	../core/Log.h	/^			SHOW_BOTH =0,$/;"	e	enum:core::Log::__anon11
+SHOW_NONE	../core/Log.h	/^			SHOW_NONE =USER_MAX_LEVEL + 1$/;"	e	enum:core::Log::__anon11
+SIZE_TYPE	../core/Memory.h	/^		typedef int32_t SIZE_TYPE;$/;"	t	struct:core::tagMEMORY_NODE
+SLERP	../core/macro.hpp	77;"	d
+SLOT_COUNT	../core/Memory.h	/^		enum{ SLOT_COUNT =10, BASE_CAPACITY =16 };$/;"	e	enum:core::Memory::__anon8
+SLOT_TYPE	../core/Memory.h	/^		typedef int8_t SLOT_TYPE;$/;"	t	struct:core::tagMEMORY_NODE
+STATE_NOT_LOADED	../core/Service.h	/^			STATE_NOT_LOADED,$/;"	e	enum:core::Service::__anon2
+STATE_RUNNING	../core/Service.h	/^			STATE_RUNNING$/;"	e	enum:core::Service::__anon2
+STATE_SUSPEND	../core/Service.h	/^			STATE_SUSPEND,$/;"	e	enum:core::Service::__anon2
+STR	../core/macro.hpp	39;"	d
+SUPPORT_NEWABLE	../core/macro.hpp	43;"	d
+SafeNew	../core/template.hpp	/^	inline T* SafeNew(){$/;"	f	namespace:core
+SafeNew	../core/template.hpp	/^	inline T* SafeNew(A1 a1){$/;"	f	namespace:core
+SafeNew	../core/template.hpp	/^	inline T* SafeNew(A1 a1, A2 a2){$/;"	f	namespace:core
+SafeNew	../core/template.hpp	/^	inline T* SafeNew(A1 a1, A2 a2, A3 a3){$/;"	f	namespace:core
+SafeNew	../core/template.hpp	/^	inline T* SafeNew(A1 a1, A2 a2, A3 a3, A4 a4){$/;"	f	namespace:core
+SafeNew	../core/template.hpp	/^	inline T* SafeNew(A1 a1, A2 a2, A3 a3, A4 a4, A5 a5){$/;"	f	namespace:core
+SafeNew	../core/template.hpp	/^	inline T* SafeNew(A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6){$/;"	f	namespace:core
+SafeNew	../core/template.hpp	/^	inline T* SafeNew(A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7){$/;"	f	namespace:core
+SafeNew	../core/template.hpp	/^	inline T* SafeNew(A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8){$/;"	f	namespace:core
+SafeNew	../core/template.hpp	/^	inline T* SafeNew(A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9){$/;"	f	namespace:core
+Service	../core/Service.cpp	/^	Service::Service()$/;"	f	class:core::Service
+Service	../core/Service.h	/^	class Service: public Object{$/;"	c	namespace:core
+ServiceCenter	../core/ServiceCenter.cpp	/^	ServiceCenter::ServiceCenter()$/;"	f	class:core::ServiceCenter
+ServiceCenter	../core/ServiceCenter.h	/^	class ServiceCenter: public Object{$/;"	c	namespace:core
+String	../core/String.cpp	/^	String::String()$/;"	f	class:core::String
+String	../core/String.h	/^	class String : public Object, public ICompareable{$/;"	c	namespace:core
+StringTable	../core/StringTable.cpp	/^	StringTable::StringTable()$/;"	f	class:core::StringTable
+StringTable	../core/StringTable.h	/^	class StringTable : public Object{$/;"	c	namespace:core
+Super	../core/Array.h	/^		typedef Container Super;$/;"	t	class:core::Array
+Super	../core/Array.h	/^		typedef Iterator Super;$/;"	t	class:core::ArrayIterator
+Super	../core/Boolean.h	/^		typedef Object Super;$/;"	t	class:core::Boolean
+Super	../core/Bytes.h	/^		typedef Object Super;$/;"	t	class:core::Bytes
+Super	../core/CService.h	/^		typedef Service Super;$/;"	t	class:core::CService
+Super	../core/Container.hpp	/^		typedef Object Super;$/;"	t	class:core::Container
+Super	../core/CycleBuffer.h	/^		typedef Object Super;$/;"	t	class:core::CycleBuffer
+Super	../core/FDBuffer.h	/^		typedef CycleBuffer Super;$/;"	t	class:core::FDBuffer
+Super	../core/Hash.h	/^		typedef Container Super;$/;"	t	class:core::Hash
+Super	../core/Hash.h	/^		typedef Iterator Super;$/;"	t	class:core::HashIterator
+Super	../core/List.h	/^		typedef Container Super;$/;"	t	class:core::List
+Super	../core/Log.h	/^		typedef Object Super;$/;"	t	class:core::Log
+Super	../core/LuaService.h	/^		typedef Service Super;$/;"	t	class:core::LuaService
+Super	../core/Memory.h	/^		typedef Object Super;$/;"	t	class:core::Memory
+Super	../core/PipeBuffer.h	/^		typedef CycleBuffer Super;$/;"	t	class:core::PipeBuffer
+Super	../core/Pointer.h	/^		typedef Object Super;$/;"	t	class:core::Pointer
+Super	../core/ProcessLocal.h	/^		typedef Object Super;$/;"	t	class:core::ProcessLocal
+Super	../core/Service.h	/^		typedef Object Super;$/;"	t	class:core::Service
+Super	../core/ServiceCenter.h	/^		typedef Object Super;$/;"	t	class:core::ServiceCenter
+Super	../core/String.h	/^		typedef Object Super;$/;"	t	class:core::String
+Super	../core/ThreadLocal.h	/^		typedef Object Super;$/;"	t	class:core::ThreadLocal
+Super	../gen/protocol/protocol.h	/^	typedef ProtocolBase Super;$/;"	t	class:protocol::PlayerData
+Super	../gen/protocol/protocol.h	/^	typedef ProtocolBase Super;$/;"	t	class:protocol::Weapon
+ThreadLocal	../core/ThreadLocal.cpp	/^	ThreadLocal::ThreadLocal()$/;"	f	class:core::ThreadLocal
+ThreadLocal	../core/ThreadLocal.h	/^	class ThreadLocal: public Object{$/;"	c	namespace:core
+ToBytes	../core/tobytes.hpp	/^	inline void ToBytes(Bytes* bytes, Bytes* v){$/;"	f	namespace:core
+ToBytes	../core/tobytes.hpp	/^	inline void ToBytes(Bytes* bytes, String* v){$/;"	f	namespace:core
+ToBytes	../core/tobytes.hpp	/^	inline void ToBytes(Bytes* bytes, T v){$/;"	f	namespace:core
+ToBytes	../core/tobytes.hpp	/^	inline void ToBytes(Bytes* bytes, bool v){$/;"	f	namespace:core
+ToBytes	../core/tobytes.hpp	/^	inline void ToBytes(Bytes* bytes, float32_t v){$/;"	f	namespace:core
+ToBytes	../core/tobytes.hpp	/^	inline void ToBytes(Bytes* bytes, float64_t v){$/;"	f	namespace:core
+ToLua	../core/tolua.hpp	/^	inline void ToLua(lua_State* L, Bytes* v){$/;"	f	namespace:core
+ToLua	../core/tolua.hpp	/^	inline void ToLua(lua_State* L, String* v){$/;"	f	namespace:core
+ToLua	../core/tolua.hpp	/^	inline void ToLua(lua_State* L, T v){$/;"	f	namespace:core
+ToLua	../core/tolua.hpp	/^	inline void ToLua(lua_State* L, bool v){$/;"	f	namespace:core
+ToString	../core/tostring.hpp	/^	String* ToString(T v){$/;"	f	namespace:core
+ToString	../core/tostring.hpp	/^	inline String* ToString< bool >(bool v){$/;"	f	namespace:core
+ToString	../core/tostring.hpp	/^	inline String* ToString< const void* >(const void* v){$/;"	f	namespace:core
+ToString	../core/tostring.hpp	/^	inline String* ToString< void* >(void* v){$/;"	f	namespace:core
+UNIQUE_LOCAL_NAME	../core/macro.hpp	7;"	d
+USER_MAX_LEVEL	../core/Log.h	/^			USER_MAX_LEVEL =1000000$/;"	e	enum:core::Log::__anon10
+USER_MIN_LEVEL	../core/Log.h	/^			USER_MIN_LEVEL,$/;"	e	enum:core::Log::__anon10
+WAIT_TIMEOUT	../core/PipeBuffer.h	/^			WAIT_TIMEOUT =5000	$/;"	e	enum:core::PipeBuffer::__anon9
+WARN	../core/Log.h	/^			DEBUG, INFO, WARN, ERROR, FATAL,$/;"	e	enum:core::Log::__anon10
+WARN	../core/macro.hpp	13;"	d
+Weapon	../gen/protocol/protocol.cpp	/^Weapon::Weapon(){$/;"	f	class:protocol::Weapon
+Weapon	../gen/protocol/protocol.h	/^class Weapon: public ProtocolBase{$/;"	c	namespace:protocol
+X	../test/main.cpp	/^class X:public Object{$/;"	c	file:
+_DEFINE_FLOAT_TO_STRING	../core/tostring.hpp	55;"	d
+_DEFINE_FLOAT_TO_STRING	../core/tostring.hpp	63;"	d
+_DEFINE_SIGNED_INTEGER_TO_STRING	../core/tostring.hpp	29;"	d
+_DEFINE_SIGNED_INTEGER_TO_STRING	../core/tostring.hpp	39;"	d
+_DEFINE_UNSIGNED_INTEGER_TO_STRING	../core/tostring.hpp	42;"	d
+_DEFINE_UNSIGNED_INTEGER_TO_STRING	../core/tostring.hpp	52;"	d
+_FETCH_LUA_NUMBER	../core/fromlua.hpp	24;"	d
+_FETCH_LUA_NUMBER	../core/fromlua.hpp	45;"	d
+_PUSH_LUA_NUMBER	../core/tolua.hpp	27;"	d
+_PUSH_LUA_NUMBER	../core/tolua.hpp	46;"	d
+_READ_BYTES_INT	../core/frombytes.hpp	71;"	d
+_READ_BYTES_INT	../core/frombytes.hpp	86;"	d
+_READ_BYTES_UINT	../core/frombytes.hpp	104;"	d
+_READ_BYTES_UINT	../core/frombytes.hpp	89;"	d
+_UNIQUE_LOCAL_NAME	../core/macro.hpp	6;"	d
+_WRITE_BYTES_INT	../core/tobytes.hpp	219;"	d
+_WRITE_BYTES_INT	../core/tobytes.hpp	230;"	d
+_WRITE_BYTES_UINT	../core/tobytes.hpp	233;"	d
+_WRITE_BYTES_UINT	../core/tobytes.hpp	244;"	d
+__UNIQUE_LOCAL_NAME	../core/macro.hpp	5;"	d
+_allocate	../core/Memory.cpp	/^	void* Memory::_allocate(const int64_t bytes){$/;"	f	class:core::Memory
+_clear	../core/StringTable.cpp	/^	void StringTable::_clear(){$/;"	f	class:core::StringTable
+_code_to_slot	../core/Hash.cpp	/^	int64_t Hash::_code_to_slot(const int64_t code){$/;"	f	class:core::Hash
+_deallocate	../core/Memory.cpp	/^	void Memory::_deallocate(void* p){$/;"	f	class:core::Memory
+_get	../core/StringTable.cpp	/^	String* StringTable::_get(String* str){$/;"	f	class:core::StringTable
+_get	../core/StringTable.cpp	/^	String* StringTable::_get(const char* str){$/;"	f	class:core::StringTable
+_get_service_safe	../core/ServiceCenter.cpp	/^	Service* ServiceCenter::_get_service_safe(const int64_t id){$/;"	f	class:core::ServiceCenter
+_key_to_slot	../core/Hash.cpp	/^	int64_t Hash::_key_to_slot(Object* key){$/;"	f	class:core::Hash
+_load_service	../core/ServiceCenter.cpp	/^	Service* ServiceCenter::_load_service(const char* path){$/;"	f	class:core::ServiceCenter
+_open_file	../core/Log.cpp	/^	void Log::_open_file(){$/;"	f	class:core::Log
+_open_file	../core/Record.cpp	/^	void Record::_open_file(){$/;"	f	class:core::Record
+_push_back	../core/List.cpp	/^	List::PLIST_NODE List::_push_back(Object* o){$/;"	f	class:core::List
+_reallocate	../core/Memory.cpp	/^	void* Memory::_reallocate(void* p, const int64_t bytes){$/;"	f	class:core::Memory
+_release_node	../core/Hash.cpp	/^	void Hash::_release_node(const int64_t slot, PNODE node){$/;"	f	class:core::Hash
+_remove_node	../core/List.cpp	/^	void List::_remove_node(PLIST_NODE node){$/;"	f	class:core::List
+_remove_service_safe	../core/ServiceCenter.cpp	/^	Service* ServiceCenter::_remove_service_safe(const int64_t id){$/;"	f	class:core::ServiceCenter
+_run	../core/Service.cpp	/^	void Service::_run(){$/;"	f	class:core::Service
+_set_service_safe	../core/ServiceCenter.cpp	/^	bool ServiceCenter::_set_service_safe(Service* service){$/;"	f	class:core::ServiceCenter
+_thread_entry	../core/Service.cpp	/^	void Service::_thread_entry(Service* self){$/;"	f	class:core::Service
+_try_rehash	../core/Hash.cpp	/^	void Hash::_try_rehash(){$/;"	f	class:core::Hash
+allocate	../core/Memory.cpp	/^	void* Memory::allocate(const int64_t bytes){$/;"	f	class:core::Memory
+allocate_count	../core/Memory.h	/^		int64_t allocate_count;$/;"	m	struct:core::tagMEMORY_SLOT
+append	../core/String.cpp	/^	String* String::append(String* str){$/;"	f	class:core::String
+append	../core/String.cpp	/^	String* String::append(const char* str){$/;"	f	class:core::String
+appendString	../core/Bytes.cpp	/^	Bytes* Bytes::appendString(String* str){$/;"	f	class:core::Bytes
+appendString	../core/Bytes.cpp	/^	Bytes* Bytes::appendString(const char* str){$/;"	f	class:core::Bytes
+appendToString	../gen/protocol/protocol.cpp	/^void PlayerData::appendToString(Bytes* str, int64_t tab_count){$/;"	f	class:protocol::PlayerData
+appendToString	../gen/protocol/protocol.cpp	/^void Weapon::appendToString(Bytes* str, int64_t tab_count){$/;"	f	class:protocol::Weapon
+at	../core/Array.cpp	/^	Object* Array::at(const int64_t idx){$/;"	f	class:core::Array
+attach	../core/Bytes.cpp	/^	void Bytes::attach(void* data, const int64_t len){$/;"	f	class:core::Bytes
+back	../core/Array.cpp	/^	Object* Array::back(){$/;"	f	class:core::Array
+back	../core/List.cpp	/^	Object* List::back(){$/;"	f	class:core::List
+bind	../core/Array.cpp	/^	void ArrayIterator::bind(Array* arr){$/;"	f	class:core::ArrayIterator
+bind	../core/Hash.cpp	/^	void HashIterator::bind(Hash* hash){$/;"	f	class:core::HashIterator
+bindir	../build/Makefile	/^bindir    := $(projdir)\/bin$/;"	m
+boolean_t	../core/build_in_type.hpp	/^	typedef bool boolean_t;$/;"	t	namespace:core
+c_str	../core/Bytes.cpp	/^	char* Bytes::c_str(){$/;"	f	class:core::Bytes
+c_str	../core/String.cpp	/^	const char* String::c_str(){$/;"	f	class:core::String
+can_cast	../core/template.hpp	/^	struct can_cast{$/;"	s	namespace:core
+capacity	../core/Array.cpp	/^	int64_t Array::capacity(){$/;"	f	class:core::Array
+capacity	../core/Memory.h	/^		int64_t capacity;$/;"	m	struct:core::tagMEMORY_SLOT
+check	../tool/common/util.lua	/^function check(v, msg)$/;"	f
+check_id	../tool/common/util.lua	/^function check_id(id, msg)$/;"	f
+check_int	../tool/common/util.lua	/^function check_int(n, msg)$/;"	f
+check_nil	../tool/common/util.lua	/^function check_nil(v, msg)$/;"	f
+check_not_nil	../tool/common/util.lua	/^function check_not_nil(v, msg)$/;"	f
+check_nstring	../tool/common/util.lua	/^function check_nstring(s, msg)$/;"	f
+check_ntable	../tool/common/util.lua	/^function check_ntable(tb, msg)$/;"	f
+check_protocol	../tool/protocol/gen.lua	/^function check_protocol(protocol)$/;"	f
+check_string	../tool/common/util.lua	/^function check_string(s, msg)$/;"	f
+check_table	../tool/common/util.lua	/^function check_table(tb, msg)$/;"	f
+check_type	../tool/common/util.lua	/^function check_type(t, msg)$/;"	f
+clean	../gen/protocol/protocol.cpp	/^void PlayerData::clean(){$/;"	f	class:protocol::PlayerData
+clean	../gen/protocol/protocol.cpp	/^void Weapon::clean(){$/;"	f	class:protocol::Weapon
+clean_core	../core/core.cpp	/^	void clean_core(){$/;"	f	namespace:core
+clean_platform	../core/platform.cpp	/^void clean_platform(){$/;"	f
+clear	../core/Array.cpp	/^	void Array::clear(){$/;"	f	class:core::Array
+clear	../core/Bytes.cpp	/^	void Bytes::clear(){$/;"	f	class:core::Bytes
+clear	../core/Hash.cpp	/^	void Hash::clear(){$/;"	f	class:core::Hash
+clear	../core/List.cpp	/^	void List::clear(){$/;"	f	class:core::List
+clear	../core/StringTable.cpp	/^	void StringTable::clear(){$/;"	f	class:core::StringTable
+clone	../core/Array.cpp	/^	Object* Array::clone(){$/;"	f	class:core::Array
+clone	../core/Boolean.cpp	/^	Object* Boolean::clone(){$/;"	f	class:core::Boolean
+clone	../core/Bytes.cpp	/^	Object* Bytes::clone(){$/;"	f	class:core::Bytes
+clone	../core/CycleBuffer.cpp	/^	Object* CycleBuffer::clone(){$/;"	f	class:core::CycleBuffer
+clone	../core/FDBuffer.cpp	/^	Object* FDBuffer::clone(){$/;"	f	class:core::FDBuffer
+clone	../core/Hash.cpp	/^	Object * Hash::clone(){$/;"	f	class:core::Hash
+clone	../core/Hash.cpp	/^	Object* HashIterator::clone(){$/;"	f	class:core::HashIterator
+clone	../core/List.cpp	/^	Object* List::clone(){$/;"	f	class:core::List
+clone	../core/Object.cpp	/^	Object* Object::clone(){$/;"	f	class:core::Object
+clone	../core/PipeBuffer.cpp	/^	Object* PipeBuffer::clone(){$/;"	f	class:core::PipeBuffer
+clone	../core/Pointer.cpp	/^	Object* Pointer::clone(){$/;"	f	class:core::Pointer
+close	../core/FDBuffer.cpp	/^	void FDBuffer::close(){$/;"	f	class:core::FDBuffer
+close	../core/PipeBuffer.cpp	/^	void PipeBuffer::close(){$/;"	f	class:core::PipeBuffer
+command	../core/packet.hpp	/^	int32_t command;$/;"	m	struct:tagPACKET
+compare	../core/String.cpp	/^	int64_t String::compare(ICompareable* obj){$/;"	f	class:core::String
+core	../core/Array.cpp	/^namespace core{$/;"	n	file:
+core	../core/Array.h	/^namespace core{$/;"	n
+core	../core/Boolean.cpp	/^namespace core{$/;"	n	file:
+core	../core/Boolean.h	/^namespace core{$/;"	n
+core	../core/Bytes.cpp	/^namespace core{$/;"	n	file:
+core	../core/Bytes.h	/^namespace core{$/;"	n
+core	../core/CService.cpp	/^namespace core{$/;"	n	file:
+core	../core/CService.h	/^namespace core{$/;"	n
+core	../core/Container.hpp	/^namespace core{$/;"	n
+core	../core/CycleBuffer.cpp	/^namespace core{$/;"	n	file:
+core	../core/CycleBuffer.h	/^namespace core{$/;"	n
+core	../core/FDBuffer.cpp	/^namespace core{$/;"	n	file:
+core	../core/FDBuffer.h	/^namespace core{$/;"	n
+core	../core/Hash.cpp	/^namespace core{$/;"	n	file:
+core	../core/Hash.h	/^namespace core{$/;"	n
+core	../core/ICompareable.hpp	/^namespace core{$/;"	n
+core	../core/List.cpp	/^namespace core{$/;"	n	file:
+core	../core/List.h	/^namespace core{$/;"	n
+core	../core/Log.cpp	/^namespace core{$/;"	n	file:
+core	../core/Log.h	/^namespace core{$/;"	n
+core	../core/LuaService.cpp	/^namespace core{$/;"	n	file:
+core	../core/LuaService.h	/^namespace core{$/;"	n
+core	../core/Memory.cpp	/^namespace core{$/;"	n	file:
+core	../core/Memory.h	/^namespace core{$/;"	n
+core	../core/Object.cpp	/^namespace core{$/;"	n	file:
+core	../core/Object.h	/^namespace core{$/;"	n
+core	../core/ObjectPool.cpp	/^namespace core{$/;"	n	file:
+core	../core/ObjectPool.h	/^namespace core{$/;"	n
+core	../core/PODArray.cpp	/^namespace core{$/;"	n	file:
+core	../core/PODArray.h	/^namespace core{$/;"	n
+core	../core/PipeBuffer.cpp	/^namespace core{$/;"	n	file:
+core	../core/PipeBuffer.h	/^namespace core{$/;"	n
+core	../core/Pointer.cpp	/^namespace core{$/;"	n	file:
+core	../core/Pointer.h	/^namespace core{$/;"	n
+core	../core/ProcessLocal.cpp	/^namespace core{$/;"	n	file:
+core	../core/ProcessLocal.h	/^namespace core{$/;"	n
+core	../core/ProtocolBase.hpp	/^namespace core{$/;"	n
+core	../core/Record.cpp	/^namespace core{$/;"	n	file:
+core	../core/Record.h	/^namespace core{$/;"	n
+core	../core/Service.cpp	/^namespace core{$/;"	n	file:
+core	../core/Service.h	/^namespace core{$/;"	n
+core	../core/ServiceCenter.cpp	/^namespace core{$/;"	n	file:
+core	../core/ServiceCenter.h	/^namespace core{$/;"	n
+core	../core/String.cpp	/^namespace core{$/;"	n	file:
+core	../core/String.h	/^namespace core{$/;"	n
+core	../core/StringTable.cpp	/^namespace core{$/;"	n	file:
+core	../core/StringTable.h	/^namespace core{$/;"	n
+core	../core/ThreadLocal.cpp	/^namespace core{$/;"	n	file:
+core	../core/ThreadLocal.h	/^namespace core{$/;"	n
+core	../core/build_in_type.hpp	/^namespace core{$/;"	n
+core	../core/core.cpp	/^namespace core{$/;"	n	file:
+core	../core/core.h	/^namespace core{$/;"	n
+core	../core/frombytes.hpp	/^namespace core{$/;"	n
+core	../core/fromlua.hpp	/^namespace core{$/;"	n
+core	../core/number.cpp	/^namespace core{$/;"	n	file:
+core	../core/number.h	/^namespace core{$/;"	n
+core	../core/template.hpp	/^namespace core{$/;"	n
+core	../core/tobytes.hpp	/^namespace core{$/;"	n
+core	../core/tolua.hpp	/^namespace core{$/;"	n
+core	../core/tostring.hpp	/^namespace core{$/;"	n
+core_incs	../build/Makefile	/^core_incs := $(wildcard $(projdir)\/core\/*.h) $(wildcard $(projdir)\/core\/*.hpp)$/;"	m
+core_objs	../build/Makefile	/^core_objs := $(patsubst %.cpp,%.o,$(core_srcs))$/;"	m
+core_srcs	../build/Makefile	/^core_srcs := $(wildcard $(projdir)\/core\/*.cpp)$/;"	m
+cstr_t	../core/build_in_type.hpp	/^	typedef char* cstr_t;$/;"	t	namespace:core
+data	../core/Bytes.cpp	/^	void* Bytes::data(){$/;"	f	class:core::Bytes
+data	../core/List.h	/^			Object* data;$/;"	m	struct:core::List::tagLIST_NODE
+data	../core/Memory.h	/^		char data[1];$/;"	m	struct:core::tagMEMORY_NODE
+deallocate	../core/Memory.cpp	/^	void Memory::deallocate(void* p){$/;"	f	class:core::Memory
+deallocate_count	../core/Memory.h	/^		int64_t deallocate_count;$/;"	m	struct:core::tagMEMORY_SLOT
+debug	../core/Log.cpp	/^	void Log::debug(const char* fmt, ...){$/;"	f	class:core::Log
+detach	../core/Bytes.cpp	/^	void Bytes::detach(){$/;"	f	class:core::Bytes
+empty	../core/Array.cpp	/^	bool Array::empty(){$/;"	f	class:core::Array
+empty	../core/Hash.cpp	/^	bool Hash::empty(){$/;"	f	class:core::Hash
+empty	../core/List.cpp	/^	bool List::empty(){$/;"	f	class:core::List
+empty	../core/String.cpp	/^	bool String::empty(){$/;"	f	class:core::String
+equals	../core/Boolean.cpp	/^	bool Boolean::equals(Object* obj){$/;"	f	class:core::Boolean
+equals	../core/Bytes.cpp	/^	bool Bytes::equals(Object* obj){$/;"	f	class:core::Bytes
+equals	../core/Object.cpp	/^	bool Object::equals(Object* obj){$/;"	f	class:core::Object
+equals	../core/Pointer.cpp	/^	bool Pointer::equals(const Object* obj){$/;"	f	class:core::Pointer
+equals	../core/String.cpp	/^	bool String::equals(Object* str){$/;"	f	class:core::String
+error	../core/Log.cpp	/^	void Log::error(const char* fmt, ...){$/;"	f	class:core::Log
+fatal	../core/Log.cpp	/^	void Log::fatal(const char* fmt, ...){$/;"	f	class:core::Log
+finalize	../core/Array.cpp	/^	void Array::finalize(){$/;"	f	class:core::Array
+finalize	../core/Array.cpp	/^	void ArrayIterator::finalize(){$/;"	f	class:core::ArrayIterator
+finalize	../core/CycleBuffer.cpp	/^	void CycleBuffer::finalize(){$/;"	f	class:core::CycleBuffer
+finalize	../core/FDBuffer.cpp	/^	void FDBuffer::finalize(){$/;"	f	class:core::FDBuffer
+finalize	../core/Hash.cpp	/^	void Hash::finalize(){$/;"	f	class:core::Hash
+finalize	../core/Hash.cpp	/^	void HashIterator::finalize(){$/;"	f	class:core::HashIterator
+finalize	../core/List.cpp	/^	void List::finalize(){$/;"	f	class:core::List
+finalize	../core/Log.cpp	/^	void Log::finalize(){$/;"	f	class:core::Log
+finalize	../core/Memory.cpp	/^	void Memory::finalize(){$/;"	f	class:core::Memory
+finalize	../core/Object.cpp	/^	void Object::finalize(){$/;"	f	class:core::Object
+finalize	../core/ObjectPool.cpp	/^	void ObjectPool::finalize(){$/;"	f	class:core::ObjectPool
+finalize	../core/PipeBuffer.cpp	/^	void PipeBuffer::finalize(){$/;"	f	class:core::PipeBuffer
+finalize	../core/ProcessLocal.cpp	/^	void ProcessLocal::finalize(){$/;"	f	class:core::ProcessLocal
+finalize	../core/Service.cpp	/^	void Service::finalize(){$/;"	f	class:core::Service
+finalize	../core/ServiceCenter.cpp	/^	void ServiceCenter::finalize(){$/;"	f	class:core::ServiceCenter
+finalize	../core/StringTable.cpp	/^	void StringTable::finalize(){$/;"	f	class:core::StringTable
+finalize	../core/ThreadLocal.cpp	/^	void ThreadLocal::finalize(){$/;"	f	class:core::ThreadLocal
+finalize	../gen/protocol/protocol.cpp	/^void PlayerData::finalize(){$/;"	f	class:protocol::PlayerData
+finalize	../gen/protocol/protocol.cpp	/^void Weapon::finalize(){$/;"	f	class:protocol::Weapon
+firstIndexOf	../core/Array.cpp	/^	int64_t Array::firstIndexOf(Object* o){$/;"	f	class:core::Array
+float32_t	../core/build_in_type.hpp	/^	typedef float float32_t;$/;"	t	namespace:core
+float64_t	../core/build_in_type.hpp	/^	typedef double float64_t;$/;"	t	namespace:core
+forEach	../core/Array.cpp	/^	void Array::forEach(void (*pfn)(const int64_t, Object*, void*), void* userdata){$/;"	f	class:core::Array
+forEach	../core/Hash.cpp	/^	void Hash::forEach(void (*pfn)(Object*, Object*, void*), void* userdata){$/;"	f	class:core::Hash
+forEach	../core/List.cpp	/^	void List::forEach(void (*pfn)(Object*, void* userdata), void *userdata){$/;"	f	class:core::List
+from	../core/packet.hpp	/^	int32_t from;$/;"	m	struct:tagPACKET
+fromBytes	../gen/protocol/protocol.cpp	/^bool PlayerData::fromBytes(Bytes* bytes){$/;"	f	class:protocol::PlayerData
+fromBytes	../gen/protocol/protocol.cpp	/^bool Weapon::fromBytes(Bytes* bytes){$/;"	f	class:protocol::Weapon
+fromLua	../gen/protocol/protocol.cpp	/^bool PlayerData::fromLua(lua_State* L){$/;"	f	class:protocol::PlayerData
+fromLua	../gen/protocol/protocol.cpp	/^bool Weapon::fromLua(lua_State* L){$/;"	f	class:protocol::Weapon
+front	../core/Array.cpp	/^	Object* Array::front(){$/;"	f	class:core::Array
+front	../core/List.cpp	/^	Object* List::front(){$/;"	f	class:core::List
+g_process_local	../core/ProcessLocal.cpp	/^	static ProcessLocal* g_process_local =0;$/;"	m	namespace:core	file:
+g_thread_local	../core/ThreadLocal.cpp	/^	thread_local static ThreadLocal* g_thread_local =0;$/;"	m	namespace:core	file:
+gen_class_define	../tool/protocol/gen.lua	/^function gen_class_define(protocol)$/;"	f
+gen_class_impl	../tool/protocol/gen.lua	/^function gen_class_impl(protocol)$/;"	f
+gen_cpp	../tool/protocol/gen.lua	/^function gen_cpp(protocol_list)$/;"	f
+gen_inc	../tool/protocol/gen.lua	/^function gen_inc(protocol_list)$/;"	f
+get	../core/Array.cpp	/^	Object* Array::get(const int64_t idx){$/;"	f	class:core::Array
+get	../core/Hash.cpp	/^	Object* Hash::get(Object* key){$/;"	f	class:core::Hash
+get	../core/Hash.cpp	/^	Object* Hash::get(const char* key){$/;"	f	class:core::Hash
+get	../core/Hash.cpp	/^	Object* Hash::get(const int64_t key){$/;"	f	class:core::Hash
+get	../core/StringTable.cpp	/^	String* StringTable::get(String* str){$/;"	f	class:core::StringTable
+get	../core/StringTable.cpp	/^	String* StringTable::get(const char* str){$/;"	f	class:core::StringTable
+getArray	../core/Array.cpp	/^	Array* ArrayIterator::getArray(){$/;"	f	class:core::ArrayIterator
+getCapacity	../core/CycleBuffer.cpp	/^	int64_t CycleBuffer::getCapacity(){$/;"	f	class:core::CycleBuffer
+getCapacity	../core/FDBuffer.cpp	/^	int64_t FDBuffer::getCapacity(){$/;"	f	class:core::FDBuffer
+getCapacity	../core/PipeBuffer.cpp	/^	int64_t PipeBuffer::getCapacity(){$/;"	f	class:core::PipeBuffer
+getContainer	../core/Array.cpp	/^	Container* ArrayIterator::getContainer(){$/;"	f	class:core::ArrayIterator
+getContainer	../core/Hash.cpp	/^	Container* HashIterator::getContainer(){$/;"	f	class:core::HashIterator
+getContainer	../core/List.cpp	/^	Container* ListIterator::getContainer(){$/;"	f	class:core::ListIterator
+getCount	../core/ObjectPool.cpp	/^	int64_t ObjectPool::getCount(){$/;"	f	class:core::ObjectPool
+getCursor	../core/Array.cpp	/^	int64_t ArrayIterator::getCursor(){$/;"	f	class:core::ArrayIterator
+getDesc	../core/Service.cpp	/^	String* Service::getDesc(){$/;"	f	class:core::Service
+getErrorInfo	../core/error.cpp	/^String* getErrorInfo(){$/;"	f
+getFileLifeTime	../core/Log.cpp	/^	int64_t Log::getFileLifeTime(){$/;"	f	class:core::Log
+getFileLifeTime	../core/Record.cpp	/^	int64_t Record::getFileLifeTime(){$/;"	f	class:core::Record
+getFlushMode	../core/Log.cpp	/^	int64_t Log::getFlushMode(){$/;"	f	class:core::Log
+getFlushMode	../core/Record.cpp	/^	int64_t Record::getFlushMode(){$/;"	f	class:core::Record
+getHash	../core/Hash.cpp	/^	Hash* HashIterator::getHash(){$/;"	f	class:core::HashIterator
+getHashCode	../core/Boolean.cpp	/^	int64_t Boolean::getHashCode(){$/;"	f	class:core::Boolean
+getHashCode	../core/Bytes.cpp	/^	int64_t Bytes::getHashCode(){$/;"	f	class:core::Bytes
+getHashCode	../core/Object.cpp	/^	int64_t Object::getHashCode(){$/;"	f	class:core::Object
+getHashCode	../core/Pointer.cpp	/^	int64_t Pointer::getHashCode(){$/;"	f	class:core::Pointer
+getHashCode	../core/String.cpp	/^	int64_t String::getHashCode(){$/;"	f	class:core::String
+getId	../core/Service.cpp	/^	int64_t Service::getId(){$/;"	f	class:core::Service
+getKey	../core/Hash.cpp	/^	Object* HashIterator::getKey(){$/;"	f	class:core::HashIterator
+getLevel	../core/Log.cpp	/^	int64_t Log::getLevel(){$/;"	f	class:core::Log
+getList	../core/List.cpp	/^	List* ListIterator::getList(){$/;"	f	class:core::ListIterator
+getLog	../core/ThreadLocal.cpp	/^	Log* ThreadLocal::getLog(){$/;"	f	class:core::ThreadLocal
+getMaxCapacity	../core/CycleBuffer.cpp	/^	int64_t CycleBuffer::getMaxCapacity(){$/;"	f	class:core::CycleBuffer
+getMaxCapacity	../core/FDBuffer.cpp	/^	int64_t FDBuffer::getMaxCapacity(){$/;"	f	class:core::FDBuffer
+getMaxCapacity	../core/PipeBuffer.cpp	/^	int64_t PipeBuffer::getMaxCapacity(){$/;"	f	class:core::PipeBuffer
+getMemory	../core/ProcessLocal.cpp	/^	Memory* ProcessLocal::getMemory(){$/;"	f	class:core::ProcessLocal
+getName	../core/Log.cpp	/^	String* Log::getName(){$/;"	f	class:core::Log
+getName	../core/Record.cpp	/^	String* Record::getName(){$/;"	f	class:core::Record
+getName	../core/Service.cpp	/^	String* Service::getName(){$/;"	f	class:core::Service
+getNode	../core/List.cpp	/^	List::PLIST_NODE ListIterator::getNode(){$/;"	f	class:core::ListIterator
+getObjectPool	../core/ThreadLocal.cpp	/^	ObjectPool* ThreadLocal::getObjectPool(){$/;"	f	class:core::ThreadLocal
+getPath	../core/Service.cpp	/^	String* Service::getPath(){$/;"	f	class:core::Service
+getReadCursor	../core/Bytes.cpp	/^	int64_t Bytes::getReadCursor(){$/;"	f	class:core::Bytes
+getReadCursor	../core/CycleBuffer.cpp	/^	int64_t CycleBuffer::getReadCursor(){$/;"	f	class:core::CycleBuffer
+getReadCursor	../core/FDBuffer.cpp	/^	int64_t FDBuffer::getReadCursor(){$/;"	f	class:core::FDBuffer
+getReadCursor	../core/PipeBuffer.cpp	/^	int64_t PipeBuffer::getReadCursor(){$/;"	f	class:core::PipeBuffer
+getRefCount	../core/Object.cpp	/^	int64_t Object::getRefCount(){$/;"	f	class:core::Object
+getRemainCount	../core/Bytes.cpp	/^	int64_t Bytes::getRemainCount(){$/;"	f	class:core::Bytes
+getReverse	../core/List.cpp	/^	bool ListIterator::getReverse(){$/;"	f	class:core::ListIterator
+getService	../core/ServiceCenter.cpp	/^	Service* ServiceCenter::getService(const int64_t id){$/;"	f	class:core::ServiceCenter
+getServiceCenter	../core/ProcessLocal.cpp	/^	ServiceCenter* ProcessLocal::getServiceCenter(){$/;"	f	class:core::ProcessLocal
+getSize	../core/CycleBuffer.cpp	/^	int64_t CycleBuffer::getSize(){$/;"	f	class:core::CycleBuffer
+getSize	../core/FDBuffer.cpp	/^	int64_t FDBuffer::getSize(){$/;"	f	class:core::FDBuffer
+getSize	../core/PipeBuffer.cpp	/^	int64_t PipeBuffer::getSize(){$/;"	f	class:core::PipeBuffer
+getState	../core/Service.cpp	/^	int64_t Service::getState(){$/;"	f	class:core::Service
+getStringTable	../core/ProcessLocal.cpp	/^	StringTable* ProcessLocal::getStringTable(){$/;"	f	class:core::ProcessLocal
+getValue	../core/Array.cpp	/^	Object* ArrayIterator::getValue(){$/;"	f	class:core::ArrayIterator
+getValue	../core/Boolean.cpp	/^	bool Boolean::getValue(){$/;"	f	class:core::Boolean
+getValue	../core/Hash.cpp	/^	Object* HashIterator::getValue(){$/;"	f	class:core::HashIterator
+getValue	../core/List.cpp	/^	Object* ListIterator::getValue(){$/;"	f	class:core::ListIterator
+getValue	../core/Pointer.cpp	/^	void* Pointer::getValue(){$/;"	f	class:core::Pointer
+getWriteCursor	../core/CycleBuffer.cpp	/^	int64_t CycleBuffer::getWriteCursor(){$/;"	f	class:core::CycleBuffer
+getWriteCursor	../core/FDBuffer.cpp	/^	int64_t FDBuffer::getWriteCursor(){$/;"	f	class:core::FDBuffer
+getWriteCursor	../core/PipeBuffer.cpp	/^	int64_t PipeBuffer::getWriteCursor(){$/;"	f	class:core::PipeBuffer
+get_last_error	../core/platform.cpp	/^int get_last_error(){$/;"	f
+get_slot_from_size	../core/Memory.cpp	/^	static int64_t get_slot_from_size(const int64_t size){$/;"	f	namespace:core
+has	../core/Hash.cpp	/^	bool Hash::has(Object* key){$/;"	f	class:core::Hash
+has	../core/Hash.cpp	/^	bool Hash::has(const char* key){$/;"	f	class:core::Hash
+has	../core/Hash.cpp	/^	bool Hash::has(const int64_t key){$/;"	f	class:core::Hash
+hasPrefix	../core/String.cpp	/^	bool String::hasPrefix(String* str){$/;"	f	class:core::String
+hasPrefix	../core/String.cpp	/^	bool String::hasPrefix(const char* prefix){$/;"	f	class:core::String
+hasSubfix	../core/String.cpp	/^	bool String::hasSubfix(String* str){$/;"	f	class:core::String
+hasSubfix	../core/String.cpp	/^	bool String::hasSubfix(const char* subfix){$/;"	f	class:core::String
+head	../core/Memory.h	/^		PMEMORY_NODE head;$/;"	m	struct:core::tagMEMORY_SLOT
+id_t	../core/build_in_type.hpp	/^	typedef int64_t id_t;$/;"	t	namespace:core
+idle_count	../core/Memory.h	/^		int64_t idle_count;$/;"	m	struct:core::tagMEMORY_SLOT
+indexOf	../core/String.cpp	/^	int64_t String::indexOf(String* str){$/;"	f	class:core::String
+indexOf	../core/String.cpp	/^	int64_t String::indexOf(const char* str){$/;"	f	class:core::String
+info	../core/Log.cpp	/^	void Log::info(const char* fmt, ...){$/;"	f	class:core::Log
+init	../core/FDBuffer.cpp	/^	void FDBuffer::init(){$/;"	f	class:core::FDBuffer
+init	../core/Hash.cpp	/^	void Hash::init(){$/;"	f	class:core::Hash
+init	../core/Hash.cpp	/^	void HashIterator::init(){$/;"	f	class:core::HashIterator
+init	../core/Memory.cpp	/^	void Memory::init(){$/;"	f	class:core::Memory
+init	../core/Object.cpp	/^	void Object::init(){$/;"	f	class:core::Object
+init	../core/ObjectPool.cpp	/^	void ObjectPool::init(){$/;"	f	class:core::ObjectPool
+init	../core/PipeBuffer.cpp	/^	void PipeBuffer::init(){$/;"	f	class:core::PipeBuffer
+init	../core/ProcessLocal.cpp	/^	void ProcessLocal::init(){$/;"	f	class:core::ProcessLocal
+init	../core/Service.cpp	/^	void Service::init(){$/;"	f	class:core::Service
+init	../core/ServiceCenter.cpp	/^	void ServiceCenter::init(){$/;"	f	class:core::ServiceCenter
+init	../core/StringTable.cpp	/^	void StringTable::init(){$/;"	f	class:core::StringTable
+init	../core/ThreadLocal.cpp	/^	void ThreadLocal::init(){$/;"	f	class:core::ThreadLocal
+init	../gen/protocol/protocol.cpp	/^void PlayerData::init(){$/;"	f	class:protocol::PlayerData
+init	../gen/protocol/protocol.cpp	/^void Weapon::init(){$/;"	f	class:protocol::Weapon
+init_core	../core/core.cpp	/^	void init_core(){$/;"	f	namespace:core
+init_count	../core/Memory.h	/^		int64_t init_count;$/;"	m	struct:core::tagMEMORY_SLOT
+init_platform	../core/platform.cpp	/^void init_platform(){$/;"	f
+insert	../core/Array.cpp	/^	void Array::insert(const int64_t pos, Object* o){$/;"	f	class:core::Array
+insertAfter	../core/List.cpp	/^	ListIterator* List::insertAfter(ListIterator* it, Object* o){$/;"	f	class:core::List
+insertBefore	../core/List.cpp	/^	ListIterator* List::insertBefore(ListIterator* it, Object* o){$/;"	f	class:core::List
+is	../core/String.cpp	/^	bool String::is(String* str){$/;"	f	class:core::String
+is	../core/String.cpp	/^	bool String::is(const char* str){$/;"	f	class:core::String
+isClosed	../core/FDBuffer.cpp	/^	bool FDBuffer::isClosed(){$/;"	f	class:core::FDBuffer
+isClosed	../core/PipeBuffer.cpp	/^	bool PipeBuffer::isClosed(){$/;"	f	class:core::PipeBuffer
+is_build_in_type	../tool/common/build_in_type.lua	/^function is_build_in_type(t)$/;"	f
+iterator	../core/Array.cpp	/^	Iterator* Array::iterator(){$/;"	f	class:core::Array
+iterator	../core/Hash.cpp	/^	Iterator* Hash::iterator(){$/;"	f	class:core::Hash
+iterator	../core/List.cpp	/^	Iterator* List::iterator(){$/;"	f	class:core::List
+join	../core/Array.cpp	/^	void Array::join(Array* arr){$/;"	f	class:core::Array
+join	../core/List.cpp	/^	void List::join(List* l){$/;"	f	class:core::List
+key	../core/Hash.h	/^			Object* key;$/;"	m	struct:core::Hash::tagNODE
+lastIndexOf	../core/Array.cpp	/^	int64_t Array::lastIndexOf(Object* o){$/;"	f	class:core::Array
+lastIndexOf	../core/String.cpp	/^	int64_t String::lastIndexOf(String* str){$/;"	f	class:core::String
+lastIndexOf	../core/String.cpp	/^	int64_t String::lastIndexOf(const char* str){$/;"	f	class:core::String
+length	../core/String.cpp	/^	int64_t String::length(){$/;"	f	class:core::String
+load	../core/Service.cpp	/^	bool Service::load(const char* path){$/;"	f	class:core::Service
+loadService	../core/ServiceCenter.cpp	/^	bool ServiceCenter::loadService(const char* path){$/;"	f	class:core::ServiceCenter
+load_module	../core/CService.cpp	/^	bool CService::load_module(const char* path){$/;"	f	class:core::CService
+load_module	../core/LuaService.cpp	/^	bool LuaService::load_module(const char* path){$/;"	f	class:core::LuaService
+log	../core/Log.cpp	/^	void Log::log(const int64_t lv, const char* fmt, ...){$/;"	f	class:core::Log
+logv	../core/Log.cpp	/^	void Log::logv(const int64_t lv, const char* fmt, va_list vl){$/;"	f	class:core::Log
+lower	../core/String.cpp	/^	String* String::lower(){$/;"	f	class:core::String
+m_L	../core/LuaService.h	/^		lua_State* m_L;$/;"	m	class:core::LuaService
+m_array	../core/Array.h	/^		Array* m_array;$/;"	m	class:core::ArrayIterator
+m_capacity	../core/Array.h	/^		int64_t m_capacity;$/;"	m	class:core::Array
+m_capacity	../core/CycleBuffer.h	/^		int64_t m_capacity;$/;"	m	class:core::CycleBuffer
+m_cursor	../core/Array.h	/^		int64_t m_cursor;$/;"	m	class:core::ArrayIterator
+m_cursor	../core/Hash.h	/^		Hash::PNODE m_cursor;$/;"	m	class:core::HashIterator
+m_cv	../core/PipeBuffer.h	/^		std::condition_variable m_cv;$/;"	m	class:core::PipeBuffer
+m_data	../core/Bytes.h	/^		void* m_data;$/;"	m	class:core::Bytes
+m_data	../core/CycleBuffer.h	/^		char* m_data;$/;"	m	class:core::CycleBuffer
+m_data	../core/String.h	/^		char* m_data;$/;"	m	class:core::String
+m_desc	../core/Service.h	/^		String* m_desc;$/;"	m	class:core::Service
+m_dl	../core/CService.h	/^		void* m_dl;$/;"	m	class:core::CService
+m_event_fd	../core/FDBuffer.h	/^		int m_event_fd;$/;"	m	class:core::FDBuffer
+m_file	../core/Log.h	/^		FILE* m_file;$/;"	m	class:core::Log
+m_file	../core/Record.h	/^		FILE* m_file;$/;"	m	class:core::Record
+m_file_lifetime	../core/Log.h	/^		int64_t m_file_lifetime;$/;"	m	class:core::Log
+m_file_lifetime	../core/Record.h	/^		int64_t m_file_lifetime;$/;"	m	class:core::Record
+m_file_open_time	../core/Log.h	/^		int64_t m_file_open_time;$/;"	m	class:core::Log
+m_file_open_time	../core/Record.h	/^		int64_t m_file_open_time;$/;"	m	class:core::Record
+m_flush_mode	../core/Log.h	/^		int64_t m_flush_mode;$/;"	m	class:core::Log
+m_flush_mode	../core/Record.h	/^		int64_t m_flush_mode;$/;"	m	class:core::Record
+m_fn	../core/Array.h	/^			const PFN_OBJECT_LESS m_fn;$/;"	m	class:core::Array::LessObject
+m_hash	../core/Hash.h	/^		Hash* m_hash;$/;"	m	class:core::HashIterator
+m_head	../core/List.h	/^		PLIST_NODE m_head;$/;"	m	class:core::List
+m_iCount	../core/ObjectPool.h	/^		int64_t m_iCount;$/;"	m	class:core::ObjectPoolHelper
+m_iRefCount	../core/Object.h	/^		int64_t m_iRefCount;$/;"	m	class:core::Object
+m_id	../core/Service.h	/^		int64_t m_id;$/;"	m	class:core::Service
+m_index	../core/Hash.h	/^		int64_t m_index;$/;"	m	class:core::HashIterator
+m_is_closed	../core/FDBuffer.h	/^		bool m_is_closed;$/;"	m	class:core::FDBuffer
+m_is_closed	../core/PipeBuffer.h	/^		bool m_is_closed;$/;"	m	class:core::PipeBuffer
+m_item_count	../core/Hash.h	/^		int64_t m_item_count;$/;"	m	class:core::Hash
+m_length	../core/Bytes.h	/^		int64_t m_length;$/;"	m	class:core::Bytes
+m_length	../core/String.h	/^		int64_t m_length;$/;"	m	class:core::String
+m_level	../core/Log.h	/^		int64_t m_level;$/;"	m	class:core::Log
+m_list	../core/List.h	/^		List* m_list;$/;"	m	class:core::ListIterator
+m_log	../core/ThreadLocal.h	/^		Log* m_log;$/;"	m	class:core::ThreadLocal
+m_max_capacity	../core/CycleBuffer.h	/^		int64_t m_max_capacity;$/;"	m	class:core::CycleBuffer
+m_memory	../core/ProcessLocal.h	/^		Memory* m_memory;$/;"	m	class:core::ProcessLocal
+m_mutex	../core/FDBuffer.h	/^		std::mutex m_mutex;$/;"	m	class:core::FDBuffer
+m_mutex	../core/Memory.h	/^		std::mutex m_mutex;$/;"	m	class:core::Memory
+m_mutex	../core/PipeBuffer.h	/^		std::mutex m_mutex;$/;"	m	class:core::PipeBuffer
+m_mutex	../core/ServiceCenter.h	/^		std::mutex m_mutex;$/;"	m	class:core::ServiceCenter
+m_mutex	../core/StringTable.h	/^		std::mutex m_mutex;$/;"	m	class:core::StringTable
+m_name	../core/Service.h	/^		String* m_name;$/;"	m	class:core::Service
+m_node	../core/List.h	/^		List::PLIST_NODE m_node;$/;"	m	class:core::ListIterator
+m_object_pool	../core/ObjectPool.h	/^		ObjectPool* m_object_pool;$/;"	m	class:core::ObjectPoolHelper
+m_object_pool	../core/ThreadLocal.h	/^		ObjectPool* m_object_pool;$/;"	m	class:core::ThreadLocal
+m_on_load	../core/CService.h	/^		PFN_ON_LOAD m_on_load;$/;"	m	class:core::CService
+m_on_message	../core/CService.h	/^		PFN_ON_MESSAGE m_on_message;$/;"	m	class:core::CService
+m_on_unload	../core/CService.h	/^		PFN_ON_UNLOAD m_on_unload;$/;"	m	class:core::CService
+m_pObjArray	../core/Array.h	/^		Object** m_pObjArray;$/;"	m	class:core::Array
+m_pObjStack	../core/ObjectPool.h	/^		Array* m_pObjStack;$/;"	m	class:core::ObjectPool
+m_pSlotArray	../core/Hash.h	/^		PNODE* m_pSlotArray;$/;"	m	class:core::Hash
+m_pSlotArray	../core/Memory.h	/^		MEMORY_SLOT m_pSlotArray[SLOT_COUNT];$/;"	m	class:core::Memory
+m_pStrTable	../core/StringTable.h	/^		Hash* m_pStrTable;$/;"	m	class:core::StringTable
+m_path	../core/Service.h	/^		String* m_path;$/;"	m	class:core::Service
+m_pipe	../core/Service.h	/^		PipeBuffer* m_pipe;$/;"	m	class:core::Service
+m_read_cursor	../core/Bytes.h	/^		int64_t m_read_cursor;$/;"	m	class:core::Bytes
+m_read_cursor	../core/CycleBuffer.h	/^		int64_t m_read_cursor;$/;"	m	class:core::CycleBuffer
+m_reverse	../core/List.h	/^		bool m_reverse;$/;"	m	class:core::ListIterator
+m_service_center	../core/ProcessLocal.h	/^		ServiceCenter* m_service_center;$/;"	m	class:core::ProcessLocal
+m_service_table	../core/ServiceCenter.h	/^		Hash* m_service_table;$/;"	m	class:core::ServiceCenter
+m_size	../core/Array.h	/^		int64_t m_size;$/;"	m	class:core::Array
+m_size	../core/CycleBuffer.h	/^		int64_t m_size;$/;"	m	class:core::CycleBuffer
+m_size	../core/List.h	/^		int64_t m_size;$/;"	m	class:core::List
+m_slot_count	../core/Hash.h	/^		int64_t m_slot_count;$/;"	m	class:core::Hash
+m_state	../core/Service.h	/^		int64_t m_state;$/;"	m	class:core::Service
+m_string_table	../core/ProcessLocal.h	/^		StringTable* m_string_table;$/;"	m	class:core::ProcessLocal
+m_szName	../core/Log.h	/^		String* m_szName;$/;"	m	class:core::Log
+m_szName	../core/Record.h	/^		String* m_szName;$/;"	m	class:core::Record
+m_tail	../core/List.h	/^		PLIST_NODE m_tail;$/;"	m	class:core::List
+m_thread	../core/Service.h	/^		std::thread m_thread;$/;"	m	class:core::Service
+m_value	../core/Boolean.h	/^		bool m_value;$/;"	m	class:core::Boolean
+m_value	../core/Pointer.h	/^		void* m_value;$/;"	m	class:core::Pointer
+m_write_cursor	../core/CycleBuffer.h	/^		int64_t m_write_cursor;$/;"	m	class:core::CycleBuffer
+main	../test/main.cpp	/^int main(){$/;"	f
+max_idle_count	../core/Memory.h	/^		int64_t max_idle_count;$/;"	m	struct:core::tagMEMORY_SLOT
+next	../core/Array.cpp	/^	bool ArrayIterator::next(){$/;"	f	class:core::ArrayIterator
+next	../core/Hash.cpp	/^	bool HashIterator::next(){$/;"	f	class:core::HashIterator
+next	../core/Hash.h	/^			struct tagNODE* next;$/;"	m	struct:core::Hash::tagNODE	typeref:struct:core::Hash::tagNODE::tagNODE
+next	../core/List.cpp	/^	bool ListIterator::next(){$/;"	f	class:core::ListIterator
+next	../core/List.h	/^			struct tagLIST_NODE* next;$/;"	m	struct:core::List::tagLIST_NODE	typeref:struct:core::List::tagLIST_NODE::tagLIST_NODE
+next	../core/Memory.h	/^		tagMEMORY_NODE* next;$/;"	m	struct:core::tagMEMORY_NODE
+on_load	../core/CService.cpp	/^	bool CService::on_load(){$/;"	f	class:core::CService
+on_load	../core/LuaService.cpp	/^	bool LuaService::on_load(){$/;"	f	class:core::LuaService
+on_message	../core/CService.cpp	/^	void CService::on_message(PPACKET packet, void* body){$/;"	f	class:core::CService
+on_message	../core/LuaService.cpp	/^	void LuaService::on_message(PPACKET packet, void* body){$/;"	f	class:core::LuaService
+on_unload	../core/CService.cpp	/^	void CService::on_unload(){$/;"	f	class:core::CService
+on_unload	../core/LuaService.cpp	/^	void LuaService::on_unload(){$/;"	f	class:core::LuaService
+operator ()	../core/Array.h	/^			bool operator ()(Object* a, Object* b)const{$/;"	f	class:core::Array::LessObject
+option	../core/packet.hpp	/^	int32_t option;$/;"	m	struct:tagPACKET
+outcpp	../tool/common/out.lua	/^function outcpp(fmt, ...)$/;"	f
+outinc	../tool/common/out.lua	/^function outinc(fmt, ...)$/;"	f
+perror	../tool/common/util.lua	/^function perror(msg)$/;"	f
+pick	../core/Bytes.cpp	/^	bool Bytes::pick(void* data, const int64_t len){$/;"	f	class:core::Bytes
+pick	../core/CycleBuffer.cpp	/^	bool CycleBuffer::pick(char* p, const int64_t s){$/;"	f	class:core::CycleBuffer
+pick	../core/FDBuffer.cpp	/^	bool FDBuffer::pick(char* p, const int64_t s){$/;"	f	class:core::FDBuffer
+pick	../core/PipeBuffer.cpp	/^	bool PipeBuffer::pick(char* p, const int64_t s){$/;"	f	class:core::PipeBuffer
+pop	../core/CycleBuffer.cpp	/^	bool CycleBuffer::pop(char* p, const int64_t s){$/;"	f	class:core::CycleBuffer
+pop	../core/FDBuffer.cpp	/^	bool FDBuffer::pop(char* p, const int64_t s){$/;"	f	class:core::FDBuffer
+pop	../core/PipeBuffer.cpp	/^	bool PipeBuffer::pop(char* p, const int64_t s){$/;"	f	class:core::PipeBuffer
+pop_back	../core/Array.cpp	/^	void Array::pop_back(){$/;"	f	class:core::Array
+pop_back	../core/List.cpp	/^	void List::pop_back(){$/;"	f	class:core::List
+pop_front	../core/Array.cpp	/^	void Array::pop_front(){$/;"	f	class:core::Array
+pop_front	../core/List.cpp	/^	void List::pop_front(){$/;"	f	class:core::List
+prev	../core/Hash.h	/^			struct tagNODE* prev;$/;"	m	struct:core::Hash::tagNODE	typeref:struct:core::Hash::tagNODE::tagNODE
+prev	../core/List.h	/^			struct tagLIST_NODE* prev;$/;"	m	struct:core::List::tagLIST_NODE	typeref:struct:core::List::tagLIST_NODE::tagLIST_NODE
+projdir	../build/Makefile	/^projdir   := ..$/;"	m
+protocol	../gen/protocol/protocol.cpp	/^namespace protocol{$/;"	n	file:
+protocol	../gen/protocol/protocol.h	/^namespace protocol{$/;"	n
+protocol_incs	../build/Makefile	/^protocol_incs := $(core_incs) $(wildcard $(projdir)\/gen\/protocol\/*.h)$/;"	m
+protocol_objs	../build/Makefile	/^protocol_objs := $(patsubst %.cpp,%.o,$(protocol_srcs))$/;"	m
+protocol_srcs	../build/Makefile	/^protocol_srcs := $(wildcard $(projdir)\/gen\/protocol\/*.cpp) $/;"	m
+push	../core/CycleBuffer.cpp	/^	bool CycleBuffer::push(const char* p, const int64_t s){$/;"	f	class:core::CycleBuffer
+push	../core/FDBuffer.cpp	/^	bool FDBuffer::push(const char* p, const int64_t s){$/;"	f	class:core::FDBuffer
+push	../core/ObjectPool.cpp	/^	void ObjectPool::push(Object* obj){$/;"	f	class:core::ObjectPool
+push	../core/PipeBuffer.cpp	/^	bool PipeBuffer::push(const char* p, const int64_t s){$/;"	f	class:core::PipeBuffer
+push_back	../core/Array.cpp	/^	void Array::push_back(Object* o){$/;"	f	class:core::Array
+push_back	../core/List.cpp	/^	void List::push_back(Object* o){$/;"	f	class:core::List
+push_front	../core/Array.cpp	/^	void Array::push_front(Object* o){$/;"	f	class:core::Array
+push_front	../core/List.cpp	/^	void List::push_front(Object* o){$/;"	f	class:core::List
+read	../core/Bytes.cpp	/^	bool Bytes::read(void* data, const int64_t len){$/;"	f	class:core::Bytes
+read_int64_from_bytes	../core/frombytes.hpp	/^	inline bool read_int64_from_bytes(Bytes* bytes, int64_t& v){$/;"	f	namespace:core
+read_uint64_from_bytes	../core/frombytes.hpp	/^	inline bool read_uint64_from_bytes(Bytes* bytes, uint64_t& v){$/;"	f	namespace:core
+reallocate	../core/Memory.cpp	/^	void* Memory::reallocate(void* p, const int64_t bytes){$/;"	f	class:core::Memory
+record	../core/Record.cpp	/^	void Record::record(const char* fmt, ...){$/;"	f	class:core::Record
+release	../core/Object.cpp	/^	void Object::release(){$/;"	f	class:core::Object
+remove	../core/Array.cpp	/^	void Array::remove(const int64_t pos){$/;"	f	class:core::Array
+remove	../core/Array.cpp	/^	void ArrayIterator::remove(){$/;"	f	class:core::ArrayIterator
+remove	../core/Hash.cpp	/^	void Hash::remove(Object* key){$/;"	f	class:core::Hash
+remove	../core/Hash.cpp	/^	void Hash::remove(const char* key){$/;"	f	class:core::Hash
+remove	../core/Hash.cpp	/^	void Hash::remove(const int64_t key){$/;"	f	class:core::Hash
+remove	../core/Hash.cpp	/^	void HashIterator::remove(){$/;"	f	class:core::HashIterator
+remove	../core/List.cpp	/^	void List::remove(ListIterator* it){$/;"	f	class:core::List
+remove	../core/List.cpp	/^	void ListIterator::remove(){$/;"	f	class:core::ListIterator
+removeEmpty	../core/Array.cpp	/^	void Array::removeEmpty(){$/;"	f	class:core::Array
+removeEmpty	../core/List.cpp	/^	void List::removeEmpty(){$/;"	f	class:core::List
+removeEquals	../core/Array.cpp	/^	void Array::removeEquals(Object* o){$/;"	f	class:core::Array
+removeEquals	../core/List.cpp	/^	void List::removeEquals(Object* o){$/;"	f	class:core::List
+removeIf	../core/Array.cpp	/^	void Array::removeIf(bool (*pfn)(Object*)){$/;"	f	class:core::Array
+removeIf	../core/Hash.cpp	/^	void Hash::removeIf(bool (*pfn)(Object*, Object*)){$/;"	f	class:core::Hash
+removeIf	../core/List.cpp	/^	void List::removeIf(bool (*pfn)(Object*)){$/;"	f	class:core::List
+remove_all	../core/template.hpp	/^	struct remove_all{$/;"	s	namespace:core
+remove_const	../core/template.hpp	/^	struct remove_const<const T>{$/;"	s	namespace:core
+remove_const	../core/template.hpp	/^	struct remove_const{$/;"	s	namespace:core
+remove_const_volatile	../core/template.hpp	/^	struct remove_const_volatile{$/;"	s	namespace:core
+remove_pointer	../core/template.hpp	/^	struct remove_pointer<T*>{$/;"	s	namespace:core
+remove_pointer	../core/template.hpp	/^	struct remove_pointer{$/;"	s	namespace:core
+remove_reference	../core/template.hpp	/^	struct remove_reference< T& >{$/;"	s	namespace:core
+remove_reference	../core/template.hpp	/^	struct remove_reference{$/;"	s	namespace:core
+remove_volatile	../core/template.hpp	/^	struct remove_volatile<volatile T>{$/;"	s	namespace:core
+remove_volatile	../core/template.hpp	/^	struct remove_volatile{$/;"	s	namespace:core
+replace	../core/String.cpp	/^	String* String::replace(String* from, String* to, const bool bGlobal){$/;"	f	class:core::String
+replace	../core/String.cpp	/^	String* String::replace(const char* from, const char* to, const bool bGlobal){$/;"	f	class:core::String
+reserve	../core/Array.cpp	/^	void Array::reserve(const int64_t tocapacity){$/;"	f	class:core::Array
+reset	../core/Array.cpp	/^	void ArrayIterator::reset(){$/;"	f	class:core::ArrayIterator
+reset	../core/Hash.cpp	/^	void HashIterator::reset(){$/;"	f	class:core::HashIterator
+reset	../core/List.cpp	/^	void ListIterator::reset(){$/;"	f	class:core::ListIterator
+resize	../core/Array.cpp	/^	void Array::resize(const int64_t tosize){$/;"	f	class:core::Array
+resize	../core/Bytes.cpp	/^	void Bytes::resize(const int64_t len){$/;"	f	class:core::Bytes
+restore	../core/ObjectPool.cpp	/^	void ObjectPool::restore(const int64_t count){$/;"	f	class:core::ObjectPool
+resume	../core/Service.cpp	/^	bool Service::resume(){$/;"	f	class:core::Service
+retain	../core/Object.cpp	/^	void Object::retain(){$/;"	f	class:core::Object
+reverse	../core/List.cpp	/^	void ListIterator::reverse(){$/;"	f	class:core::ListIterator
+reverse_iterator	../core/List.cpp	/^	ListIterator* List::reverse_iterator(){$/;"	f	class:core::List
+rewind	../core/Bytes.cpp	/^	void Bytes::rewind(){$/;"	f	class:core::Bytes
+set	../core/Array.cpp	/^	void Array::set(const int64_t pos, Object* o){$/;"	f	class:core::Array
+set	../core/Bytes.cpp	/^	void Bytes::set(const void* data, const int64_t len){$/;"	f	class:core::Bytes
+set	../core/Hash.cpp	/^	void Hash::set(Object* key, Object* val){$/;"	f	class:core::Hash
+set	../core/Hash.cpp	/^	void Hash::set(const char* key, Object* val){$/;"	f	class:core::Hash
+set	../core/Hash.cpp	/^	void Hash::set(const int64_t key, Object* val){$/;"	f	class:core::Hash
+setCapacity	../core/CycleBuffer.cpp	/^	bool CycleBuffer::setCapacity(const int64_t capacity, const int64_t max_capacity){$/;"	f	class:core::CycleBuffer
+setCapacity	../core/FDBuffer.cpp	/^	bool FDBuffer::setCapacity(const int64_t capacity, const int64_t max_capacity){$/;"	f	class:core::FDBuffer
+setCapacity	../core/PipeBuffer.cpp	/^	bool PipeBuffer::setCapacity(const int64_t capacity, const int64_t max_capacity){$/;"	f	class:core::PipeBuffer
+setFileLifeTime	../core/Log.cpp	/^	void Log::setFileLifeTime(const int64_t life_time){$/;"	f	class:core::Log
+setFileLifeTime	../core/Record.cpp	/^	void Record::setFileLifeTime(const int64_t life_time){$/;"	f	class:core::Record
+setFlushMode	../core/Log.cpp	/^	void Log::setFlushMode(const int64_t mode){$/;"	f	class:core::Log
+setFlushMode	../core/Record.cpp	/^	void Record::setFlushMode(const int64_t mode){$/;"	f	class:core::Record
+setLevel	../core/Log.cpp	/^	void Log::setLevel(const int64_t lv){$/;"	f	class:core::Log
+setName	../core/Log.cpp	/^	void Log::setName(String* name){$/;"	f	class:core::Log
+setName	../core/Record.cpp	/^	void Record::setName(String* name){$/;"	f	class:core::Record
+setValue	../core/Boolean.cpp	/^	void Boolean::setValue(const bool v){$/;"	f	class:core::Boolean
+setValue	../core/Pointer.cpp	/^	void Pointer::setValue(void* v){$/;"	f	class:core::Pointer
+set_cpp_output	../tool/common/out.lua	/^function set_cpp_output(path)$/;"	f
+set_inc_output	../tool/common/out.lua	/^function set_inc_output(path)$/;"	f
+signal	../core/FDBuffer.cpp	/^	bool FDBuffer::signal(){$/;"	f	class:core::FDBuffer
+signal	../core/PipeBuffer.cpp	/^	void PipeBuffer::signal(){$/;"	f	class:core::PipeBuffer
+size	../core/Array.cpp	/^	int64_t Array::size(){$/;"	f	class:core::Array
+size	../core/Bytes.cpp	/^	int64_t Bytes::size(){$/;"	f	class:core::Bytes
+size	../core/Hash.cpp	/^	int64_t Hash::size(){$/;"	f	class:core::Hash
+size	../core/List.cpp	/^	int64_t List::size(){$/;"	f	class:core::List
+size	../core/Memory.h	/^		SIZE_TYPE size;$/;"	m	struct:core::tagMEMORY_NODE
+size	../core/String.cpp	/^	int64_t String::size(){$/;"	f	class:core::String
+size	../core/packet.hpp	/^	int32_t size;$/;"	m	struct:tagPACKET
+skip	../core/Bytes.cpp	/^	bool Bytes::skip(const int64_t len){$/;"	f	class:core::Bytes
+slot	../core/Memory.h	/^		SLOT_TYPE slot;$/;"	m	struct:core::tagMEMORY_NODE
+slot_index	../core/Memory.h	/^		MEMORY_NODE::SLOT_TYPE slot_index;$/;"	m	struct:core::tagMEMORY_SLOT
+sn	../core/packet.hpp	/^	int32_t sn;$/;"	m	struct:tagPACKET
+sort	../core/Array.cpp	/^	int64_t Array::sort(const PFN_OBJECT_LESS fn){$/;"	f	class:core::Array
+stable_time	../core/DateTime.cpp	/^time_t stable_time(){$/;"	f
+subString	../core/String.cpp	/^	String* String::subString(int64_t start, int64_t count){$/;"	f	class:core::String
+suspend	../core/Service.cpp	/^	bool Service::suspend(){$/;"	f	class:core::Service
+syntax_error	../tool/common/util.lua	/^function syntax_error(msg)$/;"	f
+tab	../gen/protocol/protocol.cpp	/^static const char* tab(int64_t cnt){$/;"	f	namespace:protocol
+tagLIST_NODE	../core/List.h	/^		typedef struct tagLIST_NODE{$/;"	s	class:core::List
+tagMEMORY_NODE	../core/Memory.h	/^	typedef struct tagMEMORY_NODE{$/;"	s	namespace:core
+tagMEMORY_SLOT	../core/Memory.h	/^	typedef struct tagMEMORY_SLOT{$/;"	s	namespace:core
+tagNODE	../core/Hash.h	/^		typedef struct tagNODE{$/;"	s	class:core::Hash
+tagPACKET	../core/packet.hpp	/^typedef struct tagPACKET{$/;"	s
+target	../build/Makefile	/^target    := test$/;"	m
+test_array	../test/test_array.cpp	/^void test_array(){$/;"	f
+test_bytes	../test/test_bytes.cpp	/^void test_bytes(){$/;"	f
+test_cycle_buffer	../test/test_cycle_buffer.cpp	/^void test_cycle_buffer(){$/;"	f
+test_hash	../test/test_hash.cpp	/^void test_hash(){$/;"	f
+test_incs	../build/Makefile	/^test_incs := $(protocol_incs) $(wildcard $(projdir)\/test\/*.h)$/;"	m
+test_memory	../test/test_memory.cpp	/^void test_memory(){$/;"	f
+test_objs	../build/Makefile	/^test_objs := $(patsubst %.cpp,%.o,$(test_srcs))$/;"	m
+test_srcs	../build/Makefile	/^test_srcs := $(wildcard $(projdir)\/test\/*.cpp) $/;"	m
+test_string	../test/test_string.cpp	/^void test_string(){$/;"	f
+to	../core/packet.hpp	/^	int32_t to;$/;"	m	struct:tagPACKET
+toBytes	../gen/protocol/protocol.cpp	/^Bytes* PlayerData::toBytes(Bytes* bytes){$/;"	f	class:protocol::PlayerData
+toBytes	../gen/protocol/protocol.cpp	/^Bytes* Weapon::toBytes(Bytes* bytes){$/;"	f	class:protocol::Weapon
+toLua	../gen/protocol/protocol.cpp	/^void PlayerData::toLua(lua_State* L){$/;"	f	class:protocol::PlayerData
+toLua	../gen/protocol/protocol.cpp	/^void Weapon::toLua(lua_State* L){$/;"	f	class:protocol::Weapon
+toString	../core/Boolean.cpp	/^	String* Boolean::toString(){$/;"	f	class:core::Boolean
+toString	../core/Bytes.cpp	/^	String* Bytes::toString(){$/;"	f	class:core::Bytes
+toString	../core/Object.cpp	/^	String* Object::toString(){$/;"	f	class:core::Object
+toString	../core/Pointer.cpp	/^	String* Pointer::toString(){$/;"	f	class:core::Pointer
+toString	../core/String.cpp	/^	String* String::toString(){$/;"	f	class:core::String
+unload	../core/Service.cpp	/^	void Service::unload(){$/;"	f	class:core::Service
+unloadService	../core/ServiceCenter.cpp	/^	void ServiceCenter::unloadService(const int64_t id){$/;"	f	class:core::ServiceCenter
+unload_module	../core/CService.cpp	/^	void CService::unload_module(){$/;"	f	class:core::CService
+unload_module	../core/LuaService.cpp	/^	void LuaService::unload_module(){$/;"	f	class:core::LuaService
+unload_module	../core/Service.cpp	/^	void Service::unload_module(){$/;"	f	class:core::Service
+upper	../core/String.cpp	/^	String* String::upper(){$/;"	f	class:core::String
+value	../core/Hash.h	/^			Object* value;$/;"	m	struct:core::Hash::tagNODE
+wait	../core/PipeBuffer.cpp	/^	bool PipeBuffer::wait(const int64_t millisecs){$/;"	f	class:core::PipeBuffer
+warn	../core/Log.cpp	/^	void Log::warn(const char* fmt, ...){$/;"	f	class:core::Log
+write	../core/Bytes.cpp	/^	void Bytes::write(const void* data, const int64_t len){$/;"	f	class:core::Bytes
+write_int64_to_bytes	../core/tobytes.hpp	/^	inline void write_int64_to_bytes(int64_t v, Bytes* bytes){$/;"	f	namespace:core
+write_uint64_to_bytes	../core/tobytes.hpp	/^	inline void write_uint64_to_bytes(uint64_t v, Bytes* bytes){$/;"	f	namespace:core
+~Array	../core/Array.cpp	/^	Array::~Array(){$/;"	f	class:core::Array
+~Boolean	../core/Boolean.cpp	/^	Boolean::~Boolean(){$/;"	f	class:core::Boolean
+~Bytes	../core/Bytes.cpp	/^	Bytes::~Bytes(){$/;"	f	class:core::Bytes
+~CService	../core/CService.cpp	/^	CService::~CService(){$/;"	f	class:core::CService
+~CycleBuffer	../core/CycleBuffer.cpp	/^	CycleBuffer::~CycleBuffer(){$/;"	f	class:core::CycleBuffer
+~FDBuffer	../core/FDBuffer.cpp	/^	FDBuffer::~FDBuffer(){$/;"	f	class:core::FDBuffer
+~Hash	../core/Hash.cpp	/^	Hash::~Hash(){$/;"	f	class:core::Hash
+~HashIterator	../core/Hash.cpp	/^	HashIterator::~HashIterator(){$/;"	f	class:core::HashIterator
+~List	../core/List.cpp	/^	List::~List(){$/;"	f	class:core::List
+~Log	../core/Log.cpp	/^	Log::~Log(){$/;"	f	class:core::Log
+~LuaService	../core/LuaService.cpp	/^	LuaService::~LuaService(){$/;"	f	class:core::LuaService
+~Memory	../core/Memory.cpp	/^	Memory::~Memory(){$/;"	f	class:core::Memory
+~Object	../core/Object.cpp	/^	Object::~Object(){$/;"	f	class:core::Object
+~ObjectPool	../core/ObjectPool.cpp	/^	ObjectPool::~ObjectPool(){$/;"	f	class:core::ObjectPool
+~ObjectPoolHelper	../core/ObjectPool.h	/^		~ObjectPoolHelper(){$/;"	f	class:core::ObjectPoolHelper
+~PipeBuffer	../core/PipeBuffer.cpp	/^	PipeBuffer::~PipeBuffer(){$/;"	f	class:core::PipeBuffer
+~PlayerData	../gen/protocol/protocol.cpp	/^PlayerData::~PlayerData(){$/;"	f	class:protocol::PlayerData
+~Pointer	../core/Pointer.cpp	/^	Pointer::~Pointer(){$/;"	f	class:core::Pointer
+~ProcessLocal	../core/ProcessLocal.cpp	/^	ProcessLocal::~ProcessLocal(){$/;"	f	class:core::ProcessLocal
+~Record	../core/Record.cpp	/^	Record::~Record(){$/;"	f	class:core::Record
+~Service	../core/Service.cpp	/^	Service::~Service(){$/;"	f	class:core::Service
+~ServiceCenter	../core/ServiceCenter.cpp	/^	ServiceCenter::~ServiceCenter(){$/;"	f	class:core::ServiceCenter
+~String	../core/String.cpp	/^	String::~String(){$/;"	f	class:core::String
+~StringTable	../core/StringTable.cpp	/^	StringTable::~StringTable(){$/;"	f	class:core::StringTable
+~ThreadLocal	../core/ThreadLocal.cpp	/^	ThreadLocal::~ThreadLocal(){$/;"	f	class:core::ThreadLocal
+~Weapon	../gen/protocol/protocol.cpp	/^Weapon::~Weapon(){$/;"	f	class:protocol::Weapon

@@ -1,0 +1,32 @@
+module "Endian"
+export {
+	Endian ={
+		qualified_name ="core::Endian",
+		func ={
+			{
+				static =true,
+				name ="Net2HostU16",
+				arg ={ "uint16" },
+			},
+			{
+				static =true,
+				name ="Net2HostU32",
+				arg ={ "uint32" },
+				ret ="uint32"
+			},
+			{
+				static =true,
+				name ="Host2NetU16",
+				arg ={ "uint16" },
+				ret ="uint16"
+			},
+			{
+				static =true,
+				name ="Host2NetU32",
+				arg ={ "uint32" },
+				ret ="uint32"
+			},
+		}
+	};
+};
+

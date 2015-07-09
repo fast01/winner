@@ -1,0 +1,23 @@
+module "ErrorCode"
+export {
+	ErrorCode ={
+		qualified_name ="core::ErrorCode",
+		enum ={
+			"OK",
+			"ERROR",
+			"SYSTEM_ERROR",
+			"SYSTEM_BUSY",
+			"INVALID_ARG",
+			"UNKNOWN_COMMAND",
+			"TIMEOUT",
+			"INVALID_BINARY_DATA",
+			"NOT_EXIST",
+			"ALREADY_EXIST",
+			"NOT_ENOUGH",
+			"CANCELLED",
+		},
+	};
+};
+
+
+

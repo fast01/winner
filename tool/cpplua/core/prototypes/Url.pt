@@ -1,0 +1,23 @@
+module "Url"
+export {
+	Url ={
+		qualified_name ="core::Url",
+		func ={
+			{
+				static =true,
+				name ="New",
+				ret ="Url"
+			},
+			{
+				name ="build",
+				arg ={ "string", "string", "string", "string", "string", "string" },
+				ret ="boolean"
+			},
+			{
+				name ="parse",
+				arg ={ "string" },
+				ret ="boolean"
+			},
+		}
+	}
+}
