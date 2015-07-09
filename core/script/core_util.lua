@@ -154,10 +154,25 @@ end
 function time_to_string(t)
 	return os.date("%Y-%m-%d %H:%M:%S", t)
 end
-do
-	local str =time_to_string(1415661368)
-	assert(str == "2014-11-11 07:16:08")
-	print(str)
+
+--
+-- deep copy
+--
+function deep_copy(obj, depth)
+	if is_number(obj) or is_boolean(obj) or is_string(obj) or is_function(obj) then
+		return obj
+	elseif is_table(obj) then
+		depth =depth or 0
+		assert(depth < 100000, "deep copy failed, loop")
+		local tb ={}
+		for k, v in Global.pairs(obj) do
+			tb[k] =deep_copy(v, depth + 1)
+		end
+		return tb
+	else
+		WARN("deep copy occurs %s", Global.type(obj))
+		return nil
+	end
 end
 
 ---
@@ -178,14 +193,4 @@ function array_concate(...)
 		end
 	end
 	return ret
-end
-do
-	local ls =array_concate({10, 20, 30}, nil, {40, 50, 60}, {70, 80, 90})
-	assert(#ls == 9)
-	for i=1, 9 do
-		assert(ls[i] == i*10)
-	end
-
-	local ls =array_concate({10, 20, 30}, "", {40, 50, 60}, {70, 80, 90})
-	assert(not ls)
 end

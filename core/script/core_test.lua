@@ -23,6 +23,7 @@ Core.UnitTest ={
 };
 
 -- unit test --
+require "test_util"
 require "test_Parallel"
 require "test_Class"
 require "test_Actor"

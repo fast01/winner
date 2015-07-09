@@ -64,6 +64,7 @@ UnitTest.Add(function()
 			print(sprintf("finalize Player Skill %s", tostring(self)))
 		end,
 	});
+
 --[[
 	local npc =Actor.New("Npc")
 	local weapon =npc:getComponent("Weapon")
@@ -96,5 +97,5 @@ UnitTest.Add(function()
 	armor =nil
 	mgr =nil
 	collectgarbage("collect")
-	]]
+]]
 end);

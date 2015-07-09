@@ -199,12 +199,14 @@ local function do_command(cmd_desc, requestor, packet, body, request)
 	-- decode request
 	local err
 	if cmd_desc.use_protocol then
-		if BitOp.And(packet.option, Packet.OPT_BODY_IS_OBJECT_POINTER) then
+		if 0 ~= BitOp.And(packet.option, Packet.OPT_BODY_IS_OBJECT_POINTER) then
 			request, err =ProtocolManager.ObjectToTable(request)
 		else
 			request, err =ProtocolManager.Decode(get_protocol_group_id(), packet.command, body)
 		end
-		assert(request, err)
+		if err then
+			error(sprintf("protocol decode failed, %s", err))
+		end
 	end
 
 	-- add cmd to queue
@@ -285,9 +287,11 @@ local function do_rpc(packet, msg, respond_protocol_group_id, force_bytes)
 		return ProtocolManager.ObjectToTable(res_object)
 	else
 		local respond, err =ProtocolManager.Decode(respond_protocol_group_id, res_packet.command, res_body)
-		local e =sprintf("do rpc failed [respond], %s", err)
-		assert(respond, e)
-		return respond
+		if err then
+			ERROR("do rpc failed [respond], %s", err)
+		else
+			return respond
+		end
 	end
 end
 local function do_resume_rpc(packet, body, object)
@@ -320,7 +324,7 @@ local function do_notify(packet, msg)
 	local cr =coroutine.running()
 	assert(cr, "do notify faield, in main thread")
 	-- encode
-	local body, err =ProtocolManager.Encode(get_protocol_group_id(), packet.command, msg)
+	local body, err =ProtocolManager.Encode(get_protocol_group_id(), packet.command, msg, true)
 	assert(body, sprintf("do notify failed [encode], %s", err))
 	-- notify
 	packet.from =Service.Id()

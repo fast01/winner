@@ -51,11 +51,20 @@ namespace core{
 		return Instance()->createProtocol(group_id, protocol_id);
 	}
 	int ProtocolManager::_TableToBytes(lua_State* L){
-		if(lua_gettop(L) < 3){
+		// check
+		if(lua_gettop(L) < 2){
 			lua_pushnil(L);
 			lua_pushfstring(L, "fail to call %s, invalid arg", __func__);
 			return 2;
 		}
+
+		// return nil if table == nil
+		if(lua_gettop(L)<3 || lua_isnil(L, 3)){
+			lua_pushnil(L);
+			return 1; // success
+		}
+
+		// encode
 		const int64_t group_id =luaL_checkinteger(L, 1);
 		const int64_t proto_id =luaL_checkinteger(L, 2);
 		ProtocolBase* proto =Instance()->createProtocol(group_id, proto_id);
@@ -79,11 +88,20 @@ namespace core{
 		return 1;
 	}
 	int ProtocolManager::_TableToObject(lua_State* L){
-		if(lua_gettop(L) < 3){
+		// check
+		if(lua_gettop(L) < 2){
 			lua_pushnil(L);
 			lua_pushfstring(L, "fail to call %s, invalid arg", __func__);
 			return 2;
 		}
+
+		// return nil if table == nil
+		if(lua_gettop(L)<3 || lua_isnil(L, 3)){
+			lua_pushnil(L);
+			return 1; // success
+		}
+
+		// encode
 		const int64_t group_id =luaL_checkinteger(L, 1);
 		const int64_t proto_id =luaL_checkinteger(L, 2);
 		ProtocolBase* proto =Instance()->createProtocol(group_id, proto_id);
@@ -116,6 +134,21 @@ namespace core{
 			return 2;
 		}
 
+		// return nil if length == 0
+		uint32_t len =0;
+		if(bs->pick(&len, static_cast<int64_t>(sizeof(len)))){
+			if(Endian::Net2HostU32(len) == 0){
+				bs->skip(sizeof(len));
+				lua_pushnil(L);
+				return 1; // success
+			}
+		}
+		else{
+			lua_pushnil(L);
+			lua_pushfstring(L, "fail to call %s, invalid bytes", __func__);
+			return 2;
+		}
+
 		// create proto
 		ProtocolBase* proto =Instance()->createProtocol(group_id, proto_id);
 		if(!proto){
@@ -137,12 +170,13 @@ namespace core{
 	}
 
 	int ProtocolManager::_ObjectToTable(lua_State* L){
-		// check arg
-		if(lua_gettop(L) < 1){
+		// return nil if object == nil
+		if(lua_gettop(L)<1 || lua_isnil(L, 1)){
 			lua_pushnil(L);
-			lua_pushfstring(L, "fail to call %s, invalid arg", __func__);
-			return 2;
+			return 1; // success
 		}
+
+		// prepare protocol
 		ProtocolBase* proto =0;
 		if(!get_object_from_lua< ProtocolBase* >(L, 1, proto) || !proto){
 			lua_pushnil(L);
@@ -150,7 +184,7 @@ namespace core{
 			return 2;
 		}
 
-		// create proto
+		// build lua table
 		if(!proto->toLua(L)){
 			lua_pushnil(L);
 			lua_pushfstring(L, "fail to call %s, ProtocolBase to lua table error", __func__);

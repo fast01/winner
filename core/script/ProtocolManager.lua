@@ -171,7 +171,7 @@ function decode_protocol(group_id, proto_id, bs)
 	end
 	length =Endian.Net2HostU32(length)
 	if length == 0 then
-		return nil, "length is 0"
+		return nil
 	end
 
 	-- read field
@@ -352,66 +352,79 @@ function check(msg, proto, group_id, protocol_id)
 end
 -- ProtocolManager --
 ProtocolManager ={}
--- when success just return table --
--- when fail return nil and error message --
+-- when success return two values.
+--    second == true  => first is a object;
+--    second == false => first is a bytes
+-- when fail return nil plus an error message
 ProtocolManager.Encode =function(group_id, protocol_id, msg, force_bytes)
+	if not msg then
+		return nil, "protocol encode failed, msg is not a table"
+	end
 	if g_group_table[group_id] then
 		local proto =g_group_table[group_id][protocol_id]
 		if not proto then
 			return nil, string.format("fail to encode protocol %d.%d, protocol not found", group_id, protocol_id)
 		end
 		local ok, err =check(msg, proto, group_id, protocol_id)
-		if not ok then
+		if err then
 			return nil, err
 		end
 		local bs, err =encode_protocol(group_id, protocol_id, msg)
-		if bs then
-			return bs, false
-		else
+		if err then
 			return nil, err
+		else
+			return bs, false
 		end
 	else
 		if force_bytes then
 			local bs, err =ProtocolManager.TableToBytes(group_id, protocol_id, msg)
-			if bs then
-				return bs, false
-			else
+			if err then
 				return nil, err
+			else
+				return bs, false
 			end
 		else
 			local obj, err =ProtocolManager.TableToObject(group_id, protocol_id, msg)
-			if obj then
-				return obj, true
-			else
+			if err then
 				return nil, err
+			else
+				return obj, true
 			end
 		end
 	end
 end
--- when success just return table --
--- when fail return nil and error message --
+-- when success return table or nil --
+-- when fail return nil plus an error message --
 ProtocolManager.Decode =function(group_id, protocol_id, bs)
+	if not bs then
+		return nil, "protocol decode failed, bs is not a bytes"
+	end
 	if g_group_table[group_id] then
 		local proto =g_group_table[group_id][protocol_id]
 		if not proto then
 			return nil, string.format("fail to decode protocol %d.%d, protocol not found", group_id, protocol_id)
 		end
 		local msg, err =decode_protocol(group_id, protocol_id, bs)
-		if not msg then
+		if err then
 			return nil, err
 		end
-		local ok, err =check(msg, proto, group_id, protocol_id)
-		if not ok then
-			return nil, err
+		if msg then
+			local ok, err =check(msg, proto, group_id, protocol_id)
+			if err then
+				return nil, err
+			end
 		end
 		return msg
 	else
 		return ProtocolManager.BytesToTable(group_id, protocol_id, bs)
 	end
 end
--- when success return nil --
--- when fail return nil and error message --
+-- when success return table --
+-- when fail return nil plus an error message --
 ProtocolManager.EncodeAsObject =function(group_id, protocol_id, msg)
+	if not msg then
+		return nil, "protocol encode as object failed, msg is not a table"
+	end
 	return ProtocolManager.TableToObject(group_id, protocol_id, msg)
 end
 function ProtocolManager.Register(group_id, protocol_group)

@@ -21,8 +21,8 @@ local function get_actor_from_component(com)
 end
 local function get_actor_component(actor, com_name)
 	-- check arg
-	if not is_table(actor) then
-		ERROR("fail to get actor %s component, invalid actor", actor.template.name)
+	if not is_table(actor) or not is_table(actor.template) then
+		ERROR("fail to get actor component, invalid actor")
 		return nil
 	end
 	if not is_string(com_name) then
@@ -49,7 +49,7 @@ local function get_actor_component(actor, com_name)
 	local com_instance ={};
 	for k, v in pairs(com_template) do
 		if is_string(k) then
-			com_instance[k] =v
+			com_instance[k] =deep_copy(v)
 		end
 	end
 	com_instance.template =com_template

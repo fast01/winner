@@ -71,7 +71,7 @@ namespace core{
 		else{
 			ASSERT(m_head == node);
 			m_head =node->next;
-			if(m_head && m_head->prev){
+			if(m_head){
 				m_head->prev =0;
 			}
 		}
@@ -81,7 +81,7 @@ namespace core{
 		else{
 			ASSERT(m_tail == node);
 			m_tail =node->prev;
-			if(m_tail && m_tail->next){
+			if(m_tail){
 				m_tail->next =0;
 			}
 		}
