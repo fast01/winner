@@ -13,6 +13,7 @@ namespace test{
 		test_bit_set();
 		test_string();
 		test_array();
+		test_list();
 		test_hash();
 		test_cycle_buffer();
 		test_encode_decode();

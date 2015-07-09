@@ -16,6 +16,7 @@ namespace test{
 #include "test_bit_set.h"
 #include "test_string.h"
 #include "test_array.h"
+#include "test_list.h"
 #include "test_hash.h"
 #include "test_cycle_buffer.h"
 #include "test_encode_decode.h"
