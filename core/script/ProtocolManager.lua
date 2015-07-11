@@ -187,13 +187,7 @@ function decode_protocol(group_id, proto_id, bs)
 				if field.count == 1 then
 					msg[field.name] =field.init_value
 				else
-					if field.init_value then
-						local n =#field.init_value
-						msg[field.name] ={}
-						for j=1, n do
-							table.insert(msg[field.name], field.init_value[j])
-						end
-					end
+					msg[field.name] =deep_copy(field.init_value)
 				end
 			end
 		else

@@ -169,6 +169,8 @@ function deep_copy(obj, depth)
 			tb[k] =deep_copy(v, depth + 1)
 		end
 		return tb
+	elseif is_nil(obj) then
+		return nil
 	else
 		WARN("deep copy occurs %s", Global.type(obj))
 		return nil
