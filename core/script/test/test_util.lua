@@ -59,5 +59,25 @@ UnitTest.Add(function()
 		local str =time_to_string(1415661368)
 		assert(str == "2014-11-11 07:16:08")
 	end
-end);
 
+	-- table merge --
+	do
+		local tb1 ={ a =8, b =9, 1, 2, 3 }
+		local tb2 ={ c =80, d =90, 10, 20, 30, 40, 50, 60 }
+		local tb3 =table_merge(tb1, tb2)
+		assert(tb3.a == 8)
+		assert(tb3.b == 9)
+		assert(tb3.c == 80)
+		assert(tb3.d == 90)
+
+		assert(tb3[1] == 10)
+		assert(tb3[2] == 20)
+		assert(tb3[3] == 30)
+		assert(tb3[4] == 40)
+		assert(tb3[5] == 50)
+		assert(tb3[6] == 60)
+		for k, v in pairs(tb3) do
+			assert( k=='a' or k=='b' or k=='c' or k=='d' or k==1 or k==2 or k==3 or k==4 or k==5 or k==6 );
+		end
+	end
+end);

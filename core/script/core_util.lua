@@ -178,7 +178,7 @@ function deep_copy(obj, depth)
 end
 
 ---
---- array
+--- array concate
 ---
 function array_concate(...)
 	local arr_list ={ ... }
@@ -191,6 +191,26 @@ function array_concate(...)
 		if arr then
 			for j=1, #arr do
 				table.insert(ret, arr[j])
+			end
+		end
+	end
+	return ret
+end
+
+---
+--- table merge
+---
+function table_merge(...)
+	local tb_list ={ ... }
+	local ret ={}
+	for i=1, #tb_list do
+		local tb =tb_list[i]
+		if not is_table(tb) and not is_nil(tb) then
+			return nil, sprintf("arg #%d must be table", i)
+		end
+		if tb then
+			for k, v in pairs(tb) do
+				ret[k] =v
 			end
 		end
 	end

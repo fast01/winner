@@ -1,7 +1,7 @@
 #include "main.h"
 
 #define PROFILER 0
-#define ENABLE_TEST 0
+#define ENABLE_TEST 1
 
 /** app **/
 project::Application* g_app =0;
