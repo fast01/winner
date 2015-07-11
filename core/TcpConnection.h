@@ -86,7 +86,7 @@ namespace core{
 	protected:
 		virtual int64_t on_auth(char* data, const int64_t s);
 		virtual int64_t on_recv(char* data, const int64_t s);
-		virtual bool on_send(char* data, int64_t& cursor, int64_t& size, const int64_t capacity);
+		virtual int64_t on_send(char* data, int64_t& cursor, int64_t& size, const int64_t capacity);
 	private:
 		bool _connect_tcp();
 		bool _connect_unix();
@@ -95,7 +95,7 @@ namespace core{
 		static bool _set_sock_nonblock(int sock);
 		bool _ensure_connect();
 		static int64_t _on_recv(char* data, const int64_t s, void* ctx);
-		static bool _on_send(char* data, int64_t& cursor, int64_t& size, const int64_t capacity, void* ctx);
+		static int64_t _on_send(char* data, int64_t& cursor, int64_t& size, const int64_t capacity, void* ctx);
 	public:
 		int64_t m_id;
 		int64_t m_flag;

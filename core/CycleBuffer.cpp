@@ -230,23 +230,25 @@ namespace core{
 		return true;
 	}
 	int64_t CycleBuffer::_flush_in(PFN_FLUSH_IN pfn, void* ctx){
-		if(!pfn) return 0;
+		if(!pfn){
+			return -1;
+		}
 		if(!_align()){
-			return 0;
+			return -1;
 		}
 		const int64_t n =pfn(m_data, m_size, ctx);
-		if(n == m_size){
-			_pop(0, m_size);
-		}
-		else if(n > 0){
-			m_size -=n;
-			memmove(m_data, m_data+n, m_size);
-			m_read_cursor =0;
-			m_write_cursor =m_size;
-		}
+		_pop(0, n);
 		return n;
 	}
 	int64_t CycleBuffer::_flush_out(PFN_FLUSH_OUT pfn, void* ctx){
-		return pfn && pfn(m_data, m_read_cursor, m_size, m_capacity, ctx);
+		if(!pfn){
+			return -1;
+		}
+		const int64_t n =pfn(m_data, m_read_cursor, m_size, m_capacity, ctx);
+		if(m_size == 0){
+			m_read_cursor =0;
+			m_write_cursor =0;
+		}
+		return n;
 	}
 }

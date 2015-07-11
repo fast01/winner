@@ -295,7 +295,7 @@ namespace core{
 		return true;
 	}
 	bool TcpConnection::onSend(){
-		return m_send_buffer->flushOut(&_on_send, this);
+		return m_send_buffer->flushOut(&_on_send, this) >= 0;
 	}
 	void TcpConnection::onError(){
 		_clean();
@@ -332,7 +332,8 @@ namespace core{
 		}
 		return c;
 	}
-	bool TcpConnection::on_send(char* data, int64_t& cursor, int64_t& size, const int64_t capacity){
+	int64_t TcpConnection::on_send(char* data, int64_t& cursor, int64_t& size, const int64_t capacity){
+		int64_t len =0;
 		uint64_t evts =MonitorTarget::EVT_READ;
 		while(size > 0){
 			// calc send size
@@ -347,18 +348,20 @@ namespace core{
 				const int errcode =get_last_error();
 				if(errcode!=EAGAIN && errcode!=EWOULDBLOCK && errcode!=EINTR){
 					ERROR("call %s failed(send), %s", __func__, get_last_error_desc());
+					return -1;
 				}
 				evts |= MonitorTarget::EVT_WRITE;
 				break;
 			}
 			cursor +=n;
 			size -=n;
+			len +=n;
 			cursor %= capacity;
 		}
 		if(m_monitor){
 			m_monitor->modifyEvent(m_sock, evts, this);
 		}
-		return true;
+		return len;
 	}
 	/** private **/
 	bool TcpConnection::_connect_tcp(){
@@ -483,7 +486,7 @@ namespace core{
 			return self->on_recv(data, s);
 		}
 	}
-	bool TcpConnection::_on_send(char* data, int64_t& cursor, int64_t& size, const int64_t capacity, void* ctx){
+	int64_t TcpConnection::_on_send(char* data, int64_t& cursor, int64_t& size, const int64_t capacity, void* ctx){
 		TcpConnection* self =reinterpret_cast< TcpConnection* >(ctx);
 		return self->on_send(data, cursor, size, capacity);
 	}

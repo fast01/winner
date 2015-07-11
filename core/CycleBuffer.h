@@ -17,7 +17,7 @@ namespace core{
 		typedef Object Super;
 	public:
 		typedef int64_t (*PFN_FLUSH_IN)(char* data, const int64_t s, void* ctx);
-		typedef bool (*PFN_FLUSH_OUT)(char* data, int64_t& cursor, int64_t& size, const int64_t capacity, void* ctx);
+		typedef int64_t (*PFN_FLUSH_OUT)(char* data, int64_t& cursor, int64_t& size, const int64_t capacity, void* ctx);
 	protected:
 		CycleBuffer();
 		virtual ~CycleBuffer();
