@@ -165,6 +165,7 @@ namespace core{
 			return true;
 		}
 		else{
+			target->sucide();
 			if(target->canReborn()){
 				const int64_t now =DateTime::Now();
 				m_target_tb->set(target, SafeNew<Int64>(now));
@@ -181,13 +182,15 @@ namespace core{
 		}
 	}
 	void Monitor::demonitor(MonitorTarget* target){
+		if(!target){
+			return;
+		}
 		ASSERT(this == Monitor::Instance());
 		if(!_check_epoll()){
 			return;
 		}
-		if(target && target->getMonitorId()==getId()){
-			_abandon(target);
-		}
+		ASSERT(target->getMonitorId()==getId());
+		_abandon(target);
 	}
 	/** event op **/
 	bool Monitor::attachEvent(const int fd, const int64_t events, MonitorTarget* target){
@@ -196,26 +199,29 @@ namespace core{
 		}
 		// monitor
 		Pair* pair =SafeNew<Pair>(target, SafeNew<Int64>((int64_t)fd));
-		m_fd_tb->set(static_cast<int64_t>(fd), pair);
 
 		struct epoll_event evt;
 		memset(&evt, 0, sizeof(evt));
 		evt.events =_translate_to_epoll_events(events);
 		evt.data.ptr =reinterpret_cast< void* >(pair);
 		if(0 == epoll_ctl(m_epoll_fd, EPOLL_CTL_ADD, fd, &evt)){
+			m_fd_tb->set(static_cast<int64_t>(fd), pair);
 			return true;
 		}
 		else{
 			if(get_last_error() == EEXIST){
 				if(0 == epoll_ctl(m_epoll_fd, EPOLL_CTL_MOD, fd, &evt)){
+					m_fd_tb->set(static_cast<int64_t>(fd), pair);
 					return true;
 				}
 				else{
+					m_fd_tb->remove(static_cast<int64_t>(fd));
 					ERROR("fail to call epoll_ctl EPOLL_CTL_MOD, %s", get_last_error_desc());
 					return false;
 				}
 			}
 			else{
+				m_fd_tb->remove(static_cast<int64_t>(fd));
 				ERROR("fail to call epoll_ctl EPOLL_CTL_ADD, %s", get_last_error_desc());
 				return false;
 			}
@@ -227,26 +233,28 @@ namespace core{
 		}
 		// monitor
 		Pair* pair =SafeNew<Pair>(target, SafeNew<Int64>((int64_t)fd));
-		m_fd_tb->set(static_cast<int64_t>(fd), pair);
-
 		struct epoll_event evt;
 		memset(&evt, 0, sizeof(evt));
 		evt.events =_translate_to_epoll_events(events);
 		evt.data.ptr =reinterpret_cast< void* >(pair);
 		if(0 == epoll_ctl(m_epoll_fd, EPOLL_CTL_MOD, fd, &evt)){
+			m_fd_tb->set(static_cast<int64_t>(fd), pair);
 			return true;
 		}
 		else{
 			if(get_last_error() == ENOENT){
 				if(0 == epoll_ctl(m_epoll_fd, EPOLL_CTL_ADD, fd, &evt)){
+					m_fd_tb->set(static_cast<int64_t>(fd), pair);
 					return true;
 				}
 				else{
+					m_fd_tb->remove(static_cast<int64_t>(fd));
 					ERROR("fail to call epoll_ctl EPOLL_CTL_ADD, %s", get_last_error_desc());
 					return false;
 				}
 			}
 			else{
+				m_fd_tb->remove(static_cast<int64_t>(fd));
 				ERROR("fail to call epoll_ctl EPOLL_CTL_MOD, %s", get_last_error_desc());
 				return false;
 			}

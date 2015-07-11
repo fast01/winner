@@ -21,6 +21,9 @@ Config ={
 			IdBegin =300,
 			IdEnd =301
 		},
+		{
+			Path ="../service/s5_lua/s5_lua.lua",
+		},
 		--[[
 		{
 			Path ="data://mysql",

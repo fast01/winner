@@ -35,8 +35,7 @@ namespace core{
 		m_slave_list =New<Array>();
 		m_slave_list->retain();
 
-		m_channel_list =New<Array>();
-		m_channel_list->retain();
+		_init_deliver_channel();
 
 		m_route_tb =New<Hash>();
 		m_route_tb->retain();
@@ -50,7 +49,7 @@ namespace core{
 		CLEAN_POINTER(m_listener_tb);
 		CLEAN_POINTER(m_conn_tb);
 		CLEAN_POINTER(m_slave_list);
-		CLEAN_POINTER(m_channel_list);
+		_destroy_deliver_channel();
 		CLEAN_POINTER(m_route_tb);
 		CLEAN_POINTER(m_requestor_tb);
 		OutputDebug("network released [ok]");
@@ -151,7 +150,7 @@ namespace core{
 			DEBUG("load network fail, master monitor channel error");
 			return false;
 		}
-		m_channel_list->push_back(channel);
+		_append_deliver_channel(channel);
 
 		// start thread
 		const int64_t slave_count =cfg->getSlaveCount();
@@ -179,6 +178,10 @@ namespace core{
 
 				// create listener
 				TcpListener* listener =_create_listener(type);
+				if(!listener){
+					WARN("listener type `%s` is unknown", type ? type->c_str() : "nil");
+					continue;
+				}
 				listener->setDeliverBegin(deliver_begin);
 				listener->setDeliverRange(deliver_range);
 
@@ -410,25 +413,14 @@ namespace core{
 		if(!target){
 			return false;
 		}
-		const int64_t monitor_id =_get_deliver_monitor(beg, end);
-		if(monitor_id < 0){
-			return false;
-		}
-		Monitor* monitor =Monitor::Instance();
-		if(!monitor){
-			ERROR("%s error, master monitor is null", __func__);
-			return false;
-		}
-		if(monitor->getId() == monitor_id){
-			return monitor->monitor(target);
+		if(Channel* channel =static_cast< Channel* >(_retain_deliver_channel(beg, end))){
+			const bool ok =channel->push(SafeNew<Pair>(target, SafeNew<Int64>(1)));
+			channel->release();
+			return ok;
 		}
 		else{
-			if(Channel* channel =static_cast< Channel* >(m_channel_list->get(monitor_id))){
-				return channel->push(SafeNew<Pair>(target, SafeNew<Int64>(1)));
-			}
-			else{
-				return false;
-			}
+			ERROR("network deliver failed, begin %lld, end %lld", (long long)beg, (long long)end);
+			return false;
 		}
 	}
 	void Network::abandon(MonitorTarget* target){
@@ -437,20 +429,12 @@ namespace core{
 			return;
 		}
 		const int64_t monitor_id =target->getMonitorId();
-
-		// abandon
-		Monitor* monitor =Monitor::Instance();
-		if(!monitor){
-			ERROR("%s failed, master monitor is null", __func__);
-			return;
-		}
-		if(monitor->getId() == monitor_id){
-			monitor->demonitor(target);
+		if(Channel* channel =static_cast< Channel* >(_retain_deliver_channel(monitor_id))){
+			channel->push(SafeNew<Pair>(target, SafeNew<Int64>(0)));
+			channel->release();
 		}
 		else{
-			if(Channel* channel =static_cast< Channel* >(m_channel_list->get(monitor_id))){
-				channel->push(SafeNew<Pair>(static_cast< Object* >(target), static_cast< Object* >(0)));
-			}
+			ERROR("network deliver failed, monitor id %lld", (long long)monitor_id);
 		}
 	}
 	/** util**/
@@ -497,10 +481,7 @@ namespace core{
 			self->removeListener(id);
 		}
 	}
-	/** private **/
-	TcpListener* Network::_create_listener(String* type){
-		return static_cast< TcpListener* >(ObjectFactory::Create(type));
-	}
+	/** slave **/
 	bool Network::_create_slave(const int64_t slave_count){
 		m_success_counter =0;
 		m_fail_counter =0;
@@ -516,7 +497,7 @@ namespace core{
 			channel->push(SafeNew<Int64>(i)); // push monitor id
 
 			// push
-			m_channel_list->push_back(channel);
+			_append_deliver_channel(channel);
 			m_slave_list->push_back(th);
 
 			// start
@@ -537,12 +518,14 @@ namespace core{
 		const int64_t n =m_slave_list->size();
 		for(int64_t i=0; i<n; ++i){
 			Thread* th =static_cast< Thread* >(m_slave_list->get(i));
-			Channel* channel =static_cast< Channel* >(m_channel_list->get(i+1));
+			Channel* channel =static_cast< Channel* >(_retain_deliver_channel(i+1));
+			ASSERT(channel);
 			channel->push(SafeNew<Int64>(0));
+			channel->release();
 			th->join();
 		}
+		_clear_deliver_channel();
 		m_slave_list->clear();
-		m_channel_list->clear();
 		m_success_counter =0;
 		m_fail_counter =0;
 
@@ -575,34 +558,72 @@ namespace core{
 		}
 		DEBUG("network slave thread died");
 	}
-	bool Network::_on_channel(Channel* channel, const fd_t, const int64_t events, Object* ctx){
-		Monitor* monitor =Monitor::Instance();
-		if(!monitor){
-			ERROR("%s error, monitor is null", __func__);
-			return false;
-		}
-		while(Object* front =channel->front()){
-			if(Pair* pair =dynamic_cast< Pair* >(front)){
-				MonitorTarget* target =static_cast< MonitorTarget* >(pair->getFirst());	
-				Int64* op =static_cast< Int64* >(pair->getSecond());	
-				if(op && op->getValue()){
-					monitor->monitor(target);
-				}
-				else{
-					monitor->demonitor(target);
-				}
-			}
-			else if(Int64* quit_flag =dynamic_cast< Int64* >(front)){
-				UNUSED(quit_flag);
-				monitor->close();
-			}
-			else{
-				WARN("network channel recv unknown object");
-			}
-			channel->pop();
-		}
-		return true;
+	/** deliver channel **/
+	void Network::_init_deliver_channel(){
+		std::lock_guard<LOCK_TYPE> guard(m_lock);
+		ASSIGN_POINTER(m_channel_list, New<Array>());
 	}
+	void Network::_clear_deliver_channel(){
+		std::lock_guard<LOCK_TYPE> guard(m_lock);
+		m_channel_list->clear();
+	}
+	void Network::_destroy_deliver_channel(){
+		std::lock_guard<LOCK_TYPE> guard(m_lock);
+		CLEAN_POINTER(m_channel_list);
+	}
+	void Network::_append_deliver_channel(Channel* chan){
+		std::lock_guard<LOCK_TYPE> guard(m_lock);
+		m_channel_list->push_back(chan);
+	}
+	Channel* Network::_retain_deliver_channel(const int64_t id){
+		std::lock_guard<LOCK_TYPE> guard(m_lock);
+		if(Channel* chan =static_cast< Channel* >(m_channel_list->get(id))){
+			chan->retain();
+			return chan;
+		}
+		return 0;
+	}
+	Channel* Network::_retain_deliver_channel(int64_t beg, int64_t end){
+		std::lock_guard<LOCK_TYPE> guard(m_lock);
+		const int64_t channel_cnt =m_channel_list->size();
+		if(channel_cnt == 0){
+			return 0;
+		}
+		// calc monitor id
+		if(beg < 0){ beg =0; }
+		if(beg >= channel_cnt){ beg =channel_cnt-1; }
+		if(end <= beg){ end =beg+1; }
+		if(end > channel_cnt){ end =channel_cnt; }
+		const int64_t monitor_id =beg + rand() % (end-beg);
+		// retain channel
+		if(Channel* chan =static_cast< Channel* >(m_channel_list->get(monitor_id))){
+			chan->retain();
+			return chan;
+		}
+		return 0;
+	}
+	/** requestor **/
+	void Network::_add_requestor(const int64_t id, TcpConnectionRequestor* requestor){
+		if(requestor && id>0){
+			std::lock_guard<LOCK_TYPE> guard(m_lock);
+			m_requestor_tb->set(id, requestor);
+		}
+	}
+	void Network::_del_requestor(const int64_t id){
+		std::lock_guard<LOCK_TYPE> guard(m_lock);
+		m_requestor_tb->remove(id);
+	}
+	TcpConnectionRequestor* Network::_retain_requestor(const int64_t id){
+		std::lock_guard<LOCK_TYPE> guard(m_lock);
+		if(TcpConnectionRequestor* requestor =static_cast< TcpConnectionRequestor* >(m_requestor_tb->get(id))){
+			requestor->retain();
+			return requestor;
+		}
+		else{
+			return 0;
+		}
+	}
+	/** sendv **/
 	bool Network::_sendv(const int64_t flag, PACKET& packet, void* body, const int64_t body_len){
 		packet.option &= (~static_cast<uint64_t>(OPT_BODY_IS_OBJECT_POINTER));
 		if(flag==SENDV_FLAG_REQUEST || flag==SENDV_FLAG_NOTIFY){
@@ -643,7 +664,7 @@ namespace core{
 	bool Network::_sendv(const int64_t flag, PACKET& packet, Object* obj){
 		static thread_local char bs[CACHE_SIZE] ={0};
 		int64_t len =CACHE_SIZE;
-		char* data =object_to_bytes(bs, obj, len);
+		char* data =object_to_bytes(obj, bs, len);
 		if(len < 0){
 			return false;
 		}
@@ -653,37 +674,36 @@ namespace core{
 		}
 		return ret;
 	}
-	int64_t Network::_get_deliver_monitor(int64_t beg, int64_t end){
-		const int64_t channel_cnt =m_channel_list->size();
-		if(channel_cnt == 0){
-			return -1;
-		}
-		// calc monitor id
-		if(beg < 0){ beg =0; }
-		if(beg >= channel_cnt){ beg =channel_cnt-1; }
-		if(end <= beg){ end =beg+1; }
-		if(end > channel_cnt){ end =channel_cnt; }
-		const int64_t monitor_id =beg + rand() % (end-beg);
-		return monitor_id;
+	/** misc **/
+	TcpListener* Network::_create_listener(String* type){
+		return static_cast< TcpListener* >(ObjectFactory::Create(type));
 	}
-	void Network::_add_requestor(const int64_t id, TcpConnectionRequestor* requestor){
-		if(requestor && id>0){
-			std::lock_guard<LOCK_TYPE> guard(m_lock);
-			m_requestor_tb->set(id, requestor);
+	bool Network::_on_channel(Channel* channel, const fd_t, const int64_t events, Object* ctx){
+		Monitor* monitor =Monitor::Instance();
+		if(!monitor){
+			ERROR("%s error, monitor is null", __func__);
+			return false;
 		}
-	}
-	void Network::_del_requestor(const int64_t id){
-		std::lock_guard<LOCK_TYPE> guard(m_lock);
-		m_requestor_tb->remove(id);
-	}
-	TcpConnectionRequestor* Network::_retain_requestor(const int64_t id){
-		std::lock_guard<LOCK_TYPE> guard(m_lock);
-		if(TcpConnectionRequestor* requestor =static_cast< TcpConnectionRequestor* >(m_requestor_tb->get(id))){
-			requestor->retain();
-			return requestor;
+		while(Object* front =channel->front()){
+			if(Pair* pair =dynamic_cast< Pair* >(front)){
+				MonitorTarget* target =static_cast< MonitorTarget* >(pair->getFirst());	
+				Int64* op =static_cast< Int64* >(pair->getSecond());	
+				if(op && op->getValue()){
+					monitor->monitor(target);
+				}
+				else{
+					monitor->demonitor(target);
+				}
+			}
+			else if(Int64* quit_flag =dynamic_cast< Int64* >(front)){
+				UNUSED(quit_flag);
+				monitor->close();
+			}
+			else{
+				WARN("network channel recv unknown object");
+			}
+			channel->pop();
 		}
-		else{
-			return 0;
-		}
+		return true;
 	}
 }

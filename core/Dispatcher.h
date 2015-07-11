@@ -37,7 +37,8 @@ namespace core{
 	public:
 		virtual bool isMatch(const int64_t id) =0;
 	protected:
-		char* object_to_bytes(char* data, Object* obj, int64_t& len);
+		char* object_to_bytes(Object* obj, char* data, int64_t& len);
+		char* _bytes_to_pointer(Bytes* bs, char* data, int64_t& len);
 	private:
 		Bytes* m_bytes;
 	protected:

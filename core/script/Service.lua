@@ -235,7 +235,7 @@ end
 --
 -- rpc
 --
-local RPC_TTL =10 -- 30 secs
+local RPC_TTL =30 -- 30 secs
 local _rpc_id =0
 local _rpc_table ={}
 local function do_rpc(packet, msg, respond_protocol_group_id, force_bytes)

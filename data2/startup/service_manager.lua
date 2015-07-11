@@ -12,6 +12,9 @@ Config ={
 		{
 			Path ="../service/s4_lua/s4_lua.lua",
 		},
+		{
+			Path ="../service/s5_lua/s5_lua.lua",
+		},
 		--[[
 		{
 			Path ="data://mysql",

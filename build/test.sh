@@ -5,6 +5,6 @@
 # pprof --pdf ./project ./project.prof > project.pdf
 
 # valgrind --tool=helgrind ./project
-valgrind --tool=memcheck --leak-check=full --show-leak-kinds=all ./project 
+valgrind --tool=memcheck --leak-check=full --show-leak-kinds=all ./project ../data0
 
 # echo "please modify this file by yourself"

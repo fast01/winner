@@ -53,7 +53,7 @@ namespace core{
 	bool ServiceManager::notifyByObject(PACKET& packet, Object* obj){
 		static thread_local char bs[CACHE_SIZE] ={0};
 		int64_t len =CACHE_SIZE;
-		char* data =object_to_bytes(bs, obj, len);
+		char* data =object_to_bytes(obj, bs, len);
 		if(len < 0){
 			return false;
 		}

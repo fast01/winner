@@ -286,61 +286,6 @@
 /** generate id **/
 #define GENERATE_ID(id) do{ if(id > 0x7FFFFFFFFFFFFll){ id=1; }else{ ++id;} }while(0)
 
-/** invade list **/
-#define LIST_DEL(head, tail, node, name) \
-	do{ \
-		auto n =(node); \
-		if(!n) break; \
-		if(n->next_ ## name==0 && n->prev_ ## name==0) break; \
-		if(n->prev_ ## name){ \
-			n->prev_ ## name->next_ ## name =n->next_ ## name; \
-		} \
-		else{ \
-			head =n->next_ ## name; \
-		} \
-		if(n->next_ ## name){ \
-			n->next_ ## name->prev_ ## name =n->prev_ ## name; \
-		} \
-		else{ \
-			tail =n->prev_ ## name; \
-		} \
-		if(n->prev_ ## name) n->prev_ ## name =0; \
-		if(n->next_ ## name) n->next_ ## name =0; \
-	}while(0)
-
-#define LIST_APPEND(head, tail, node, name) \
-		do{ \
-			auto n =(node); \
-			if(!n) break; \
-			DEL_FROM_LIST(n); \
-			if(tail){ \
-				ASSERT(head); \
-				tail->next_ ## name =n; \
-				n->prev_ ## name =tail; \
-				tail =n;\
-			} \
-			else{ \
-				ASSERT(head == 0); \
-				head =n; \
-				tail =n; \
-			} \
-		}while(0)
-
-#define LIST_INSERT_AFTER(anchor, node, name) \
-		do{ \
-			auto a =(anchor); \
-			if(!a) break; \
-			auto n =(node); \
-			if(!n) break; \
-			DEL_FROM_LIST(n); \
-			n->prev ## name =a; \
-			n->next ## name =a->next ## name; \
-			if(a->next ## name){ \
-				a->next_ ## name->prev ## name=n; \
-			} \
-			a->next_ ## name =n; \
-		}while(0)
-
 /** callback service helper **/
 /* command */
 #define DECLARE_COMMAND(name) private: static int64_t name(Command* command);

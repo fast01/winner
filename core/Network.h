@@ -77,17 +77,26 @@ namespace core{
 		static void AddListener(TcpListener* listener);
 		static void RemoveListener(const int64_t id);
 	private:
-		TcpListener* _create_listener(String* type);
 		bool _create_slave(const int64_t thread_count);
 		void _shutdown_slave();
 		static void _slave_loop(Object* param);
-		static bool _on_channel(Channel* channel, const fd_t, const int64_t events, Object* ctx);
-		bool _sendv(const int64_t flag, PACKET& packet, void* body, const int64_t body_len);
-		bool _sendv(const int64_t flag, PACKET& packet, Object* obj);
-		int64_t _get_deliver_monitor(int64_t beg, int64_t end);
+	private:
+		void _init_deliver_channel();
+		void _clear_deliver_channel();
+		void _destroy_deliver_channel();
+		void _append_deliver_channel(Channel* chan);
+		Channel* _retain_deliver_channel(const int64_t id);
+		Channel* _retain_deliver_channel(int64_t beg, int64_t end);
+	private:
 		void _add_requestor(const int64_t id, TcpConnectionRequestor* requestor);
 		void _del_requestor(const int64_t id);
 		TcpConnectionRequestor* _retain_requestor(const int64_t id);
+	private:
+		bool _sendv(const int64_t flag, PACKET& packet, void* body, const int64_t body_len);
+		bool _sendv(const int64_t flag, PACKET& packet, Object* obj);
+	private:
+		TcpListener* _create_listener(String* type);
+		static bool _on_channel(Channel* channel, const fd_t, const int64_t events, Object* ctx);
 	private:
 		Hash* m_listener_tb;
 		Hash* m_conn_tb;
