@@ -172,6 +172,10 @@ namespace core{
 	TcpConnection* TcpListener::create_connection(){
 		return SafeNew<TcpConnection>(GenConnectionId());
 	}
+	/** extra param **/
+	bool TcpListener::setExtraParam(String* param){
+		return true;
+	}
 	/** helper **/
 	bool TcpListener::_listen(const int domain, struct sockaddr* addr, const int addr_len){
 		// close old

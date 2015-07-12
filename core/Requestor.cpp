@@ -11,6 +11,12 @@ namespace core{
 		packet.option |= OPT_BODY_IS_OBJECT_POINTER;
 		return reply(packet, reinterpret_cast< void* >(&obj), sizeof(Object*));
 	}
+	bool Requestor::send(char* data, const int64_t data_len){
+		MEMORY_SLICE slice;
+		slice.ptr =data;
+		slice.size =data_len;
+		return sendv(&slice, 1);
+	}
 	int Requestor::_Reply(lua_State* L){
 		if(lua_gettop(L) < 3){
 			lua_pushfstring(L, "fail call %s, invalid arg", __func__);

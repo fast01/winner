@@ -37,7 +37,8 @@ namespace core{
 		String* getHost();
 		String* getPath();
 		String* getQueryString();
-		Hash* getQuery();
+		Hash* getQueryTable();
+		String* getQuery(String* name);
 		String* getFragment();
 	private:
 		String* m_url;

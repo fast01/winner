@@ -179,11 +179,15 @@ namespace core{
 				// create listener
 				TcpListener* listener =_create_listener(type);
 				if(!listener){
-					WARN("listener type `%s` is unknown", type ? type->c_str() : "nil");
+					WARN("listener type `%s` is unknown", type ? type->c_str() : "null");
 					continue;
 				}
 				listener->setDeliverBegin(deliver_begin);
 				listener->setDeliverRange(deliver_range);
+				if(!listener->setExtraParam(listener_cfg->getExtraParam())){
+					WARN("listener set extra param failed, type `%s`", type ? type->c_str() : "null");
+					continue;
+				}
 
 				// listen
 				bool ok =false;
@@ -276,6 +280,7 @@ namespace core{
 			return false;
 		}
 		if(!monitor->watch(0)){
+			FATAL("xxxxxxxxxxxxxxxxxxxxxx");
 			m_close_flag =true;
 			return false;
 		}

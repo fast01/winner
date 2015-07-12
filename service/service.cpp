@@ -7,5 +7,6 @@ namespace service{
 	void register_service(){
 		S2CallbackService::RegisterClass();
 		S3CoroutineService::RegisterClass();
+		S6HttpService::RegisterClass();
 	}
 }

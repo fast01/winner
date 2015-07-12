@@ -147,6 +147,8 @@ namespace core{
 		OPH();
 		LogService::RegisterClass();
 		TcpListener::RegisterClass();
+		HttpListener::RegisterClass();
+		HttpService::RegisterClass();
 	}
 	void ApplicationBase::setDataPath(String* path){
 		// root

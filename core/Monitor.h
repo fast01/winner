@@ -44,6 +44,7 @@ namespace core{
 		uint64_t _translate_to_epoll_events(const uint64_t evts);
 		void _abandon(MonitorTarget* target);
 		void _clean();
+		Array* _make_fd_data(const int fd, const int64_t events, MonitorTarget* target, bool& already_set);
 	private:
 		int64_t m_id;
 		int m_epoll_fd;

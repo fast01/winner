@@ -148,12 +148,13 @@ namespace core{
 		void resize(const int64_t len){
 			// reserve
 			if(len < 0){
+				reserve(0);
 				m_length =0;
 			}
 			else{
+				reserve(len);
 				m_length =len;
 			}
-			reserve(m_length);
 
 			// adjust cursor
 			if(m_write_cursor > m_length){

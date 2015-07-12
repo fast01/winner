@@ -376,6 +376,9 @@ public:
 	/* field RunnerRange */
 	DECLARE_PROPERTY(int64_t, RunnerRange);
 	void _init_field_RunnerRange();
+	/* field ExtraParam */
+	DECLARE_PROPERTY(::core::String*, ExtraParam);
+	void _init_field_ExtraParam();
 };
 /** define  NetworkRouteConfig **/
 class NetworkRouteConfig: public ::core::ProtocolBase{

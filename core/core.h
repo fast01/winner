@@ -77,6 +77,7 @@ namespace core{
 /** misc **/
 #include "SpinLock.hpp"
 #include "platform.h"
+#include "types.h"
 #include "ids.hpp"
 #include "ErrorCode.h"
 #include "BitOp.hpp"
@@ -199,6 +200,15 @@ typedef SpinLock DEFAULT_LOCK_TYPE;
 
 /* CService */
 #include "CService.h"
+
+/* HttpService */
+#include "HttpCookie.h"
+#include "HttpRequest.h"
+#include "HttpRespond.h"
+#include "HttpClient.h"
+#include "HttpConnection.h"
+#include "HttpListener.h"
+#include "HttpService.h"
 
 /* local */
 #include "ThreadLocal.h"

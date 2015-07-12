@@ -42,6 +42,7 @@ namespace core{
 		return m_id;
 	}
 	bool Monitor::watch(const int64_t timeout){
+		OPH();
 		if(m_close_flag){
 			return false;
 		}
@@ -74,9 +75,16 @@ namespace core{
 		for(int i=0; i<n; ++i){
 			struct epoll_event* pevt =m_event_list + i;
 			const uint64_t events =_translate_from_epoll_events(pevt->events);
-			Pair* pair =reinterpret_cast< Pair* >(pevt->data.ptr);
-			MonitorTarget* target =static_cast< MonitorTarget* >(pair->getFirst());
-			Int64* fd =static_cast< Int64* >(pair->getSecond());
+			Array* data =reinterpret_cast< Array* >(pevt->data.ptr);
+			MonitorTarget* target =static_cast< MonitorTarget* >(data->get(0));
+			Int64* fd =static_cast< Int64* >(data->get(1));
+
+			// log
+			if(dynamic_cast< TcpConnection* >(target)){
+				printf("event %p %p %lld %llu\n", (void*)data, (void*)target, (long long)(fd->getValue()), (unsigned long long)events);
+			}
+			// end
+
 			if(target->onEvent(fd->getValue(), events)){
 				if(target->isHeartBeatEnable()){
 					target->heartBeat(now);
@@ -197,21 +205,33 @@ namespace core{
 		if(fd==INVALID_FD || !events || !target || !_check_epoll()){
 			return false;
 		}
-		// monitor
-		Pair* pair =SafeNew<Pair>(target, SafeNew<Int64>((int64_t)fd));
+		// prepare data
+		bool already_set;
+		Array* data =_make_fd_data(fd, events, target, already_set);
+		if(already_set){
+			return true;
+		}
 
+		// monitor
 		struct epoll_event evt;
 		memset(&evt, 0, sizeof(evt));
 		evt.events =_translate_to_epoll_events(events);
-		evt.data.ptr =reinterpret_cast< void* >(pair);
+		evt.data.ptr =reinterpret_cast< void* >(data);
+
 		if(0 == epoll_ctl(m_epoll_fd, EPOLL_CTL_ADD, fd, &evt)){
-			m_fd_tb->set(static_cast<int64_t>(fd), pair);
+			//log
+			if(dynamic_cast< TcpConnection* >(target)){
+				printf("attach add %p %p %lld\n", (void*)data, (void*)target, (long long)fd);
+			}
 			return true;
 		}
 		else{
 			if(get_last_error() == EEXIST){
 				if(0 == epoll_ctl(m_epoll_fd, EPOLL_CTL_MOD, fd, &evt)){
-					m_fd_tb->set(static_cast<int64_t>(fd), pair);
+					//log
+					if(dynamic_cast< TcpConnection* >(target)){
+						printf("attach modify %p %p %lld\n", (void*)data, (void*)target, (long long)fd);
+					}
 					return true;
 				}
 				else{
@@ -231,20 +251,32 @@ namespace core{
 		if(fd==INVALID_FD || !events || !target || !_check_epoll()){
 			return false;
 		}
+		// prepare data
+		bool already_set;
+		Array* data =_make_fd_data(fd, events, target, already_set);
+		if(already_set){
+			return true;
+		}
+
 		// monitor
-		Pair* pair =SafeNew<Pair>(target, SafeNew<Int64>((int64_t)fd));
 		struct epoll_event evt;
 		memset(&evt, 0, sizeof(evt));
 		evt.events =_translate_to_epoll_events(events);
-		evt.data.ptr =reinterpret_cast< void* >(pair);
+		evt.data.ptr =reinterpret_cast< void* >(data);
 		if(0 == epoll_ctl(m_epoll_fd, EPOLL_CTL_MOD, fd, &evt)){
-			m_fd_tb->set(static_cast<int64_t>(fd), pair);
+			// log
+			if(dynamic_cast< TcpConnection* >(target)){
+				printf("modify mod %p %p %lld\n", (void*)data, (void*)target, (long long)fd);
+			}
 			return true;
 		}
 		else{
 			if(get_last_error() == ENOENT){
 				if(0 == epoll_ctl(m_epoll_fd, EPOLL_CTL_ADD, fd, &evt)){
-					m_fd_tb->set(static_cast<int64_t>(fd), pair);
+					// log
+					if(dynamic_cast< TcpConnection* >(target)){
+						printf("modify add %p %p %lld\n", (void*)data, (void*)target, (long long)fd);
+					}
 					return true;
 				}
 				else{
@@ -265,6 +297,7 @@ namespace core{
 			return;
 		}
 		m_fd_tb->remove(fd);
+		printf("detach rm\n");
 		if(0 != epoll_ctl(m_epoll_fd, EPOLL_CTL_DEL, fd, 0)){
 			if(get_last_error() == ENOENT){
 				return;
@@ -361,5 +394,35 @@ namespace core{
 		CLEAN_POINTER(m_dying_tb);
 
 		m_close_flag =true;
+	}
+	Array* Monitor::_make_fd_data(const int fd, const int64_t events, MonitorTarget* target, bool& already_set){
+		already_set =false;
+		Array* data =static_cast< Array* >(m_fd_tb->get((int64_t)fd));
+		if(data){
+			// fd
+			Int64* pfd =static_cast< Int64* >(data->get(1));
+			ASSERT(pfd && pfd->getValue()==fd);
+
+			// events
+			Int64* evts =static_cast< Int64* >(data->get(2));
+			ASSERT(evts);
+			if(evts->getValue() == events){
+				already_set =true;
+				DEBUG("already set");
+				return data;
+			}
+			else{
+				evts->setValue(events);
+				return data;
+			}
+		}
+		else{
+			data =SafeNew<Array>();
+			data->push_back(target);
+			data->push_back(SafeNew<Int64>(fd));
+			data->push_back(SafeNew<Int64>(events));
+			m_fd_tb->set(static_cast<int64_t>(fd), data);
+			return data;
+		}
 	}
 }

@@ -5,12 +5,6 @@
 #define H_CORE_CYCLE_BUFFER__
 
 namespace core{
-	/** MEMORY SLICE **/
-	typedef struct tagMEMORY_SLICE{
-		char* ptr;
-		int64_t size;
-	}MEMORY_SLICE, *PMEMORY_SLICE;
-
 	/** CycleBuffer **/
 	class CycleBuffer : public Object{
 		SUPPORT_NEWABLE

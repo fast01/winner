@@ -39,6 +39,10 @@ export {
 			type ="int64",
 			init_value =10000000
 		},
+		{
+			name ="ExtraParam",
+			type ="string",
+		},
 	};
 	NetworkConnectionConfig ={
 		{

@@ -336,6 +336,14 @@ namespace core{
 		int64_t len =0;
 		uint64_t evts =MonitorTarget::EVT_READ;
 		while(size > 0){
+			/*
+			if(m_state == STATE_CONNECTING){
+				evts |= MonitorTarget::EVT_WRITE;
+				DEBUG("connecting");
+				break;
+			}
+			*/
+
 			// calc send size
 			int64_t send_size =capacity - cursor;
 			if(send_size > size){

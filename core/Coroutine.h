@@ -40,6 +40,7 @@ namespace core{
 		bool isRunning();
 		bool isWaiting();
 		bool isIdle();
+		bool canYield();
 	public:
 		void setTask(PFN_COROUTINE_TASK pfn, Object* arg);
 		PFN_COROUTINE_TASK getTask();

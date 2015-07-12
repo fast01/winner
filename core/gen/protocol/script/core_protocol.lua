@@ -328,6 +328,13 @@ Group[NetworkListenerConfig] ={
 			required =false,
 			init_value =10000000,
 		},
+		{
+			type ='string',
+			count=1,
+			name ='ExtraParam',
+			required =false,
+			init_value ="",
+		},
 	},
 };
 

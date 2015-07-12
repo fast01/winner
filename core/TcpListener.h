@@ -55,6 +55,8 @@ namespace core{
 		static int64_t GenConnectionId();
 	protected:
 		virtual TcpConnection* create_connection();
+	public:
+		virtual bool setExtraParam(String* param);
 	private:
 		bool _listen(const int domain, struct sockaddr* addr, const int addr_len);
 	private:

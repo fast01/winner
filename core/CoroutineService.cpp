@@ -156,6 +156,7 @@ namespace core{
 			WARN("service %s(%lld) %lld fail to rpc to %lld, in main thread", name(), (long long)m_id, (long long)who, (long long)to);
 			return 0;
 		}
+		ASSERT(cr->canYield());
 		const int64_t cr_id =cr->getId();
 
 		// set rpc info
@@ -179,7 +180,7 @@ namespace core{
 			WARN("service %s(%lld) %lld fail to rpc to %lld, service not ready", name(), (long long)m_id, (long long)who, (long long)to);
 			return 0;
 		}
-		ASSERT(cr->yield(0));
+		ENSURE(cr->yield(0));
 
 		// process respond
 		if(Command* respond =dynamic_cast< Command* >(cr->getResumeParam())){

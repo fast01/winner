@@ -49,16 +49,13 @@ namespace core{
 			FATAL("Parallel run failed, is not in coroutine.");
 			return false;
 		}
+		ASSERT(cr->canYield());
 
 		// prepare
 		CoroutineService* service =dynamic_cast< CoroutineService* >(Service::Current());
 		ASSERT(service);
 		CoroutinePool* crp =service->getCoroutinePool();
 		ASSERT(crp);
-		if(crp->isCleaning()){
-			WARN("Parallel run failed, coroutine pool is cleaning.");
-			return false;
-		}
 
 		const int64_t n =m_node_list->size();
 		m_remain_count =n;
@@ -81,7 +78,7 @@ namespace core{
 		if(m_remain_count > 0){
 			// DEBUG("parallel yield, m_remain_count > 0");
 			m_cr =cr;
-			ASSERT(m_cr->yield(0));
+			ENSURE(m_cr->yield(0));
 			// DEBUG("parallel done");
 		}
 		ASSERT(0 == m_remain_count);

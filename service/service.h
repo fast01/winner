@@ -14,5 +14,6 @@ namespace service{
 #include "./service_ids.h"
 #include "./s2_callback/s2_callback.h"
 #include "./s3_coroutine/s3_coroutine.h"
+#include "./s6_http/s6_http.h"
 
 #endif

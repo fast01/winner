@@ -167,8 +167,11 @@ namespace core{
 	String* Url::getQueryString(){
 		return m_query_string;
 	}
-	Hash* Url::getQuery(){
+	Hash* Url::getQueryTable(){
 		return m_query;
+	}
+	String* Url::getQuery(String* name){
+		return m_query ? static_cast< String* >(m_query->get(name)) : 0;
 	}
 	String* Url::getFragment(){
 		return m_fragment;

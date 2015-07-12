@@ -1,8 +1,8 @@
 /*
    Copyright (C) 2014-2015 别怀山(foolbie). See Copyright Notice in core.h
 */
-#ifndef H_S3_CALLBACK_SERVICE_H__
-#define H_S3_CALLBACK_SERVICE_H__
+#ifndef H_S3_COROUTINE_SERVICE_H__
+#define H_S3_COROUTINE_SERVICE_H__
 
 namespace service{
 	/** S3CoroutineService **/

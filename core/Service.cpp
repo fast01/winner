@@ -63,6 +63,10 @@ namespace core{
 		packet.option |= static_cast<uint64_t>(OPT_RESPOND);
 		return push_message(0, packet, body, body_len);
 	}
+	bool Service::sendv(const PMEMORY_SLICE slice, const int64_t n){
+		FATAL("service not support sendv");
+		return false;
+	}
 
 	/** basic **/
 	String* Service::getName(){

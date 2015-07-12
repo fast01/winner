@@ -40,6 +40,7 @@ namespace core{
 	public:
 		virtual int64_t getId();
 		virtual bool reply(PACKET& packet, void* body, const int64_t body_len);
+		virtual bool sendv(const PMEMORY_SLICE slice, const int64_t n);
 	public:
 		String* getName();
 		String* getDesc();

@@ -2261,6 +2261,7 @@ void NetworkListenerConfig::init(){
 	_init_field_DeliverRange();
 	_init_field_RunnerBegin();
 	_init_field_RunnerRange();
+	_init_field_ExtraParam();
 }
 void NetworkListenerConfig::finalize(){
 	clean();
@@ -2286,6 +2287,8 @@ void NetworkListenerConfig::clean(){
 	m_RunnerBegin =0;
 	// clean RunnerRange 
 	m_RunnerRange =0;
+	// clean ExtraParam 
+	CLEAN_POINTER(m_ExtraParam);
 }
 int64_t NetworkListenerConfig::group(){
 	return 1;
@@ -2313,6 +2316,8 @@ bool NetworkListenerConfig::check(){
 	// check value
 	//// check RunnerRange 
 	// check value
+	//// check ExtraParam 
+	// check value
 	return true;
 }
 ::core::Bytes* NetworkListenerConfig::toBytes(::core::Bytes* bytes){
@@ -2339,6 +2344,8 @@ bool NetworkListenerConfig::check(){
 	::core::ToBytes< int64_t >(bytes, m_RunnerBegin);
 	/// RunnerRange
 	::core::ToBytes< int64_t >(bytes, m_RunnerRange);
+	/// ExtraParam
+	::core::ToBytes< ::core::String* >(bytes, m_ExtraParam);
 	/// reset length
 	const int64_t write_cursor_end =bytes->getWriteCursor();
 	length =host_to_net_packet_size(write_cursor_end - write_cursor_beg);
@@ -2494,6 +2501,24 @@ bool NetworkListenerConfig::fromBytes(::core::Bytes* bytes){
 			return false;
 		}
 	}
+	/// ExtraParam
+	if(just_init){
+		_init_field_ExtraParam();
+	}
+	else{
+		if(!::core::FromBytes< ::core::String* >(bytes, m_ExtraParam)){ clean(); return false; }
+		RETAIN_POINTER(m_ExtraParam);
+		// check read cursor
+		read_cursor_cur =bytes->getReadCursor();
+		read_cnt =read_cursor_cur - read_cursor_beg;
+		if(read_cnt == (int64_t)length){
+			just_init =true;
+		}
+		else if(read_cnt > (int64_t)length){
+			ERROR("read too much bytes when unmashal NetworkListenerConfig from bytes");
+			return false;
+		}
+	}
 	/// skip remaind bytes
 	if(read_cnt < (int64_t)length){
 		bytes->skip(length - read_cnt);
@@ -2529,6 +2554,9 @@ bool NetworkListenerConfig::toLua(lua_State* L){
 	// RunnerRange
 	::core::ToLua< int64_t >(L, m_RunnerRange);
 	lua_setfield(L, -2, "RunnerRange");
+	// ExtraParam
+	::core::ToLua< ::core::String* >(L, m_ExtraParam);
+	lua_setfield(L, -2, "ExtraParam");
 	return true;
 }
 bool NetworkListenerConfig::fromLua(lua_State* L, const int64_t idx){
@@ -2611,6 +2639,16 @@ bool NetworkListenerConfig::fromLua(lua_State* L, const int64_t idx){
 		if(!::core::FromLua< int64_t >(L, -1, m_RunnerRange)){ clean(); lua_settop(L, old_top); return false; }
 	}
 	lua_settop(L, old_top);
+	// ExtraParam
+	lua_getfield(L, idx, "ExtraParam");
+	if(lua_isnil(L, -1)){
+		_init_field_ExtraParam();
+	}
+	else{
+		if(!::core::FromLua< ::core::String* >(L, -1, m_ExtraParam)){ clean(); lua_settop(L, old_top); return false; }
+		RETAIN_POINTER(m_ExtraParam);
+	}
+	lua_settop(L, old_top);
 	return check();
 }
 bool NetworkListenerConfig::appendToString(::core::Bytes* str, int64_t tab_count){
@@ -2632,6 +2670,8 @@ bool NetworkListenerConfig::appendToString(::core::Bytes* str, int64_t tab_count
 	str->appendString(::core::String::Format("%sRunnerBegin =%s,\n", tab(tab_count+1), ::core::ToString< int64_t >(m_RunnerBegin)->c_str()));
 	// RunnerRange
 	str->appendString(::core::String::Format("%sRunnerRange =%s,\n", tab(tab_count+1), ::core::ToString< int64_t >(m_RunnerRange)->c_str()));
+	// ExtraParam
+	str->appendString(::core::String::Format("%sExtraParam =%s,\n", tab(tab_count+1), ::core::ToString< ::core::String* >(m_ExtraParam)->c_str()));
 	str->appendString(::core::String::Format("%s},\n", tab(tab_count)));
 	str->appendNull();
 	return true;
@@ -2669,6 +2709,11 @@ void NetworkListenerConfig::_init_field_RunnerBegin(){
 DEFINE_PROPERTY(NetworkListenerConfig, int64_t, RunnerRange)
 void NetworkListenerConfig::_init_field_RunnerRange(){
 	m_RunnerRange =10000000;
+}
+DEFINE_PROPERTY_P(NetworkListenerConfig, ::core::String*, ExtraParam)
+void NetworkListenerConfig::_init_field_ExtraParam(){
+	m_ExtraParam =::core::String::NewString("");
+	RETAIN_POINTER(m_ExtraParam);
 }
 /** class NetworkRouteConfig **/
 /** impl NetworkRouteConfig **/

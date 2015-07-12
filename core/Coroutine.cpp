@@ -84,6 +84,16 @@ namespace core{
 	bool Coroutine::isIdle(){
 		return m_status == STATUS_IDLE;
 	}
+	bool Coroutine::canYield(){
+		if(!isRunning()){
+			return false;
+		}
+		CoroutineService* service =dynamic_cast< CoroutineService* >(Service::Current());
+		ASSERT(service);
+		CoroutinePool* crp =service->getCoroutinePool();
+		ASSERT(crp);
+		return false == crp->isCleaning();
+	}
 	/** running **/
 	static thread_local Coroutine* g_running =0;
 	Coroutine* Coroutine::Running(){
