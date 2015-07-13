@@ -62,6 +62,7 @@ namespace core{
 		int64_t _resume(Object* param);
 		void _valgrind_register();
 		void _valgrind_unregister();
+		static int _swapcontext(ucontext_t *oucp, ucontext_t *ucp);
 	private:
 		ucontext_t m_ctx;
 		int64_t m_id;

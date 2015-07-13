@@ -250,7 +250,7 @@ namespace core{
 		ASSERT(resumer_ctx);
 
 		// swap context
-		if(0 != swapcontext(&m_ctx, resumer_ctx)){
+		if(0 != _swapcontext(&m_ctx, resumer_ctx)){
 			FATAL("fail to %s, %s", get_last_error_desc());
 		}
 		CLEAN_POINTER(resumer_cr);
@@ -329,7 +329,7 @@ namespace core{
 		ObjectPool::Set(m_object_pool);
 
 		// swap context
-		if(0 != swapcontext(resumer_ctx, &m_ctx)){
+		if(0 != _swapcontext(resumer_ctx, &m_ctx)){
 			FATAL("fail to %s, %s", get_last_error_desc());
 			return -ErrorCode::SYSTEM_ERROR;
 		}
@@ -343,5 +343,11 @@ namespace core{
 	void Coroutine::_valgrind_unregister(){
 		valgrind_unregister(m_valgrind_id);
 		m_valgrind_id =0;
+	}
+	int Coroutine::_swapcontext(ucontext_t *oucp, ucontext_t *ucp){
+		memory_barrier();
+		const int ret =swapcontext(oucp, ucp);
+		memory_barrier();
+		return ret;
 	}
 }
