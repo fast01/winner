@@ -202,6 +202,7 @@ typedef SpinLock DEFAULT_LOCK_TYPE;
 #include "CService.h"
 
 /* HttpService */
+#include "HtmlTemplate.h"
 #include "HttpCookie.h"
 #include "HttpRequest.h"
 #include "HttpRespond.h"

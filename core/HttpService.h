@@ -23,9 +23,13 @@ namespace core{
 		virtual void finalize();
 	protected:
 		virtual void register_command();
+	protected:
 		virtual void on_request(HttpRequest* request, HttpRespond* respond);
+		String* render_html(String* source, Hash* param);
 	private:
 		static void _process(Object* arg);
+	protected:
+		HtmlTemplate* m_html_template;
 	};
 }
 

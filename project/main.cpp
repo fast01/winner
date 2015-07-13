@@ -14,6 +14,7 @@ int main(int argc, const char** argv){
 	signal(SIGINT, on_int);
 	g_app =CppNew<project::Application>();
 	g_app->retain();
+	core::ApplicationBase::SetInstance(g_app);
 	{
 #if ENABLE_TEST
 		test::run_test();
@@ -22,6 +23,7 @@ int main(int argc, const char** argv){
 #endif
 	}
 	CppDelete(g_app);
+	core::ApplicationBase::SetInstance(0);
 	g_app =0;
 	return 0;
 }

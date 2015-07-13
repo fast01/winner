@@ -47,10 +47,10 @@ namespace service{
 		printf("%s\n", res->getContent()->c_str());
 	}
 	void S6HttpService::on_request(HttpRequest* request, HttpRespond* respond){
-		respond->write("hello http");
-		respond->write("<br/>");
-		respond->write(request->getPath());
-		respond->write("<br/>");
-		respond->write(request->getRequest(STR("name")));
+		Hash* param =request->getUrl()->getQueryTable();
+		String* path =ApplicationBase::Instance()->getConfigPath("html/view/index.lua");
+		String* content =render_html(read_string(path->c_str()), param);
+		DEBUG(content->c_str());
+		respond->write(content);
 	}
 }

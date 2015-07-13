@@ -69,6 +69,15 @@ namespace core{
 
 		Super::finalize();
 	}
+	/** instance **/
+	static ApplicationBase* g_app =0;
+	void ApplicationBase::SetInstance(ApplicationBase* app){
+		g_app =app;
+	}
+	ApplicationBase* ApplicationBase::Instance(){
+		return g_app;
+	}
+	/** self **/
 	void ApplicationBase::run(const int argc, const char** argv){
 		OPH();
 		// on load
@@ -177,10 +186,14 @@ namespace core{
 	String* ApplicationBase::getBinPath(){
 		return m_bin_path;
 	}
-	const char* ApplicationBase::_config_path(const char* sub_path){
+	String* ApplicationBase::getConfigPath(const char* sub_path){
 		ASSERT(m_data_path);
 		ASSERT(sub_path && strlen(sub_path)>0 && sub_path[0]!='/');
 		String* cfg_path =FileSystem::Join(m_data_path, STR(sub_path));
-		return cfg_path->c_str();
+		return cfg_path;
+	}
+	/** private **/
+	const char* ApplicationBase::_config_path(const char* sub_path){
+		return getConfigPath(sub_path)->c_str();
 	}
 }

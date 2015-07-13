@@ -25,6 +25,7 @@ Core.UnitTest ={
 -- unit test --
 require "test_util"
 require "test_Parallel"
+require "test_HtmlTemplate"
 require "test_Class"
 require "test_Actor"
 require "test_Md5"

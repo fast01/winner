@@ -22,6 +22,8 @@ function encode_quat_string(str)
 	str =string.gsub(str, '\\', '\\\\')
 	str =string.gsub(str, '"', '\\"')
 	str =string.gsub(str, '\'', "\\'")
+	str =string.gsub(str, '\r', "\\r")
+	str =string.gsub(str, '\n', "\\n")
 	return str
 end
 

@@ -16,6 +16,9 @@ namespace core{
 		virtual void init();
 		virtual void finalize();
 	public:
+		static void SetInstance(ApplicationBase* app);
+		static ApplicationBase* Instance();
+	public:
 		void run(const int argc, const char** argv);
 		void quit();
 	protected:
@@ -31,6 +34,7 @@ namespace core{
 		String* getDataPath();
 		String* getRootPath();
 		String* getBinPath();
+		String* getConfigPath(const char* sub_path);
 	private:
 		const char* _config_path(const char* sub_path);
 	private:

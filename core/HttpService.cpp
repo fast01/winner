@@ -8,7 +8,8 @@ namespace core{
 	DEFINE_CLASS_INFO(HttpService)
 
 	/** ctor & dtor **/
-	HttpService::HttpService(){
+	HttpService::HttpService()
+		: m_html_template(0){
 	}
 	HttpService::~HttpService(){
 	}
@@ -18,15 +19,31 @@ namespace core{
 		Super::init();
 	}
 	void HttpService::finalize(){
+		CLEAN_POINTER(m_html_template);
 		Super::finalize();
 	}
 	/** CoroutineService **/
 	void HttpService::register_command(){
 		on(SERVICE_HTTP_PROCESS_REQUEST, false, _process);
 	}
-	/** SELF **/
+	/** self **/
 	void HttpService::on_request(HttpRequest* request, HttpRespond* respond){
 	}
+	String* HttpService::render_html(String* source, Hash* param){
+		if(!m_html_template){
+			HtmlTemplate* tmpl =SafeNew<HtmlTemplate>();
+			if(tmpl->good()){
+				ASSIGN_POINTER(m_html_template, tmpl);
+			}
+		}
+		if(m_html_template){
+			return m_html_template->render(source, param);
+		}
+		else{
+			return 0;
+		}
+	}
+	/** private **/
 	void HttpService::_process(Object* arg){
 		OPH();
 		// prepare
