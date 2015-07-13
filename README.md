@@ -11,7 +11,8 @@
         1) Create service by raw message mechanism (derive from `Service`, see `Service` and `LogService` for more details);
         2) Create service by traditional rpc callback(derive from `CallbackService`, see `CallbackService` and `S2CallbackService` for more details);
         3) Create service by modern rpc coroutine(derive from `CoroutineService`, see `CoroutineService` and `S3CoroutineService` for more details);
-        4) Create service by modern lua coroutine(see s1). 
+        4) Create service by modern lua coroutine(see s1);
+        5) Create http service by coroutine, support HTML TEMPLATE ENGINE. 
     2. Depoly service more flexible.
         1) Integrate all service in one node(see test case `A`);
         2) Distribute service in different nodes(see test case `B`).
