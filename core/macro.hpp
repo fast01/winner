@@ -16,9 +16,6 @@
 #define _UNIQUE_LOCAL_NAME(name, ln) __UNIQUE_LOCAL_NAME(name, ln)
 #define UNIQUE_LOCAL_NAME(name) _UNIQUE_LOCAL_NAME(name, __LINE__)
 
-/** memory barrier **/
-#define memory_barrier() __asm__ __volatile__("": : :"memory")
-
 /** assert **/
 #define ASSERT assert
 #define ENSURE(expr) while(!static_cast<bool>(expr)){ ERROR("eval false:"  #expr); break; }

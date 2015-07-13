@@ -4,15 +4,20 @@
 #ifndef H_CORE_SETUP_H__
 #define H_CORE_SETUP_H__
 
-#define MEMORY_POOL_ENABLE 1
-
+// comment next line to disable valgrind check
 #define VALGRIND_CHECK_ENABLE 1
 
+// special the first generated connection id
+#define CONNECTION_ID_GEN_BEGIN 100000
+
+// special http connection keep live time 
 #define HTTP_CONNECTION_KEEP_LIVE_TIME 10
 
-// LUA 5.3.0
+// special lua version
 #define LUA_SCRIPT_VERSION 530
 
-#define CONNECTION_ID_GEN_BEGIN 100000
+// memory barrier
+#define memory_barrier() __asm__ __volatile__("": : :"memory")
+
 
 #endif

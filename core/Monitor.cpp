@@ -80,9 +80,9 @@ namespace core{
 			Int64* fd =static_cast< Int64* >(data->get(1));
 
 			// log
-			if(dynamic_cast< TcpConnection* >(target)){
-				printf("event %p %p %lld %llu\n", (void*)data, (void*)target, (long long)(fd->getValue()), (unsigned long long)events);
-			}
+			// if(dynamic_cast< TcpConnection* >(target)){
+			//	printf("event %p %p %lld %llu\n", (void*)data, (void*)target, (long long)(fd->getValue()), (unsigned long long)events);
+			// }
 			// end
 
 			if(target->onEvent(fd->getValue(), events)){
@@ -219,19 +219,19 @@ namespace core{
 		evt.data.ptr =reinterpret_cast< void* >(data);
 
 		if(0 == epoll_ctl(m_epoll_fd, EPOLL_CTL_ADD, fd, &evt)){
-			//log
-			if(dynamic_cast< TcpConnection* >(target)){
-				printf("attach add %p %p %lld\n", (void*)data, (void*)target, (long long)fd);
-			}
+			// log
+			// if(dynamic_cast< TcpConnection* >(target)){
+			//	printf("attach add %p %p %lld\n", (void*)data, (void*)target, (long long)fd);
+			// }
 			return true;
 		}
 		else{
 			if(get_last_error() == EEXIST){
 				if(0 == epoll_ctl(m_epoll_fd, EPOLL_CTL_MOD, fd, &evt)){
-					//log
-					if(dynamic_cast< TcpConnection* >(target)){
-						printf("attach modify %p %p %lld\n", (void*)data, (void*)target, (long long)fd);
-					}
+					// log
+					// if(dynamic_cast< TcpConnection* >(target)){
+					//	printf("attach modify %p %p %lld\n", (void*)data, (void*)target, (long long)fd);
+					// }
 					return true;
 				}
 				else{
@@ -265,18 +265,18 @@ namespace core{
 		evt.data.ptr =reinterpret_cast< void* >(data);
 		if(0 == epoll_ctl(m_epoll_fd, EPOLL_CTL_MOD, fd, &evt)){
 			// log
-			if(dynamic_cast< TcpConnection* >(target)){
-				printf("modify mod %p %p %lld\n", (void*)data, (void*)target, (long long)fd);
-			}
+			// if(dynamic_cast< TcpConnection* >(target)){
+			//	printf("modify mod %p %p %lld\n", (void*)data, (void*)target, (long long)fd);
+			// }
 			return true;
 		}
 		else{
 			if(get_last_error() == ENOENT){
 				if(0 == epoll_ctl(m_epoll_fd, EPOLL_CTL_ADD, fd, &evt)){
 					// log
-					if(dynamic_cast< TcpConnection* >(target)){
-						printf("modify add %p %p %lld\n", (void*)data, (void*)target, (long long)fd);
-					}
+					// if(dynamic_cast< TcpConnection* >(target)){
+					//	printf("modify add %p %p %lld\n", (void*)data, (void*)target, (long long)fd);
+					// }
 					return true;
 				}
 				else{
@@ -297,7 +297,11 @@ namespace core{
 			return;
 		}
 		m_fd_tb->remove(fd);
-		printf("detach rm\n");
+
+		// log
+		// printf("detach rm\n");
+		// end
+
 		if(0 != epoll_ctl(m_epoll_fd, EPOLL_CTL_DEL, fd, 0)){
 			if(get_last_error() == ENOENT){
 				return;
@@ -408,7 +412,9 @@ namespace core{
 			ASSERT(evts);
 			if(evts->getValue() == events){
 				already_set =true;
-				DEBUG("already set");
+				// log
+				// printf("already set\n");
+				// end
 				return data;
 			}
 			else{
