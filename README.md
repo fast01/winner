@@ -13,12 +13,8 @@
         3) Create service by modern rpc coroutine(derive from `CoroutineService`, see `CoroutineService` and `S3CoroutineService` for more details);
         4) Create service by modern lua coroutine(see s1);
         5) Create http service by coroutine, support HTML TEMPLATE ENGINE. 
-    2. Depoly service more flexible.
-        1) Integrate all service in one node(see test case `A`);
-        2) Distribute service in different nodes(see test case `B`).
-    3. Service can split in one node or in many nodes
-        1) In test case `A`, service `LogService` split into [100, 105], for more details see test case `A`;
-        2) In test case `B`, node(`./data1`) provide routing functional, [`s2`, `s3`, `s4`] split into node(`./data2`) and node(`./data3`), for more details).
+    2. Depoly service more flexible(see examples).
+    3. Service can split in one node or in many nodes(see examples).
     4. Monitor mechanism, every thread has a thread local monitor(instance of Monitor), can used to monitor every thing which is derived from Monitor;
     5. Dispatch message easily, see `DispatcherManager`;
     6. Listen and connect easily, see `Network`;
@@ -33,21 +29,8 @@
     run `./build.sh`
     
 #Testing Case:
-    A) Config in `./data`:
-        This is a simple test;
-        There are four service, `s1`, `s2`, `s3`, `s4`, `s5`. `s1` request `s2`, `s2` request `s3`, `s3` request `s4`, `s4` request `s5`. 
+    See `examples`
 
-    B) Config in ./data0, ./data1, ./data2, ./data3
-        This is a  complex test;
-        There are one service called `s1` in `./data0`;
-        There are none service in `./data1`, `./data1` is an route `node`;
-        There are three service in `./data2`, `s2`, `s3`, `s4`.
-#Comment:
-    `s1`, `s2`, `s3`, `s4`, `s5` are service created in `./service`(go there and see more details).
-
-#Simple Testing:
-    run `./simple_test.sh`
-    
 #Attention:
     Before build this framework, you need install some thirdpart package:
         1) valgrind: ensure framework can found `<valgrind/valgrind.h>`
@@ -58,10 +41,8 @@
     I have done some basic testing, and this framework need more testing.
 
 #Road Map:
-    1) will add http functional;
-    2) will modify coroutine for c++, now it is has many limitions;
-    3) will add documents and examples;
-    4) will optimize performance.
+    1) will add documents and examples;
+    2) will optimize performance.
 
 #Best Hope:
     I hope you who are reading this file will help `winner` to be more better.

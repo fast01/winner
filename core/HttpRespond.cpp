@@ -165,7 +165,7 @@ namespace core{
 			coder.append("Content-Type: text/html\r\n");
 		}
 	  	if(!m_header_tb->has("Content-Length")){
-			coder.append(String::Format("Content-Length:%lld\r\n", (long long)m_content->size()));
+			coder.append(String::Format("Content-Length: %lld\r\n", (long long)m_content->size()));
 		}
 		HashIterator* it =static_cast< HashIterator* >(m_header_tb->iterator());
 		while(it->next()){

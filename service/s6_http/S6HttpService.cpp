@@ -32,22 +32,44 @@ namespace service{
 	}
 	void S6HttpService::update(const int64_t now){
 		Super::update(now);
-		return;
+		if(ApplicationBase::Instance()->getDataPath()->indexOf("client") >= 0){
+			static bool done =false;
+			if(done) return;
+			done =true;
 
-		static bool done =false;
-		if(done) return;
-		done =true;
-		HttpRespond* res =HttpClient::Get(STR("http://www.sina.com/"));
-		ASSERT(res && res->getContent());
-		printf("%d\n", (int)res->getContent()->size());
-		// printf("%*s\n", (int)res->getContent()->size(), res->getContent()->c_str());
+			// get
+			HttpRespond* res =HttpClient::Get(STR("127.0.0.1:19871/?name=fool&age=90"));
+			if(res && res->getContent()){
+				res->getContent()->appendStringNull();
+				DEBUG("%s\n", res->getContent()->c_str());
+			}
+			else{
+				DEBUG("fail to get from 127.0.0.1:19871");
+			}
 
-		res =HttpClient::Get(STR("http://www.sina.com/"));
-		ASSERT(res && res->getContent());
-		printf("%s\n", res->getContent()->c_str());
+			// post
+			Hash* param =SafeNew<Hash>();
+			param->set("name", STR("fool"));
+			param->set("age", STR("99"));
+			res =HttpClient::Post(STR("127.0.0.1:19871"), 0, param);
+			if(res && res->getContent()){
+				res->getContent()->appendStringNull();
+				DEBUG("%s\n", res->getContent()->c_str());
+			}
+			else{
+				DEBUG("fail to post to 127.0.0.1:19871");
+			}
+		}
 	}
 	void S6HttpService::on_request(HttpRequest* request, HttpRespond* respond){
-		Hash* param =request->getUrl()->getQueryTable();
+		Hash* param =0;
+		if(request->getPostTable() && request->getPostTable()->size()>0){
+			param =request->getPostTable();
+		}
+		else if(request->getUrl()){
+			param =request->getUrl()->getQueryTable();
+		}
+		// printf("%p\n", param);
 		String* path =ApplicationBase::Instance()->getConfigPath("html/view/index.lua");
 		String* content =render_html(read_string(path->c_str()), param);
 		DEBUG(content->c_str());

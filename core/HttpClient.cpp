@@ -169,6 +169,7 @@ namespace core{
 			full_path =STR("/");
 		}
 		if(query_string){
+			full_path =full_path->append("?");
 			full_path =full_path->append(query_string);
 		}
 
@@ -203,7 +204,7 @@ namespace core{
 				coder.append("Content-Type: text/html\r\n");
 			}
 			if(!header || !header->has("Content-Length")){
-				coder.append(String::Format("Content-Length:%lld\r\n", (long long)content_len));
+				coder.append(String::Format("Content-Length: %lld\r\n", (long long)content_len));
 			}
 		}
 		if(!header || !header->has("Accept")){
@@ -323,7 +324,7 @@ namespace core{
 	bool HttpClient::_parse_ip_port(String* host, char szip[32], int32_t& port){
 		// parse ip:port
 		int num[5] ={0};
-		if(5 == sscanf("%d.%d.%d.%d:%d", host->c_str(), num, num+1, num+2, num+3, num+4)){
+		if(5 == sscanf(host->c_str(), "%d.%d.%d.%d:%d", num, num+1, num+2, num+3, num+4)){
 			if((num[0]>=0 && num[0]<=255)
 			&& (num[1]>=0 && num[1]<=255)
 			&& (num[2]>=0 && num[2]<=255)

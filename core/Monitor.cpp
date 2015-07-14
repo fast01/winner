@@ -131,9 +131,9 @@ namespace core{
 					target->onDetachEvent();
 					target->onAbandon();
 					target->sucide();
-					it->remove();
 					m_target_tb->remove(target);
 					m_reborn_tb->remove(target);
+					it->remove();
 				}
 			}
 			m_dying_tb->optimize(m_dying_tb->size() * 3);
@@ -364,10 +364,12 @@ namespace core{
 			target->onDetachEvent();
 			target->onAbandon();
 			target->sucide();
-
+			
+			target->retain();
 			m_target_tb->remove(target);
 			m_dying_tb->remove(target);
 			m_reborn_tb->remove(target);
+			target->release();
 		}
 	}
 	void Monitor::Close(){
