@@ -1,0 +1,27 @@
+内容： 
+	单节点服务互相请求演示
+
+目标： 
+	1）演示创建 lua service；
+	2）演示创建 callback service；
+	3）演示创建 coroutine service；
+	4）演示创建 raw service；
+
+材料：
+	1）`./data` 是 service 的配置；
+	2）`../../service/s1`(简称s1) 是 lua service 代码。
+	3）`../../service/s2`(简称s2) 是 callback service 代码。
+	4）`../../service/s3`(简称s3) 是 coroutine service 代码。
+	5）`../../service/s4`(简称s4) 是 lua service 代码。
+	6）`../../service/s5`(简称s5) 是 lua service 代码。
+
+启动：
+	Step 1： ./run.sh
+	你会看到打印一些request 以及 respond 的打印。(半分钟后没有新的打印可以CTRL-C退出)
+
+介绍：
+	s1 严格意义是模拟客户端的，不是一个提供服务功能的。
+	s1,s2,s3,s4,s5 之间请求关系: s1 => s2 => s3 => s4 => s5
+
+	s4 演示了parallel功能， 单线程内并发功能，特别适合`同时发出多个请求，所有请求完成才返回`的需求。(用的是协程，不会空等)
+	s3 理也有parallel功能，但是被关闭了。

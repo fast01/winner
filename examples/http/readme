@@ -1,0 +1,20 @@
+内容： 
+	http示例
+
+目标： 
+	1）演示创建 http service，以及使用模板引擎；
+	2）演示使用 HttpClient 访问 http service。
+
+材料：
+	1）`./service` 是 http service 的配置；
+	2）`./client` 是 client 的配置。
+	3）`../../service/s6` 是服务器逻辑代码。
+
+启动：
+	Step 1： ./server.sh
+	Step 2： ./client.sh
+	你会看到打印一些html文本格式。
+
+介绍：
+	在 `../../service/s6` 中有 class S6HttpService， S6HttpService::on_requset 负责处理请求，S6HttpService::on_update 调用了http client功能。
+	详细请阅读代码。
