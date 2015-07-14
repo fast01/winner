@@ -10,6 +10,7 @@ local pcall =pcall
 local print =print
 local debug =debug
 local os =os
+local io =io
 local table =table
 
 module "Core"
@@ -25,6 +26,29 @@ function encode_quat_string(str)
 	str =string.gsub(str, '\r', "\\r")
 	str =string.gsub(str, '\n', "\\n")
 	return str
+end
+
+----
+---- string_split ----
+----
+function string_split(str, sep, plain)
+	assert(is_string(str) and is_string(sep) and #sep > 0)
+	local ret ={}
+	local cursor =1
+	local s =str
+	while cursor <= #s do
+		local i_beg, i_end =string.find(s, sep, cursor, plain)
+		if i_beg then
+			if i_beg > cursor then
+				table.insert(ret, string.sub(s, cursor, i_beg-1))
+			end
+			cursor =i_end + 1
+		else
+			table.insert(ret, string.sub(s, cursor))
+			break
+		end
+	end
+	return ret
 end
 
 ----
@@ -217,4 +241,58 @@ function table_merge(...)
 		end
 	end
 	return ret
+end
+
+---
+--- read file
+---
+function read_file(path)
+	assert(is_string(path))
+	local f, err =io.open(path, 'r')
+	if err then
+		ERROR(err)
+		return nil, err
+	end
+	local content =f:read('*a')
+	f:close()
+	return content
+end
+
+---
+--- write file
+---
+function write_file(path, content)
+	assert(is_string(path) and is_string(content))
+	local f, err =io.open(path, 'w')
+	if err then
+		ERROR(err)
+		return nil, err
+	end
+	local content =f:write(content)
+	f:close()
+	return true
+end
+
+---
+--- append file
+---
+function append_file(path, content)
+	assert(is_string(path) and is_string(content))
+	local f, err =io.open(path, 'a')
+	if err then
+		ERROR(err)
+		return nil, err
+	end
+	local content =f:write(content)
+	f:close()
+	return true
+end
+
+---
+--- load data
+---
+function load_data(data_path)
+	assert(is_string(data_path))
+	local path =Global.DATA_PATH .. '/' .. data_path
+	return read_file(path)
 end

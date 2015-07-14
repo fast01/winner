@@ -32,7 +32,7 @@ namespace core{
 	public:
 		virtual bool setCapacity(const int64_t capacity);
 		virtual bool push(const char* p, const int64_t s);
-		virtual bool pushv(const PMEMORY_SLICE mem, const int64_t n);
+		virtual bool pushv(const MEMORY_SLICE* mem, const int64_t n);
 		virtual bool pick(char* p, const int64_t s);
 		virtual bool pop(char* p, const int64_t s);
 		virtual bool skip(const int64_t s);
@@ -60,7 +60,7 @@ namespace core{
 		void _close_fd();
 		void _read_event_fd();
 		bool _push(const char* p, const int64_t s);
-		bool _pushv(const PMEMORY_SLICE mem, const int64_t n);
+		bool _pushv(const MEMORY_SLICE* mem, const int64_t n);
 		bool _pop(char* p, const int64_t s);
 	private:	
 		CycleBuffer* m_cycle_buffer;

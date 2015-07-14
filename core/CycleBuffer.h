@@ -21,7 +21,7 @@ namespace core{
 	public:
 		virtual bool setCapacity(const int64_t capacity);
 		virtual bool push(const char* p, const int64_t s);
-		virtual bool pushv(const PMEMORY_SLICE mem, const int64_t n);
+		virtual bool pushv(const MEMORY_SLICE* mem, const int64_t n);
 
 		virtual bool pop(char* p, const int64_t s);
 		virtual int64_t tryPop(char* p, const int64_t s);
@@ -44,7 +44,7 @@ namespace core{
 	private:
 		bool _set_capacity(int64_t capacity);
 		bool _push(const char* p, const int64_t s);
-		bool _pushv(const PMEMORY_SLICE mem, const int64_t n);
+		bool _pushv(const MEMORY_SLICE* mem, const int64_t n);
 
 		bool _pop(char* p, const int64_t s);
 		int64_t _try_pop(char* p, int64_t s);

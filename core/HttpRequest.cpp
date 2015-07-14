@@ -58,15 +58,6 @@ namespace core{
 
 	/** url **/
 	Url* HttpRequest::getUrl(){
-		if(m_url == 0){
-			m_url =SafeNew<Url>();
-			if(m_url->parse(m_path)){
-				RETAIN_POINTER(m_url);
-			}
-			else{
-				m_url =0;
-			}
-		}
 		return m_url;
 	}
 
@@ -222,6 +213,22 @@ namespace core{
 		if(!request->_parse_mime()){
 			return 0;
 		}
+
+		// url
+		request->m_url =SafeNew<Url>();
+		if(request->m_url->parse(path)){
+			RETAIN_POINTER(request->m_url);
+		}
+		else{
+			request->m_url =0;
+		}
+
+		// path
+		const int64_t pos =path->indexOf("?");
+		if(pos >= 0){
+			ASSIGN_POINTER(request->m_path, path->subString(0, pos));
+		}
+
 		return request;
 	}
 	bool HttpRequest::_parse_mime(){

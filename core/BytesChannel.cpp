@@ -73,7 +73,7 @@ namespace core{
 			return false;
 		}
 	}
-	bool BytesChannel::pushv(const PMEMORY_SLICE mem, const int64_t n){
+	bool BytesChannel::pushv(const MEMORY_SLICE* mem, const int64_t n){
 		if(_pushv(mem, n)){
 			return signal();
 		}
@@ -225,7 +225,7 @@ namespace core{
 		if(!m_pushable){ return false; }
 		return m_cycle_buffer->push(p, s);
 	}
-	bool BytesChannel::_pushv(const PMEMORY_SLICE mem, const int64_t n){
+	bool BytesChannel::_pushv(const MEMORY_SLICE* mem, const int64_t n){
 		std::lock_guard<std::mutex> guard(m_mutex);
 		if(!m_pushable){ return false; }
 		return m_cycle_buffer->pushv(mem, n);

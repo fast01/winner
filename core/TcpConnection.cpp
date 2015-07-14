@@ -201,7 +201,7 @@ namespace core{
 	bool TcpConnection::send(const char* data, const int64_t data_len){
 		return m_send_buffer->push(data, data_len);
 	}
-	bool TcpConnection::sendv(const PMEMORY_SLICE slice, const int64_t n){
+	bool TcpConnection::sendv(const MEMORY_SLICE* slice, const int64_t n){
 		const bool ok =m_send_buffer->pushv(slice, n);
 		return ok;
 	}

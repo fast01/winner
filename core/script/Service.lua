@@ -9,6 +9,7 @@ local assert =assert
 local table =table
 local coroutine =coroutine
 local math =math
+local string =string
 local _G =_G
 local setmetatable =setmetatable
 local getmetatable =getmetatable
@@ -359,19 +360,219 @@ local function do_reply_easy(requestor, req_packet, res_cmd, msg, force_bytes)
 end
 
 --
+-- http
+--
+local g_http_event_root
+local g_http_event_map ={
+	get ={},
+	post ={}
+}
+local function http_code_to_msg(code)
+	if code == 200 then
+		return "OK"
+	elseif code == 400 then
+		return "Bad Request"
+	elseif code == 404 then
+		return "Not Found"
+	elseif code == 503 then
+		return "Service Unavailable"
+	else
+		return "Unknown"
+	end
+end
+local function on_http_event(method, path, func)
+	-- check
+	if #path == 0 then
+		ERROR("set http event failed, path `%s` is empty", path)
+		return
+	end
+	if not method or not g_http_event_map[method] then
+		ERROR("set http event failed, method `%s` is invalid, must be get or post", method or 'nil')
+		return
+	end
+
+	-- special for root
+	if path == '/' then
+		g_http_event_root =func
+		return
+	end
+
+	-- for others
+	local tb =g_http_event_map[method]
+	local ls =string_split(path, '/', true)
+	for i=1, #ls-1 do
+		local n =ls[i]
+		if is_nil(tb[n]) then
+			tb[item] ={}
+			tb =tb[item]
+		elseif is_table(tb[n]) then
+			tb =tb[item]
+		elseif is_function(tb[n]) then
+			ERROR("set http event failed, path `%s` conflict", path)
+			return
+		else
+			ERROR("set http event failed, wtf")
+			return
+		end
+	end
+	local n =ls[#ls]
+	tb[n] =func
+end
+local function http_respond_write(res, ...)
+	if not res then
+		ERROR("http respond write failed, res is nil")
+		return nil, 'res is nil'
+	end
+	res.content =res.content or ''
+	res.content =res.content .. sprintf(...)
+	return true
+end
+local function http_respond_flush(res)
+	if not res then
+		ERROR("http respond flush failed, res is nil")
+		return nil, 'res is nil'
+	end
+	if res.flushed then
+		return
+	end
+	---- prepare
+	local str
+
+	---- head line
+	str =sprintf("%s %d %s\r\n", res.version, res.code, res.msg or http_code_to_msg(res.code))
+
+	---- header
+	if not res.header['Content-Type'] then
+		str =str .. 'Content-Type: text/html\r\n'
+	end
+	if not res.header['Content-Length'] then
+		str =str .. sprintf("Content-Length: %d\r\n", res.content and #res.content or 0)
+	end
+	for k, v in pairs(res.header) do
+		if is_string(k) and is_string(v) then
+			str =str .. sprintf('%s: %s\r\n', k, v)
+		end
+	end
+	for k, v in pairs(res.cookie) do
+		if is_string(k) and is_table(v) and is_string(v.value) then
+			local s =sprintf("Set-Cookie: %s=%s", k, v.value)
+			if v.domain then
+				s =s .. sprintf(';Domain=%s', v.domain)
+			end
+			if v.path then
+				s =s .. sprintf(';Path=%s', v.path)
+			end
+			if v.secure then
+				s =s .. ';Secure'
+			end
+			if v.max_age then
+				s =s .. sprintf(';Max-Age=%d', v.max_age)
+			end
+			str =str .. s
+		end
+	end
+	str =str .. '\r\n'
+
+	---- content
+	if res.content then
+		assert(is_string(res.content))
+		str =str .. res.content
+	end
+	
+	---- send
+	res.requestor:send(str)
+	res.flushed =true
+end
+local function process_http_request(request)
+	-- check
+	local path =request.path
+	assert(path and request.requestor)
+	local method =request.method
+	assert(is_string(method))
+	method =string.lower(method)
+	assert(g_http_event_map[method])
+
+	print(path)
+	-- new respond
+	local respond ={
+		requestor =request.requestor,
+		version ='HTTP/1.1',
+		code =200,
+		header ={},
+		cookie ={},
+		write =http_respond_write,
+		flush =http_respond_flush
+	};
+
+	-- parse request
+	request.request ={}
+	request.get =request.get or {}
+	for k, v in pairs(request.get) do
+		request.request[k] =v
+	end
+	request.post =request.post or {}
+	for k, v in pairs(request.post) do
+		request.request[k] =v
+	end
+	request.requestor =nil
+
+	-- dispatch
+	local tb =g_http_event_map[method]
+	local ls =string_split(path, '/', true)
+	for i=1, #ls do
+		local n =ls[i]
+		if is_nil(tb[n]) then
+			break
+		elseif is_table(tb[n]) then
+			tb =tb[n]
+		elseif is_function(tb[n]) then
+			tb[n](request, respond);
+			respond:flush()
+			return true
+		else
+			ERROR("process http request failed, wtf")
+			return nil, 'wtf'
+		end
+	end
+
+	-- default
+	if g_http_event_root then
+		g_http_event_root(request, respond)
+		respond:flush()
+		return true
+	else
+		ERROR("process http request failed, path `%s` not config", path)
+		return nil, sprintf("path `%s` not config", path)
+	end
+end
+
+--
 -- event
 --
 local _event_tb ={}
-local function on_event(evt, func, not_use_protocol)
-	assert(is_number(evt) or is_string(evt), "arg evt is not a number or string")
-	assert(is_function(func), "arg is func not a function")
-	if is_number(evt) then
+local function on_event(a, b, c)
+	if is_number(a) and is_function(b) then
+		local evt =a
+		local func =b
+		local not_use_protocol =c
+
 		_event_tb[evt] ={
 			func =func,
 			use_protocol =not_use_protocol and false or true
 		}
-	else
+	elseif is_string(a) and (a=='update' or a=='load' or a=='unload') and is_function(b) then
+		local evt =a
+		local func =b
+
 		_event_tb[evt] =func
+	elseif is_string(a) and is_string(b) and is_function(c) then
+		local method =a
+		local path =b
+		local func =c
+
+		on_http_event(method, path, func)
+	else
+		ERROR("on event failed, not match")
 	end
 end
 
@@ -395,7 +596,7 @@ local function do_update(now)
 		do_mission(fn, now)
 	end
 end
-local function do_message(requestor, packet, body, object)
+local function do_logic_message(requestor, packet, body, object)
 	if 0 ~= BitOp.And(packet.option, Packet.OPT_REQUEST) then
 		return do_command(_event_tb[packet.command], requestor, packet, body, object)
 	elseif 0 ~= BitOp.And(packet.option, Packet.OPT_RESPOND) then
@@ -403,6 +604,9 @@ local function do_message(requestor, packet, body, object)
 	else
 		ERROR("wtf")
 	end
+end
+local function do_http_message(request)
+	do_mission(process_http_request, request)
 end
 local function do_unload()
 	local fn =_event_tb.unload
@@ -475,6 +679,7 @@ export{
 	Service = Service,
 	on_load =do_load,
 	on_update =do_update,
-	on_message =do_message,
+	on_logic_message =do_logic_message,
+	on_http_message =do_http_message,
 	on_unload =do_unload,
 };

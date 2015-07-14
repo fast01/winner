@@ -42,6 +42,33 @@ UnitTest.Add(function()
 		assert(deep_copy("a") == "a")
 	end
 
+	-- string_split --
+	do
+		local str ="/usr/bin/ls"
+		local ls =string_split(str, "/", true)
+		assert(#ls == 3 and ls[1]=='usr' and ls[2]=='bin' and ls[2]=='ls')
+
+		local str ="/user/setinfo/basic.lua"
+		local ls =string_split(str, "/", true)
+		assert(#ls == 3 and ls[1]=='user' and ls[2]=='setinfo' and ls[2]=='basic.lua')
+
+		local str ="user/setinfo/basic.lua"
+		local ls =string_split(str, "/", true)
+		assert(#ls == 3 and ls[1]=='user' and ls[2]=='setinfo' and ls[2]=='basic.lua')
+
+		local str ="user/setinfo/basic.lua/"
+		local ls =string_split(str, "/", true)
+		assert(#ls == 3 and ls[1]=='user' and ls[2]=='setinfo' and ls[2]=='basic.lua')
+
+		local str ="/user/setinfo/basic.lua/"
+		local ls =string_split(str, "/", true)
+		assert(#ls == 3 and ls[1]=='user' and ls[2]=='setinfo' and ls[2]=='basic.lua')
+
+		local str ="/user///setinfo/basic.lua/"
+		local ls =string_split(str, "/", true)
+		assert(#ls == 3 and ls[1]=='user' and ls[2]=='setinfo' and ls[2]=='basic.lua')
+	end
+
 	-- array concate --
 	do
 		local ls =array_concate({10, 20, 30}, nil, {40, 50, 60}, {70, 80, 90})

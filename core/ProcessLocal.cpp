@@ -100,6 +100,16 @@ namespace core{
 		m_lua_init_callback->push_back(pt);
 	}
 	bool ProcessLocal::initLua(lua_State* L){
+		// register path
+		ApplicationBase* app =ApplicationBase::Instance();
+		lua_pushstring(L, app->getRootPath()->c_str());
+		lua_setglobal(L, "ROOT_PATH");
+		lua_pushstring(L, app->getBinPath()->c_str());
+		lua_setglobal(L, "BIN_PATH");
+		lua_pushstring(L, app->getDataPath()->c_str());
+		lua_setglobal(L, "DATA_PATH");
+
+		// call register
 		const int64_t cnt =m_lua_init_callback->size();
 		for(int64_t i=0; i<cnt; ++i){
 			Pointer* pt =dynamic_cast< Pointer* >(m_lua_init_callback->get(i));

@@ -59,7 +59,7 @@ namespace core{
 		void setLastReconnectTime(const int64_t t);
 		int64_t getLastReconnectTime();
 		bool send(const char* data, const int64_t data_len);
-		bool sendv(const PMEMORY_SLICE slice, const int64_t n);
+		bool sendv(const MEMORY_SLICE* slice, const int64_t n);
 		void setReady();
 		void setAuthed();
 		void setFlag(const uint64_t flag);

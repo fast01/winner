@@ -52,9 +52,9 @@ namespace core{
 		void removeListener(const int64_t id);
 		bool hasListener(const int64_t id);
 	public:
-		bool broadcastToConnection(const int64_t flag, const PMEMORY_SLICE slice, const int64_t n);
-		bool sendToConnectionDirect(const int64_t id, const PMEMORY_SLICE slice, const int64_t n);
-		bool sendToConnection(const int64_t id, const int64_t from, const int64_t who, const PMEMORY_SLICE slice, const int64_t n);
+		bool broadcastToConnection(const int64_t flag, const MEMORY_SLICE* slice, const int64_t n);
+		bool sendToConnectionDirect(const int64_t id, const MEMORY_SLICE* slice, const int64_t n);
+		bool sendToConnection(const int64_t id, const int64_t from, const int64_t who, const MEMORY_SLICE* slice, const int64_t n);
 		bool hasConnection(const int64_t id);
 		void addConnection(TcpConnection* conn);
 		TcpConnection* retainConnection(const int64_t id);

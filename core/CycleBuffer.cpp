@@ -42,7 +42,7 @@ namespace core{
 	bool CycleBuffer::push(const char* p, const int64_t s){
 		return _push(p, s);
 	}
-	bool CycleBuffer::pushv(const PMEMORY_SLICE mem, const int64_t n){
+	bool CycleBuffer::pushv(const MEMORY_SLICE* mem, const int64_t n){
 		return _pushv(mem, n);
 	}
 
@@ -151,7 +151,7 @@ namespace core{
 		m_size +=s;
 		return true;
 	}
-	bool CycleBuffer::_pushv(const PMEMORY_SLICE mem, const int64_t n){
+	bool CycleBuffer::_pushv(const MEMORY_SLICE* mem, const int64_t n){
 		// prepare capacity
 		if(!mem || n<=0) return false;
 		int64_t s =0;

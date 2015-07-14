@@ -14,6 +14,8 @@ namespace service{
 		SERVICE_ID_S3_COROUTINE =19,
 		SERVICE_ID_S4_LUA =20,
 		SERVICE_ID_S5_LUA =21,
+		SERVICE_ID_S6_HTTP =22,
+		SERVICE_ID_S7_LUA_HTTP =23,
 	};
 
 	/** log ids **/

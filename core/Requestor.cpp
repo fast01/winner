@@ -11,11 +11,34 @@ namespace core{
 		packet.option |= OPT_BODY_IS_OBJECT_POINTER;
 		return reply(packet, reinterpret_cast< void* >(&obj), sizeof(Object*));
 	}
-	bool Requestor::send(char* data, const int64_t data_len){
-		MEMORY_SLICE slice;
-		slice.ptr =data;
-		slice.size =data_len;
+	bool Requestor::send(const char* data, const int64_t data_len){
+		const MEMORY_SLICE slice { const_cast< char* >(data), data_len };
 		return sendv(&slice, 1);
+	}
+	int Requestor::_Send(lua_State* L){
+		if(lua_gettop(L) < 2){
+			lua_pushfstring(L, "fail call %s, invalid arg", __func__);
+			lua_error(L);
+			return 0;
+		}
+		Requestor* requestor =0;
+		if(!get_object_from_lua<Requestor>(L, 1, requestor)){
+			lua_pushfstring(L, "fail call %s, invalid Requestor", __func__);
+			lua_error(L);
+			return 0;
+		}
+		size_t len =0;
+		const char* szcontent =lua_tolstring(L, 2, &len);
+		if(!szcontent){
+			lua_pushfstring(L, "fail call %s, invalid content", __func__);
+			lua_error(L);
+			return 0;
+		}
+
+		// call
+		const bool ok =requestor->send(szcontent, len);
+		lua_pushboolean(L, ok ? 1 : 0);
+		return 1;
 	}
 	int Requestor::_Reply(lua_State* L){
 		if(lua_gettop(L) < 3){
@@ -76,13 +99,14 @@ namespace core{
 		return 0;
 	}
 	bool Requestor::RegisterToLua(lua_State* L){
-		CLASS_FUNC func[2] ={
+		CLASS_FUNC func[3] ={
+			{ "send", &_Send},
 			{ "reply", &_Reply},
 			{ "replyByObject", &_ReplyByObject},
 		};
 		return register_class_to_lua(L, "Core", "Requestor", MAKE_LUA_METATABLE_NAME(core::Requestor), 0,
 			0, 0,
-			2, func,
+			3, func,
 			0, 0
 		);
 	}

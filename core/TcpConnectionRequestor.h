@@ -18,7 +18,7 @@ namespace core{
 		virtual int64_t getId();
 		virtual bool reply(PACKET& packet, void* body, const int64_t body_len);
 		virtual bool replyByObject(PACKET& packet, Object* obj);
-		virtual bool sendv(const PMEMORY_SLICE slice, const int64_t n);
+		virtual bool sendv(const MEMORY_SLICE* slice, const int64_t n);
 	private:
 		int64_t m_id;
 		BytesChannel* m_conn_send_buffer;

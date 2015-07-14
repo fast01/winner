@@ -303,7 +303,7 @@ namespace core{
 		return m_listener_tb->has(id);
 	}
 	/** connection manager **/
-	bool Network::broadcastToConnection(const int64_t flag, const PMEMORY_SLICE slice, const int64_t n){
+	bool Network::broadcastToConnection(const int64_t flag, const MEMORY_SLICE* slice, const int64_t n){
 		if(!slice || n<=0) return false;
 		std::lock_guard<LOCK_TYPE> guard(m_lock);
 		HashIterator* it =static_cast<HashIterator*>(m_conn_tb->iterator());
@@ -328,7 +328,7 @@ namespace core{
 		}
 		return true;
 	}
-	bool Network::sendToConnection(const int64_t id, const int64_t from, const int64_t who, const PMEMORY_SLICE slice, const int64_t n){
+	bool Network::sendToConnection(const int64_t id, const int64_t from, const int64_t who, const MEMORY_SLICE* slice, const int64_t n){
 		if(!slice || n<=0) return false;
 		if(TcpConnection* conn =retainConnection(id, from, who)){
 			const bool ok =conn->sendv(slice, n);
@@ -339,7 +339,7 @@ namespace core{
 			return false;
 		}
 	}
-	bool Network::sendToConnectionDirect(const int64_t id, const PMEMORY_SLICE slice, const int64_t n){
+	bool Network::sendToConnectionDirect(const int64_t id, const MEMORY_SLICE* slice, const int64_t n){
 		if(!slice || n<=0) return false;
 		if(TcpConnection* conn =retainConnection(id)){
 			const bool ok =conn->sendv(slice, n);

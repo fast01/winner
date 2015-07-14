@@ -21,6 +21,9 @@ namespace core{
 		virtual void on_message(Requestor* requestor, const PACKET& packet, void* body, const int64_t body_len);
 		virtual void on_unload();
 	private:
+		void _on_http_request(Requestor* requestor, const PACKET& packet, void* body, const int64_t body_len);
+		void _on_logic_request(Requestor* requestor, const PACKET& packet, void* body, const int64_t body_len);
+	private:
 		lua_State* m_L;
 	};
 }

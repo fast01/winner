@@ -1,0 +1,1 @@
+../../gen/protocol/script/protocol.lua

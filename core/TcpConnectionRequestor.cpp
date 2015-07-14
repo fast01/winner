@@ -54,7 +54,7 @@ namespace core{
 		const int64_t body_len =bs ? bs->size() : 0;
 		return reply(packet, body, body_len);
 	}
-	bool TcpConnectionRequestor::sendv(const PMEMORY_SLICE slice, const int64_t n){
+	bool TcpConnectionRequestor::sendv(const MEMORY_SLICE* slice, const int64_t n){
 		if(m_conn_send_buffer->pushv(slice, n)){
 			// m_conn_send_buffer->signal();
 			return true;

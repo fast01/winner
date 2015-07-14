@@ -10,6 +10,10 @@ namespace service{
 		typedef core::HttpService Super;
 		SUPPORT_NEWABLE
 		DECLARE_CLASS_INFO
+	public:
+		enum{
+			SERVICE_ID =SERVICE_ID_S6_HTTP
+		};
 	protected:
 		S6HttpService();
 		virtual ~S6HttpService();
