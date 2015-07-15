@@ -33,7 +33,6 @@ namespace core{
 	private:
 		HttpRespond* _yield_coroutine();
 		void _resume_coroutine(HttpRespond* res);
-		bool _parse_ip_port(String* host, char szip[32], int32_t& port);
 	private:
 		int64_t m_header_length;
 		int64_t m_content_length;

@@ -136,13 +136,13 @@ namespace core{
 	HttpRespond* HttpClient::_request(String* szmethod, String* szurl, String* szversion, Hash* header, Bytes* content){
 		// check
 		if(!szmethod || szmethod->empty()){
-			ERROR("HttpClient get failed, szmethod `%s` invalid", szmethod ? szmethod->c_str() : "null");
+			ERROR("HttpClient request failed, szmethod `%s` invalid", szmethod ? szmethod->c_str() : "null");
 			return 0;
 		}
 		// parse url
 		Url* url =SafeNew<Url>();
 		if(!url->parse(szurl)){
-			ERROR("HttpClient get failed, szurl `%s` invalid", szurl ? szurl->c_str() : "null");
+			ERROR("HttpClient request failed, szurl `%s` invalid", szurl ? szurl->c_str() : "null");
 			return 0;
 		}
 		String* protocol =url->getProtocol();
@@ -150,15 +150,15 @@ namespace core{
 		String* path =url->getPath();
 		String* query_string =url->getQueryString();
 		if(protocol && (protocol->is("http")==false)){
-			ERROR("HttpClient get failed, szurl `%s` invalid, protocol is not http", szurl->c_str());
+			ERROR("HttpClient request failed, szurl `%s` invalid, protocol is not http", szurl->c_str());
 			return 0;
 		}
 		if(!host || host->empty()){
-			ERROR("HttpClient get failed, szurl `%s` invalid, missing host", szurl->c_str());
+			ERROR("HttpClient request failed, szurl `%s` invalid, missing host", szurl->c_str());
 			return 0;
 		}
 		if(path && !path->hasPrefix("/")){
-			ERROR("HttpClient get failed, szurl `%s` invalid, invalid path", szurl->c_str());
+			ERROR("HttpClient request failed, szurl `%s` invalid, invalid path", szurl->c_str());
 			return 0;
 		}
 		String* full_path =0;
@@ -239,9 +239,8 @@ namespace core{
 						coder.append("\r\n");
 					}
 					else if(HttpCookie* cookie =dynamic_cast< HttpCookie* >(it->getValue())){
-						if(String* str =cookie->build()){
-							coder.append(str);
-							coder.append("\r\n");
+						if(String* cookie_value =cookie->getValue()){
+							coder.append(String::Format("Cookie: %s=%s\r\n", name->c_str(), cookie_value->c_str()));
 						}
 					}
 				}
@@ -257,12 +256,12 @@ namespace core{
 		//// connect
 		char szip[32] ={0};
 		int32_t port =0;
-		if(!_parse_ip_port(host, szip, port)){
-			ERROR("HttpClient get failed, parse ip:port error");
+		if(!ParseIpPort(host, szip, port)){
+			ERROR("HttpClient request failed, parse ip:port error");
 			return 0;
 		}
 		if(!connect(szip, port)){
-			ERROR("HttpClient get failed, connect error");
+			ERROR("HttpClient request failed, connect error");
 			return 0;
 		}
 
@@ -270,7 +269,7 @@ namespace core{
 		Monitor* monitor =Monitor::Instance();
 		ASSERT(monitor);
 		if(!monitor->monitor(this)){
-			ERROR("HttpClient get failed, monitor error");
+			ERROR("HttpClient request failed, monitor error");
 			return 0;
 		}
 
@@ -281,12 +280,13 @@ namespace core{
 				return res;
 			}
 			else{
-				ERROR("HttpClient get failed, yield error");
+				ERROR("HttpClient request failed, yield error");
 				return 0;
 			}
 		}
 		else{
-			ERROR("HttpClient get failed, send error");
+			ERROR("HttpClient request failed, send error");
+			monitor->demonitor(this);
 			return 0;
 		}
 	}
@@ -320,73 +320,5 @@ namespace core{
 			ASSERT(crp);
 			crp->resume(m_coroutine->getId(), res);
 		}
-	}
-	bool HttpClient::_parse_ip_port(String* host, char szip[32], int32_t& port){
-		// parse ip:port
-		int num[5] ={0};
-		if(5 == sscanf(host->c_str(), "%d.%d.%d.%d:%d", num, num+1, num+2, num+3, num+4)){
-			if((num[0]>=0 && num[0]<=255)
-			&& (num[1]>=0 && num[1]<=255)
-			&& (num[2]>=0 && num[2]<=255)
-			&& (num[3]>=0 && num[3]<=255)
-			&& (num[4]>=0 && num[4]<=65535)){
-				// check
-				char sztmp[64] ={0};
-				sprintf(sztmp, "%d.%d.%d.%d:%d", num[0], num[1], num[2], num[3], num[4]);
-				if(0 != strcmp(sztmp, host->c_str())){
-					ERROR("parse ip:port failed, invalid net addr `%s`", host->c_str());
-					return false;
-				}
-
-				// set
-				sprintf(szip, "%d.%d.%d.%d", num[0], num[1], num[2], num[3]);
-				port =num[4];
-				return true;
-			}
-			else{
-				ERROR("parse ip:port failed, invalid net addr `%s`", host->c_str());
-				return false;
-			}
-		}
-		
-		// prepare hints
-		struct addrinfo hints;
-		memset(&hints, 0, sizeof(struct addrinfo));
-		hints.ai_family = AF_INET;
-		hints.ai_flags = AI_PASSIVE;
-		// hints.ai_protocol = 0;
-		hints.ai_socktype = SOCK_STREAM;
-
-		// get addr info
-		struct addrinfo *res =0;
-		const int e =getaddrinfo(host->c_str(), "http", &hints, &res);
-		if(e == -1){
-			ERROR("parse ip:port failed, getaddrinfo error");
-			return false;
-		}
-		
-		// use first
-		bool ok =false;
-		struct addrinfo* cur =0;
-		for (cur=res; cur; cur=cur->ai_next) {
-			struct sockaddr_in *addr = (struct sockaddr_in *)cur->ai_addr;
-
-			// parse ip
-			if(!inet_ntop(AF_INET, &addr->sin_addr, szip, 16)){
-				ERROR("parse ip:port failed, inet_ntop error");
-				break;
-			}
-
-			// port
-			port =ntohs(addr->sin_port);
-			
-			ok =true;
-			break;
-		}
-
-		// free addr info
-		freeaddrinfo(res);
-
-		return ok;
 	}
 }

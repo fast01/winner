@@ -18,6 +18,42 @@ export {
 				arg ={ "string" },
 				ret ="boolean"
 			},
+			{
+				name ="clean",
+			},
+			{
+				name ="getUrl",
+				ret ='string'
+			},
+			{
+				name ="getProtocol",
+				ret ='string'
+			},
+			{
+				name ="getAuth",
+				ret ='string'
+			},
+			{
+				name ="getHost",
+				ret ='string'
+			},
+			{
+				name ="getPath",
+				ret ='string'
+			},
+			{
+				name ="getQueryString",
+				ret ='string'
+			},
+			{
+				name ="getQuery",
+				arg ={ 'string' },
+				ret ='string',
+			},
+			{
+				name ="getFragment",
+				ret ='string'
+			},
 		}
 	}
 }

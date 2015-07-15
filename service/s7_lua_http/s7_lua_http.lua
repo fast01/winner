@@ -17,6 +17,12 @@ Service.On(
 Service.On(
 	"update",
 	function(now)
+		if done then
+			return
+		end
+		done =true
+		local res =Service.HttpGet("http://www.baidu.com/")
+		print(Core.sprint_table(res or {'empty'}))
 	end	
 )
 Service.On(

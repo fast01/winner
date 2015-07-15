@@ -131,6 +131,7 @@ namespace core{
 	void ApplicationBase::register_lua(){
 		OPH();
 		ProcessLocal* pl =ProcessLocal::Instance();
+		pl->registerLuaInitCallback(HttpClientForLua::RegisterToLua);
 		pl->registerLuaInitCallback(Requestor::RegisterToLua);
 		pl->registerLuaInitCallback(ProtocolBase::RegisterToLua);
 		pl->registerLuaInitCallback(ProtocolManager::RegisterToLua);

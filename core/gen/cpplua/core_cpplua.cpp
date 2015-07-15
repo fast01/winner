@@ -1916,6 +1916,127 @@ class CL_Url{
 		::core::ToLua< boolean_t >(L, ret);
 		return 1;
 	}
+	static int clean(lua_State* L){
+		/* get self */
+		core::Url* self =0;
+		if(!get_object_from_lua< core::Url >(L, 1, self) || !self){
+			ERROR("fail to call %s, self invalid", __FUNCTION__);
+			return 0;
+		}
+		/* get arg */
+		/* call */
+		self->clean();
+		return 0;
+	}
+	static int getUrl(lua_State* L){
+		/* get self */
+		core::Url* self =0;
+		if(!get_object_from_lua< core::Url >(L, 1, self) || !self){
+			ERROR("fail to call %s, self invalid", __FUNCTION__);
+			return 0;
+		}
+		/* get arg */
+		/* call */
+		::core::String* ret =self->getUrl();
+		::core::ToLua< ::core::String* >(L, ret);
+		return 1;
+	}
+	static int getProtocol(lua_State* L){
+		/* get self */
+		core::Url* self =0;
+		if(!get_object_from_lua< core::Url >(L, 1, self) || !self){
+			ERROR("fail to call %s, self invalid", __FUNCTION__);
+			return 0;
+		}
+		/* get arg */
+		/* call */
+		::core::String* ret =self->getProtocol();
+		::core::ToLua< ::core::String* >(L, ret);
+		return 1;
+	}
+	static int getAuth(lua_State* L){
+		/* get self */
+		core::Url* self =0;
+		if(!get_object_from_lua< core::Url >(L, 1, self) || !self){
+			ERROR("fail to call %s, self invalid", __FUNCTION__);
+			return 0;
+		}
+		/* get arg */
+		/* call */
+		::core::String* ret =self->getAuth();
+		::core::ToLua< ::core::String* >(L, ret);
+		return 1;
+	}
+	static int getHost(lua_State* L){
+		/* get self */
+		core::Url* self =0;
+		if(!get_object_from_lua< core::Url >(L, 1, self) || !self){
+			ERROR("fail to call %s, self invalid", __FUNCTION__);
+			return 0;
+		}
+		/* get arg */
+		/* call */
+		::core::String* ret =self->getHost();
+		::core::ToLua< ::core::String* >(L, ret);
+		return 1;
+	}
+	static int getPath(lua_State* L){
+		/* get self */
+		core::Url* self =0;
+		if(!get_object_from_lua< core::Url >(L, 1, self) || !self){
+			ERROR("fail to call %s, self invalid", __FUNCTION__);
+			return 0;
+		}
+		/* get arg */
+		/* call */
+		::core::String* ret =self->getPath();
+		::core::ToLua< ::core::String* >(L, ret);
+		return 1;
+	}
+	static int getQueryString(lua_State* L){
+		/* get self */
+		core::Url* self =0;
+		if(!get_object_from_lua< core::Url >(L, 1, self) || !self){
+			ERROR("fail to call %s, self invalid", __FUNCTION__);
+			return 0;
+		}
+		/* get arg */
+		/* call */
+		::core::String* ret =self->getQueryString();
+		::core::ToLua< ::core::String* >(L, ret);
+		return 1;
+	}
+	static int getQuery(lua_State* L){
+		/* get self */
+		core::Url* self =0;
+		if(!get_object_from_lua< core::Url >(L, 1, self) || !self){
+			ERROR("fail to call %s, self invalid", __FUNCTION__);
+			return 0;
+		}
+		/* get arg */
+		::core::String* a1;
+		if(!::core::FromLua< ::core::String* >(L, 2, a1)){
+			ERROR("fail to call a1, arg %s invalid", __FUNCTION__);
+			return 0;
+		}
+		/* call */
+		::core::String* ret =self->getQuery(a1);
+		::core::ToLua< ::core::String* >(L, ret);
+		return 1;
+	}
+	static int getFragment(lua_State* L){
+		/* get self */
+		core::Url* self =0;
+		if(!get_object_from_lua< core::Url >(L, 1, self) || !self){
+			ERROR("fail to call %s, self invalid", __FUNCTION__);
+			return 0;
+		}
+		/* get arg */
+		/* call */
+		::core::String* ret =self->getFragment();
+		::core::ToLua< ::core::String* >(L, ret);
+		return 1;
+	}
 public:
 	static int GC(lua_State*L){
 		core::Url* self =0;
@@ -1949,6 +2070,33 @@ public:
 
 		lua_pushcfunction(L, CL_Url::parse);
 		lua_setfield(L, -2, "parse");
+
+		lua_pushcfunction(L, CL_Url::clean);
+		lua_setfield(L, -2, "clean");
+
+		lua_pushcfunction(L, CL_Url::getUrl);
+		lua_setfield(L, -2, "getUrl");
+
+		lua_pushcfunction(L, CL_Url::getProtocol);
+		lua_setfield(L, -2, "getProtocol");
+
+		lua_pushcfunction(L, CL_Url::getAuth);
+		lua_setfield(L, -2, "getAuth");
+
+		lua_pushcfunction(L, CL_Url::getHost);
+		lua_setfield(L, -2, "getHost");
+
+		lua_pushcfunction(L, CL_Url::getPath);
+		lua_setfield(L, -2, "getPath");
+
+		lua_pushcfunction(L, CL_Url::getQueryString);
+		lua_setfield(L, -2, "getQueryString");
+
+		lua_pushcfunction(L, CL_Url::getQuery);
+		lua_setfield(L, -2, "getQuery");
+
+		lua_pushcfunction(L, CL_Url::getFragment);
+		lua_setfield(L, -2, "getFragment");
 
 		lua_pushcfunction(L, CL_Url::GC);
 		lua_setfield(L, -2, "__gc");

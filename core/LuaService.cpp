@@ -12,7 +12,11 @@ namespace core{
 	LuaService::~LuaService(){
 	}
 
-	/* Service */
+	/** self **/
+	lua_State* LuaService::getLuaState(){
+		return m_L;
+	}
+	/** Service **/
 	bool LuaService::load_module(const int64_t id, const char* path){
 		if(!Super::load_module(id, path)) return false;
 		if(!path) return false;
@@ -219,7 +223,11 @@ namespace core{
 		}
 		
 		//// push request
-		lua_createtable(m_L, 0, 10);
+		lua_createtable(m_L, 0, 12);
+		
+		// type
+		lua_pushstring(m_L, "request");
+		lua_setfield(m_L, -2, "type");
 		
 		// requestor
 		if(!push_object_to_lua< Requestor >(m_L, requestor)){

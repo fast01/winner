@@ -6,6 +6,7 @@ local pairs =pairs
 local print =print
 local require =require
 local assert =assert
+local tostring =tostring
 local table =table
 local coroutine =coroutine
 local math =math
@@ -14,6 +15,40 @@ local _G =_G
 local setmetatable =setmetatable
 local getmetatable =getmetatable
 module "Core"
+
+--
+-- helper
+--
+local function cr_create(...)
+	return coroutine.create(...)
+end
+local function cr_running()
+	return coroutine.running()
+end
+local function cr_status(cr)
+	return coroutine.status(cr)
+end
+local function cr_resume(cr, ...)
+	--print(sprintf("resume[%s]: %s", cr_status(cr), tostring(cr)))
+	return coroutine.resume(cr, ...)
+end
+local function cr_yield(...)
+	local cr =cr_running()
+	--print(sprintf("yield[%s]: %s", cr_status(cr), tostring(cr)))
+	return coroutine.yield(...)
+end
+
+do
+--[[
+	local cr =cr_create(function()
+		cr_yield(cr_running())
+	end)
+	print 'AAAAAAAAAA'
+	cr_resume(cr)
+	cr_resume(cr)
+	print 'BBBBBBBBBBB'
+]]
+end
 
 --
 -- global var
@@ -46,13 +81,13 @@ end
 local MISSION_TTL     =30 -- 30 secs
 local function do_mission(func, arg)
 	assert(is_function(func), "do mission failed, invalid arg");
-	local cr =coroutine.create(function()
+	local cr =cr_create(function()
 		local state, err =pcall(func, arg)
-		if not state then
+		if err then
 			ERROR(err)
 		end
 	end);
-	local state, err =coroutine.resume(cr)
+	local state, err =cr_resume(cr)
 	assert(state, err)
 end
 
@@ -120,7 +155,7 @@ local function sleep(t)
 	end
 
 	-- prepare coroutine
-	local cr =coroutine.running()
+	local cr =cr_running()
 	assert(cr, "sleep failed, in main thread")
 
 	-- make sleeper
@@ -132,7 +167,7 @@ local function sleep(t)
 	_sleeper_table[_sleeper_id] =sleeper
 
 	-- sleep
-	local result =coroutine.yield()
+	local result =cr_yield()
 	if result and result.errcode == ErrorCode.OK then
 		return true
 	else
@@ -148,7 +183,14 @@ local function update_sleeper(now)
 		end
 	end
 	for i=1, #ls do
-		coroutine.resume(ls[i].cr, { errcode =ErrorCode.OK })
+		local sleeper =ls[i]
+		if cr_status(sleeper.cr) == 'dead' then
+			_sleeper_table[sleeper.id] =nil
+			ERROR("wtf: sleeper %d is dead", sleeper.id)
+		else
+			local state, err =cr_resume(sleeper.cr, { errcode =ErrorCode.OK })
+			assert(state, err)
+		end
 	end
 end
 
@@ -172,7 +214,7 @@ local function do_command(cmd_desc, requestor, packet, body, request)
 		task ={
 			who =who,
 			queue ={},
-			cr =coroutine.create(function()
+			cr =cr_create(function()
 				local queue =task.queue
 				while true do
 					local mission =queue[1]
@@ -184,7 +226,7 @@ local function do_command(cmd_desc, requestor, packet, body, request)
 					table.remove(queue, 1)
 					if #queue == 0 then
 						task.quit_time =stable_now() + TASK_IDLE_TIMER
-						local quit =coroutine.yield()
+						local quit =cr_yield()
 						if quit then
 							DEBUG("task go die")
 							break
@@ -215,7 +257,7 @@ local function do_command(cmd_desc, requestor, packet, body, request)
 
 	-- exec
 	if #task.queue == 1 then
-		local state, err =coroutine.resume(task.cr)
+		local state, err =cr_resume(task.cr)
 		assert(state, err)
 	end
 	return true
@@ -228,8 +270,14 @@ local function update_task(now)
 		end
 	end
 	for i=1, #ls do
-		local state, err =coroutine.resume(ls[i].cr, true)
-		assert(state, err)
+		local task =ls[i]
+		if cr_status(task.cr) == 'dead' then
+			_task_table[task.id] =nil
+			ERROR("wtf: task %d is dead", task.id)
+		else
+			local state, err =cr_resume(task.cr, true)
+			assert(state, err)
+		end
 	end
 end
 
@@ -241,7 +289,7 @@ local _rpc_id =0
 local _rpc_table ={}
 local function do_rpc(packet, msg, respond_protocol_group_id, force_bytes)
 	-- check
-	local cr =coroutine.running()
+	local cr =cr_running()
 	assert(cr, "do rpc faield, in main thread")
 	-- new rpc
 	_rpc_id =_rpc_id + 1
@@ -276,7 +324,7 @@ local function do_rpc(packet, msg, respond_protocol_group_id, force_bytes)
 	-- set rpc
 	_rpc_table[sn] =rpc
 	-- wait
-	local res_packet, res_body, res_object =coroutine.yield()
+	local res_packet, res_body, res_object =cr_yield()
 	_rpc_table[sn] =nil
 	if not res_packet then
 		local e =sprintf("do rpc failed [yield], %s", res_body or "")
@@ -301,7 +349,11 @@ local function do_resume_rpc(packet, body, object)
 		WARN("do resume rpc failed, rpc %d not found", packet.sn)
 		return
 	end
-	local state, err =coroutine.resume(rpc.cr, packet, body, object)
+	if cr_status(rpc.cr) == 'dead' then
+		WARN("do resume rpc failed, rpc %d is dead", packet.sn)
+		return
+	end	
+	local state, err =cr_resume(rpc.cr, packet, body, object)
 	assert(state, err)
 end
 local function update_rpc(now)
@@ -312,8 +364,14 @@ local function update_rpc(now)
 		end
 	end
 	for i=1, #ls do
-		local state, err =coroutine.resume(ls[i].cr, nil, "timeout")
-		assert(state, err)
+		local rpc =ls[i]
+		if cr_status(rpc.cr) == 'dead' then
+			_rpc_table[rpc.id] =nil
+			ERROR("wtf: rpc %d is dead", rpc.id)
+		else
+			local state, err =cr_resume(rpc.cr, nil, "timeout")
+			assert(state, err)
+		end
 	end
 end
 
@@ -322,7 +380,7 @@ end
 --
 local function do_notify(packet, msg)
 	-- check
-	local cr =coroutine.running()
+	local cr =cr_running()
 	assert(cr, "do notify faield, in main thread")
 	-- encode
 	local body, err =ProtocolManager.Encode(get_protocol_group_id(), packet.command, msg, true)
@@ -362,8 +420,11 @@ end
 --
 -- http
 --
-local g_http_event_root
-local g_http_event_map ={
+local HTTP_RPC_TTL =30
+local _http_rpc_id =0
+local _http_rpc_table ={}
+local _http_event_root
+local _http_event_map ={
 	get ={},
 	post ={}
 }
@@ -386,19 +447,19 @@ local function on_http_event(method, path, func)
 		ERROR("set http event failed, path `%s` is empty", path)
 		return
 	end
-	if not method or not g_http_event_map[method] then
+	if not method or not _http_event_map[method] then
 		ERROR("set http event failed, method `%s` is invalid, must be get or post", method or 'nil')
 		return
 	end
 
 	-- special for root
 	if path == '/' then
-		g_http_event_root =func
+		_http_event_root =func
 		return
 	end
 
 	-- for others
-	local tb =g_http_event_map[method]
+	local tb =_http_event_map[method]
 	local ls =string_split(path, '/', true)
 	for i=1, #ls-1 do
 		local n =ls[i]
@@ -490,7 +551,7 @@ local function process_http_request(request)
 	local method =request.method
 	assert(is_string(method))
 	method =string.lower(method)
-	assert(g_http_event_map[method])
+	assert(_http_event_map[method])
 
 	print(path)
 	-- new respond
@@ -517,7 +578,7 @@ local function process_http_request(request)
 	request.requestor =nil
 
 	-- dispatch
-	local tb =g_http_event_map[method]
+	local tb =_http_event_map[method]
 	local ls =string_split(path, '/', true)
 	for i=1, #ls do
 		local n =ls[i]
@@ -536,14 +597,161 @@ local function process_http_request(request)
 	end
 
 	-- default
-	if g_http_event_root then
-		g_http_event_root(request, respond)
+	if _http_event_root then
+		_http_event_root(request, respond)
 		respond:flush()
 		return true
 	else
 		ERROR("process http request failed, path `%s` not config", path)
 		return nil, sprintf("path `%s` not config", path)
 	end
+end
+local function do_resume_http_rpc(respond, err)
+	if not respond then
+		WARN("do resume http rpc failed, respond is null")
+		return
+	end
+	local rpc =_http_rpc_table[respond.rpc_id]
+	if not rpc then
+		WARN("do resume http rpc failed, rpc %d not found", respond.rpc_id)
+		return
+	end
+	if cr_status(rpc.cr) == 'dead' then
+		WARN("do resume http rpc failed, rpc %d is dead", respond.rpc_id)
+		return
+	end
+	local state, err =cr_resume(rpc.cr, respond)
+	assert(state, err)
+end
+local function update_http_rpc(now)
+	local ls ={}
+	for k, v in pairs(_http_rpc_table) do
+		if now >= v.expire_time then
+			table.insert(ls, v)
+		end
+	end
+	for i=1, #ls do
+		local rpc =ls[i]
+		if cr_status(rpc.cr) == 'dead' then
+			_http_rpc_table[rpc.id] =nil
+			ERROR("wtf: rpc %d is dead", rpc.id)
+		else
+			local state, err =cr_resume(rpc.cr, nil, "timeout")
+			assert(state, err)
+		end
+	end
+end
+local function http_request(desc)
+	assert(desc.method and desc.url)
+	local header =desc.header
+	local content =desc.content
+
+	-- prepare coroutine
+	local cr =cr_running()
+	assert(cr, "http request failed, in main thread")
+
+	---- parse url
+	local url =Url.New()
+	if not url:parse(desc.url) then
+		return nil, sprintf("parse url `%s` error", desc.url)
+	end
+	local full_path
+	if url:getPath() then
+		full_path =url:getPath()
+	else
+		full_path ='/'
+	end
+	if url:getQueryString() then
+		full_path =full_path .. '?' .. url:getQueryString()
+	end
+
+	---- build
+	local str =''
+	--- head line
+	str =sprintf('%s %s %s\r\n', desc.method, full_path, desc.version or 'HTTP/1.1')
+
+	--- header
+	if (not header or not header['Content-Type']) and content then
+		str =str .. "Content-Type: text/html\r\n"
+	end
+	if (not header or not header['Content-Length']) and content then
+		str =str .. sprintf("Content-Length: %d\r\n", #content)
+	end
+	if not header or not header['Accept-Language'] then
+		str =str .. 'Accept-Language: en-US,en;q=0.5\r\n'
+	end
+	if not header or not header['Cache-Control'] then
+		str =str .. 'Cache-Control: max-age=0\r\n'
+	end
+	if not header or not header['Connection'] then
+		str =str .. 'Connection: keep-alive\r\n'
+	end
+	if not header or not header['User-Agent'] then
+		str =str .. 'User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:38.0) Gecko/20100101 Firefox/38.0\r\n'
+	end
+	if not header or not header['Host'] then
+		str =str .. sprintf('Host: %s\r\n', url:getHost())
+	end
+	if header then
+		for k, v in pairs(header) do
+			if is_string(k) then
+				if is_string(v) then
+					str =str .. sprintf("%s: %s\r\n", k, v)
+				elseif is_table(v) then
+					if is_string(v.value) then
+						str =str .. sprintf('Cookie: %s=%s', k, v.value)
+					end
+				end
+			end
+		end
+	end
+	str =str .. '\r\n'
+
+	---- content
+	if content then
+		str =str .. content
+	end
+	
+	---- send
+	_http_rpc_id =_http_rpc_id + 1
+	local ok, err =HttpClient.Send(url:getHost(), str, _http_rpc_id)
+	if ok then
+		_http_rpc_table[_http_rpc_id] ={
+			cr =cr,
+			id =_http_rpc_id,
+			url =desc.url,
+			data =str,
+			expire_time =stable_now() + HTTP_RPC_TTL
+		};
+		local res, err =cr_yield()
+		if res then
+			_http_rpc_table[res.rpc_id] =nil
+			return res
+		else
+			ERROR(err or 'unknown tcp send error')
+			return nil, err
+		end
+	else 
+		ERROR(err or 'unknown tcp send error')
+		return nil, err
+	end
+end
+local function http_get(url)
+	return http_request({ method ="GET", url =url })
+end
+local function http_post(url, header, param)
+	---- parse content
+	local content
+	if param then
+		content =''
+		for k, v in pairs(param) do
+			if #content > 0 then
+				content =content .. '&'
+			end
+			content =content .. sprintf("%s=%s", UrlEncode.Encode(k), UrlEncode.Encode(v))
+		end
+	end
+	return http_request({ method ="POST", url =url, header =header, content =content })
 end
 
 --
@@ -590,6 +798,7 @@ local function do_update(now)
 	update_sleeper(now)
 	update_task(now)
 	update_rpc(now)
+	update_http_rpc(now)
 
 	local fn =_event_tb.update
 	if is_function(fn) then
@@ -605,8 +814,14 @@ local function do_logic_message(requestor, packet, body, object)
 		ERROR("wtf")
 	end
 end
-local function do_http_message(request)
-	do_mission(process_http_request, request)
+local function do_http_message(request, ...)
+	if request.type == 'request' then
+		do_mission(process_http_request, request, ...)
+	elseif request.type == 'respond' then
+		do_resume_http_rpc(request, ...)
+	else
+		ERROR("process http message failed, wtf")
+	end
 end
 local function do_unload()
 	local fn =_event_tb.unload
@@ -650,6 +865,11 @@ Service ={
 	-- reply
 	Reply =do_reply,
 	ReplyEasy =do_reply_easy,
+
+	-- http
+	HttpGet =http_get,
+	HttpPost =http_post,
+	HttpRequest =http_request,
 
 	-- Debug
 	Debug =function()

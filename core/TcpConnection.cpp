@@ -300,6 +300,75 @@ namespace core{
 	void TcpConnection::onError(){
 		_clean();
 	}
+	/** helper **/
+	bool TcpConnection::ParseIpPort(String* host, char szip[32], int32_t& port){
+		// parse ip:port
+		int num[5] ={0};
+		if(5 == sscanf(host->c_str(), "%d.%d.%d.%d:%d", num, num+1, num+2, num+3, num+4)){
+			if((num[0]>=0 && num[0]<=255)
+			&& (num[1]>=0 && num[1]<=255)
+			&& (num[2]>=0 && num[2]<=255)
+			&& (num[3]>=0 && num[3]<=255)
+			&& (num[4]>=0 && num[4]<=65535)){
+				// check
+				char sztmp[64] ={0};
+				sprintf(sztmp, "%d.%d.%d.%d:%d", num[0], num[1], num[2], num[3], num[4]);
+				if(0 != strcmp(sztmp, host->c_str())){
+					ERROR("parse ip:port failed, invalid net addr `%s`", host->c_str());
+					return false;
+				}
+
+				// set
+				sprintf(szip, "%d.%d.%d.%d", num[0], num[1], num[2], num[3]);
+				port =num[4];
+				return true;
+			}
+			else{
+				ERROR("parse ip:port failed, invalid net addr `%s`", host->c_str());
+				return false;
+			}
+		}
+		
+		// prepare hints
+		struct addrinfo hints;
+		memset(&hints, 0, sizeof(struct addrinfo));
+		hints.ai_family = AF_INET;
+		hints.ai_flags = AI_PASSIVE;
+		// hints.ai_protocol = 0;
+		hints.ai_socktype = SOCK_STREAM;
+
+		// get addr info
+		struct addrinfo *res =0;
+		const int e =getaddrinfo(host->c_str(), "http", &hints, &res);
+		if(e == -1){
+			ERROR("parse ip:port failed, getaddrinfo error");
+			return false;
+		}
+		
+		// use first
+		bool ok =false;
+		struct addrinfo* cur =0;
+		for (cur=res; cur; cur=cur->ai_next) {
+			struct sockaddr_in *addr = (struct sockaddr_in *)cur->ai_addr;
+
+			// parse ip
+			if(!inet_ntop(AF_INET, &addr->sin_addr, szip, 16)){
+				ERROR("parse ip:port failed, inet_ntop error");
+				break;
+			}
+
+			// port
+			port =ntohs(addr->sin_port);
+			
+			ok =true;
+			break;
+		}
+
+		// free addr info
+		freeaddrinfo(res);
+
+		return ok;
+	}
 	/** private **/
 	int64_t TcpConnection::on_auth(char* data, const int64_t s){
 		setAuthed();

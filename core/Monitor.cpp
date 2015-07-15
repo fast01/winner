@@ -153,8 +153,8 @@ namespace core{
 		if(!target || !target->canMonitor()){
 			return false;
 		}
-		if(!m_target_tb){
-			WARN("monitor already closed");
+		if(m_close_flag){
+			WARN("monitor already cleaned");
 			return false;
 		}
 		if(m_target_tb->has(target)){
@@ -193,6 +193,10 @@ namespace core{
 		if(!target){
 			return;
 		}
+		if(m_close_flag){
+			WARN("monitor already cleaned");
+			return;
+		}
 		ASSERT(this == Monitor::Instance());
 		if(!_check_epoll()){
 			return;
@@ -202,6 +206,10 @@ namespace core{
 	}
 	/** event op **/
 	bool Monitor::attachEvent(const int fd, const int64_t events, MonitorTarget* target){
+		if(m_close_flag){
+			WARN("monitor already cleaned");
+			return false;
+		}
 		if(fd==INVALID_FD || !events || !target || !_check_epoll()){
 			return false;
 		}
@@ -251,6 +259,10 @@ namespace core{
 		if(fd==INVALID_FD || !events || !target || !_check_epoll()){
 			return false;
 		}
+		if(m_close_flag){
+			WARN("monitor already cleaned");
+			return false;
+		}
 		// prepare data
 		bool already_set;
 		Array* data =_make_fd_data(fd, events, target, already_set);
@@ -296,12 +308,11 @@ namespace core{
 		if(fd==INVALID_FD || !_check_epoll()){
 			return;
 		}
+		if(m_close_flag){
+			WARN("monitor already cleaned");
+			return;
+		}
 		m_fd_tb->remove(fd);
-
-		// log
-		// printf("detach rm\n");
-		// end
-
 		if(0 != epoll_ctl(m_epoll_fd, EPOLL_CTL_DEL, fd, 0)){
 			if(get_last_error() == ENOENT){
 				return;

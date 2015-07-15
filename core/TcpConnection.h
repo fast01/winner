@@ -83,6 +83,8 @@ namespace core{
 		bool onRecv();
 		bool onSend();
 		void onError();
+	public:
+		static bool ParseIpPort(String* host, char szip[32], int32_t& port);
 	protected:
 		virtual int64_t on_auth(char* data, const int64_t s);
 		virtual int64_t on_recv(char* data, const int64_t s);

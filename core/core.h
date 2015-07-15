@@ -207,6 +207,7 @@ typedef SpinLock DEFAULT_LOCK_TYPE;
 #include "HttpRequest.h"
 #include "HttpRespond.h"
 #include "HttpClient.h"
+#include "HttpClientForLua.h"
 #include "HttpConnection.h"
 #include "HttpListener.h"
 #include "HttpService.h"

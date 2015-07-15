@@ -12,6 +12,8 @@ namespace core{
 	private:
 		LuaService();
 		virtual ~LuaService();
+	public:
+		lua_State* getLuaState();
 	protected:
 		virtual bool load_module(const int64_t id, const char* path);
 		virtual void unload_module();
