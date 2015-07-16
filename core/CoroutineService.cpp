@@ -172,6 +172,7 @@ namespace core{
 		packet.to =to;
 		packet.who =who;
 		packet.sn =rpc_id;
+		packet.sub_sn =0;
 		packet.command =cmd;
 		packet.option =0;
 

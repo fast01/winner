@@ -11,7 +11,6 @@ namespace core{
 		, m_coroutine_id(cr_id)
 		, m_rpc_id(0)
 		, m_coroutine_service(0){
-		ASSERT(m_coroutine_service);
 	}
 	CoroutineRpcInfo::~CoroutineRpcInfo(){
 	}

@@ -35,6 +35,7 @@ Packet.RequestToRespond =function(packet, res_command)
 		from =packet.to,
 		to =packet.from,
 		sn =packet.sn,
+		sub_sn =packet.sub_sn,
 		who =packet.who,
 		command =res_command,
 		option =Packet.OPT_RESPOND

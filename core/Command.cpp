@@ -147,6 +147,7 @@ namespace core{
 				res_packet.to      =m_packet.from;
 				res_packet.who     =m_packet.who;
 				res_packet.sn      =m_packet.sn;
+				res_packet.sub_sn  =m_packet.sub_sn;
 				res_packet.command =res_cmd;
 				res_packet.option  =static_cast<uint64_t>(OPT_BODY_IS_OBJECT_POINTER);
 				// reply
@@ -173,6 +174,7 @@ namespace core{
 		res_packet.to      =m_packet.from;
 		res_packet.who     =m_packet.who;
 		res_packet.sn      =m_packet.sn;
+		res_packet.sub_sn  =m_packet.sub_sn;
 		res_packet.command =res_cmd;
 		res_packet.option  =0;
 		// reply
