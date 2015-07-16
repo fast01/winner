@@ -129,7 +129,7 @@ namespace core{
 		}
 		// set sn & sub sn
 		packet.sn =m_sn;
-		packet.sub_sn =static_cast<uint64_t>(m_state_array->size() + 1);
+		packet.sub_sn =static_cast<uint64_t>(m_state_array->size());
 
 		ASSERT(dynamic_cast< CallbackService* >(Service::Current()));
 
