@@ -26,9 +26,11 @@ namespace core{
 		DECLARE_PROPERTY(String*, Domain)
 		DECLARE_PROPERTY(String*, Path)
 		DECLARE_PROPERTY(int64_t, MaxAge)
+		DECLARE_PROPERTY(String*, ExpireTime)
 		DECLARE_PROPERTY(bool, Secure)
+		DECLARE_PROPERTY(bool, HttpOnly)
 	public:
-		String* build();
+		String* build(const bool client);
 	public:
 		static HttpCookie* Parse(const char* str);
 	};

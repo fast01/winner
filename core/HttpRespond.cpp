@@ -182,7 +182,7 @@ namespace core{
 		while(it->next()){
 			if(dynamic_cast< String* >(it->getKey())){
 				if(HttpCookie* cookie =dynamic_cast< HttpCookie* >(it->getValue())){
-					if(String* str =cookie->build()){
+					if(String* str =cookie->build(false)){
 						coder.append(str);
 						coder.append("\r\n");
 					}
@@ -284,9 +284,10 @@ namespace core{
 					}
 					respond->setHeader(header_name, header_value);
 				}
-				else if(header_name->is("Cookie")){
+				else if(header_name->is("Set-Cookie")){
+					puts(header_value->c_str());
 					if(HttpCookie* cookie =HttpCookie::Parse(header_value->c_str())){
-						respond->setCookie(header_name, cookie);
+						respond->setCookie(cookie->getName(), cookie);
 					}
 					else{
 						return 0;

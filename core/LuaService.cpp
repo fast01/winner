@@ -369,7 +369,7 @@ namespace core{
 
 		// on message
 		lua_getglobal(m_L, "on_logic_message");
-		if(lua_isfunction(m_L, -1)){
+		if(!lua_isfunction(m_L, -1)){
 			ERROR("lua service process logic request failed, on_logic_message is not a lua function");
 			return;
 		}

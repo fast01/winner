@@ -12,7 +12,9 @@ namespace core{
 		, m_Domain(0)
 		, m_Path(0)
 		, m_MaxAge(0)
-		, m_Secure(false){
+		, m_ExpireTime(0)
+		, m_Secure(false)
+		, m_HttpOnly(false){
 	}
 	HttpCookie::~HttpCookie(){
 	}
@@ -26,6 +28,7 @@ namespace core{
 		CLEAN_POINTER(m_Value);
 		CLEAN_POINTER(m_Domain);
 		CLEAN_POINTER(m_Path);
+		CLEAN_POINTER(m_ExpireTime);
 		Super::finalize();
 	}
 	/** SELF **/
@@ -34,42 +37,62 @@ namespace core{
 	DEFINE_PROPERTY_P(HttpCookie, String*, Domain)
 	DEFINE_PROPERTY_P(HttpCookie, String*, Path)
 	DEFINE_PROPERTY(HttpCookie, int64_t, MaxAge)
+	DEFINE_PROPERTY_P(HttpCookie, String*, ExpireTime)
 	DEFINE_PROPERTY(HttpCookie, bool, Secure)
+	DEFINE_PROPERTY(HttpCookie, bool, HttpOnly)
 
-	String* HttpCookie::build(){
+	String* HttpCookie::build(const bool client){
 		if(!m_Name || m_Name->empty() || !m_Value || m_Value->empty()){
 			WARN("build cookie failed, name or value is invalid");
 			return 0;
 		}
 		BinaryCoder<1024> coder;
-		coder.append("Set-Cookie: ", 12);
+		if(client){
+			coder.append("Cookie: ", 8);
+		}
+		else{
+			coder.append("Set-Cookie: ", 12);
+		}
 
 		// name = value
-		coder.append(UrlEncode::Encode(m_Name));
+		coder.append(m_Name);
 		coder.append("=", 1);
-		coder.append(UrlEncode::Encode(m_Value));
+		coder.append(m_Value);
 
-		// domain
-		if(m_Domain){
-			coder.append(";Domain=", 8);
-			coder.append(UrlEncode::Encode(m_Domain));
-		}
+		if(!client){
+			// domain
+			if(m_Domain){
+				coder.append("; domain=", 9);
+				coder.append(m_Domain);
+			}
 
-		// path
-		if(m_Domain){
-			coder.append(";Path=", 6);
-			coder.append(UrlEncode::Encode(m_Path));
-		}
+			// path
+			if(m_Domain){
+				coder.append("; path=", 7);
+				coder.append(m_Path);
+			}
 
-		// secure
-		if(m_Secure){
-			coder.append(";Secure", 7);
-		}
+			// secure
+			if(m_Secure){
+				coder.append("; secure", 8);
+			}
 
-		// max age
-		if(m_MaxAge > 0){
-			coder.append(";Max-Age=", 9);
-			coder.append(String::Format("%lld", (long long)m_MaxAge));
+			// HttpOnly
+			if(m_HttpOnly){
+				coder.append("; HttpOnly", 10);
+			}
+
+			// max age
+			if(m_MaxAge > 0){
+				coder.append("; max-age=", 10);
+				coder.append(String::Format("%lld", (long long)m_MaxAge));
+			}
+
+			// expires
+			if(m_ExpireTime){
+				coder.append("; expires=", 10);
+				coder.append(m_ExpireTime);
+			}
 		}
 		return String::New(coder.c_str(), coder.size());
 	}
@@ -78,31 +101,70 @@ namespace core{
 		if(!str){
 			return false;
 		}
-		if(strchr(str, '&')){
-			WARN("invalid cookie format:%s", str);
+		// separate tokens
+		Array* ls =String::New(str)->split(";");
+		if(!ls){
+			ERROR("invalid cookie `%s` syntax", str);
 			return 0;
 		}
-		const char* cursor =strchr(str, '=');
-		if(cursor==0 || cursor==str){
-			WARN("invalid cookie format:%s", str);
-			return 0;
+		const int64_t count =ls->size();
+		for(int64_t i=0; i<count; ++i){
+			String* token =static_cast< String* >(ls->get(i));
+			ls->set(i, token->trim());
 		}
-		// name
-		String* name =String::New(str, cursor-str);
-		name =UrlEncode::Decode(name);
 
-		// value
-		String* value =String::New(cursor+1);
-		value =UrlEncode::Decode(value);
+		// parse
+		HttpCookie* cookie =SafeNew<HttpCookie>();
 
-		if(name && value){
-			HttpCookie* cookie =SafeNew<HttpCookie>();
-			cookie->setName(name);
-			cookie->setValue(value);
-			return cookie;
+		// name=value
+		if(String* token =static_cast< String* >(ls->get(0))){
+			const int64_t idx =token->indexOf("=");
+			if(idx < 0){
+				ERROR("invalid cookie `%s` syntax", str);
+				return 0;
+			}
+			cookie->setName(token->subString(0, idx));
+			cookie->setValue(token->subString(idx+1, -1));
 		}
-		else{
-			return 0;
+
+		// others
+		for(int64_t i=1; i<count; ++i){
+			String* token =static_cast< String* >(ls->get(i));
+			const char* token_str =token->c_str();
+			if(0 == strcasecmp(token_str, "secure")){
+				cookie->setSecure(true);
+			}
+			else if(0==strcasecmp(token_str, "HttpOnly") || 0==strcasecmp(token_str, "http-only")){
+				cookie->setHttpOnly(true);
+			}
+			else{
+				const int64_t idx =token->indexOf("=");
+				if(idx < 0){
+					ERROR("invalid cookie `%s` syntax", str);
+					return 0;
+				}
+				String* k =token->subString(0, idx);
+				String* v =token->subString(idx+1, -1);
+				const char* k_str =k->c_str();
+				if(0 == strcasecmp(k_str, "max-age")){
+					int64_t max_age =0;
+					if(!FromString<int64_t>(v, max_age)){
+						ERROR("invalid cookie `%s` syntax", str);
+						return 0;
+					}
+					cookie->setMaxAge(max_age);
+				}
+				else if(0 == strcasecmp(k_str, "path")){
+					cookie->setPath(v);
+				}
+				else if(0 == strcasecmp(k_str, "domain")){
+					cookie->setDomain(v);
+				}
+				else if(0 == strcasecmp(k_str, "expires")){
+					cookie->setExpireTime(v);
+				}
+			}
 		}
+		return cookie;
 	}
 }

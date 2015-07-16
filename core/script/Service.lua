@@ -83,7 +83,7 @@ local function do_mission(func, arg)
 	assert(is_function(func), "do mission failed, invalid arg");
 	local cr =cr_create(function()
 		local state, err =pcall(func, arg)
-		if err then
+		if not state then
 			ERROR(err)
 		end
 	end);
@@ -553,7 +553,6 @@ local function process_http_request(request)
 	method =string.lower(method)
 	assert(_http_event_map[method])
 
-	print(path)
 	-- new respond
 	local respond ={
 		requestor =request.requestor,

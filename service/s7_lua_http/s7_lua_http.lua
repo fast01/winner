@@ -17,12 +17,6 @@ Service.On(
 Service.On(
 	"update",
 	function(now)
-		if done then
-			return
-		end
-		done =true
-		local res =Service.HttpGet("http://www.baidu.com/")
-		print(Core.sprint_table(res or {'empty'}))
 	end	
 )
 Service.On(
@@ -32,6 +26,11 @@ Service.On(
 	end	
 )
 Service.On('get', '/', function(request, respond)
+	-- http rpc
+	local res =Service.HttpGet("http://www.baidu.com/")
+	print(Core.sprint_table(res or {'empty'}))
+
+	-- respond
 	respond:write([[
 	<html>
 		<head>

@@ -62,6 +62,7 @@ namespace core{
 				i+=2;
 			}
 			else{
+					puts(code);
 				ERROR("invalid url code");
 				return 0;
 			}
