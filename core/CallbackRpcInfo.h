@@ -12,6 +12,7 @@ namespace core{
 	public:
 		typedef int64_t (*PFN_CALLBACK)(Object* param, Object* context);
 	protected:
+		CallbackRpcInfo(const int64_t group_id);
 		CallbackRpcInfo(const int64_t group_id, Object* context);
 		CallbackRpcInfo(const int64_t group_id, Object* context, PFN_CALLBACK callback);
 		virtual ~CallbackRpcInfo();

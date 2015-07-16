@@ -6,6 +6,11 @@
 namespace core{
 	/*** impl CallbackRpcInfo ***/
 	/** ctor & dtor **/
+	CallbackRpcInfo::CallbackRpcInfo(const int64_t group_id)
+		: m_protocol_group_id(group_id)
+		, m_context(0)
+		, m_callback(0){
+	}
 	CallbackRpcInfo::CallbackRpcInfo(const int64_t group_id, Object* context)
 		: m_protocol_group_id(group_id)
 		, m_context(context)
