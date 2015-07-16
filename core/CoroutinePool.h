@@ -27,10 +27,11 @@ namespace core{
 		ucontext_t* getMainContext();
 		bool isCleaning();
 	public:
-		int64_t resume(const int64_t id, Object* param);
+		void update(const int64_t now);
+		int64_t resume(const int64_t id, Object* param, const int64_t sign);
 		int64_t go(Coroutine::PFN_COROUTINE_TASK pfn, Object* arg, int64_t& cr_id);
 	private:
-		int64_t _resume(Coroutine* cr, Object* param);
+		int64_t _resume(Coroutine* cr, Object* param, const int64_t sign);
 		Coroutine* _prepare_coroutine(Coroutine::PFN_COROUTINE_TASK pfn, Object* arg);
 	private:
 		char m_main_stack[MAIN_STACK_SIZE];

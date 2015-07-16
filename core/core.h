@@ -186,6 +186,7 @@ typedef SpinLock DEFAULT_LOCK_TYPE;
 
 /* callback service */
 #include "CallbackRpcInfo.h"
+#include "CallbackGroupRpcInfo.h"
 #include "CallbackCommandDesc.h"
 #include "CallbackService.h"
 

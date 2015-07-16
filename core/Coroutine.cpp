@@ -29,6 +29,8 @@ namespace core{
 		, m_stack(0)
 		, m_stack_size(0)
 		, m_status(STATUS_INIT)
+		, m_waiting_expire_time(0)
+		, m_sign(0)
 		, m_task(0)
 		, m_arg(0)
 		, m_yield_param(0)
@@ -121,15 +123,15 @@ namespace core{
 		return m_object_pool;
 	}
 	/** yield **/
-	bool Coroutine::yield(Object* yield_param){
-		return _yield(yield_param, STATUS_WAITING);
+	bool Coroutine::yield(Object* yield_param, const int64_t sign){
+		return _yield(yield_param, STATUS_WAITING, sign);
 	}
 	Object* Coroutine::getYieldParam(){
 		return m_yield_param;
 	}
-	bool Coroutine::Yield(Object* param){
+	bool Coroutine::Yield(Object* param, const int64_t sign){
 		if(Coroutine* cr =Running()){
-			return cr->yield(param);
+			return cr->yield(param, sign);
 		}
 		else{
 			ERROR("fail to %s, in main thread", __FUNCTION__);
@@ -137,11 +139,15 @@ namespace core{
 		}
 	}
 	/** resume **/
-	int64_t Coroutine::resume(Object* param){
-		return _resume(param);
+	int64_t Coroutine::resume(Object* param, const int64_t sign){
+		return _resume(param, sign);
 	}
 	Object* Coroutine::getResumeParam(){
 		return m_resume_param;
+	}
+	/** expire **/
+	bool Coroutine::isWaitingAndExpire(const int64_t now){
+		return isWaiting() && now >= m_waiting_expire_time && m_sign>=0;
 	}
 	/** entry **/
 	void Coroutine::_entry(){
@@ -177,7 +183,7 @@ namespace core{
 				break;
 			}
 			// yield
-			self->_yield(0, STATUS_IDLE);
+			self->_yield(0, STATUS_IDLE, 0);
 		}
 		
 		// clean
@@ -195,7 +201,10 @@ namespace core{
 		// DEBUG("new set op 0");
 		ObjectPool::Release();
 	}
-	bool Coroutine::_yield(Object* yield_param, const int64_t status){
+	bool Coroutine::_yield(Object* yield_param, const int64_t status, const int64_t sign){
+		// set sign
+		m_sign =sign;
+
 		// check
 		if(m_coroutine_pool->isCleaning()){
 			WARN("coroutine yield failed, coroutine pool is cleaning");
@@ -233,6 +242,11 @@ namespace core{
 		m_status =status;
 		g_running =resumer_cr;
 
+		// set wait timestamp
+		if(m_status == STATUS_WAITING){
+			m_waiting_expire_time =stable_time() + 3; //Coroutine::WAITING_TIMER;
+		}
+
 		// prepare context
 		ucontext_t* resumer_ctx;
 		if(resumer_cr){
@@ -256,7 +270,14 @@ namespace core{
 		CLEAN_POINTER(resumer_cr);
 		return true;
 	}
-	int64_t Coroutine::_resume(Object* param){
+	int64_t Coroutine::_resume(Object* param, const int64_t sign){
+		// check sign
+		if(m_status == STATUS_WAITING){
+			if(sign!=0 && sign!=m_sign){
+				WARN("coroutine resume failed, sign missmatch");
+				return -ErrorCode::COROUTINE_SIGN_MISSMATCH;
+			}
+		}
 		// check
 		Coroutine* running =g_running;
 		Coroutine* cr =this;

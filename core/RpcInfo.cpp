@@ -9,7 +9,8 @@ namespace core{
 	RpcInfo::RpcInfo()
 		: m_id(0)
 		, m_command(0)
-		, m_expire_time(0){
+		, m_expire_time(0)
+		, m_done(false){
 	}
 	RpcInfo::~RpcInfo(){
 	}
@@ -45,6 +46,14 @@ namespace core{
 	}
 	int64_t RpcInfo::getExpireTime(){
 		return m_expire_time;
+	}
+
+	/** done **/
+	bool RpcInfo::isDone(){
+		return m_done;
+	}
+	void RpcInfo::done(){
+		m_done =true;
 	}
 
 	/** set **/

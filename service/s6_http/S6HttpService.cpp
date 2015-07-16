@@ -37,21 +37,11 @@ namespace service{
 			if(done) return;
 			done =true;
 
-			// get
-			HttpRespond* res =HttpClient::Get(STR("127.0.0.1:19871/?name=fool&age=90"));
-			if(res && res->getContent()){
-				res->getContent()->appendStringNull();
-				DEBUG("%s\n", res->getContent()->c_str());
-			}
-			else{
-				DEBUG("fail to get from 127.0.0.1:19871");
-			}
-
 			// post
 			Hash* param =SafeNew<Hash>();
 			param->set("name", STR("fool"));
 			param->set("age", STR("99"));
-			res =HttpClient::Post(STR("127.0.0.1:19871"), 0, param);
+			HttpRespond* res =HttpClient::Post(STR("127.0.0.1:19871"), 0, param);
 			if(res && res->getContent()){
 				res->getContent()->appendStringNull();
 				DEBUG("%s\n", res->getContent()->c_str());
@@ -62,6 +52,31 @@ namespace service{
 		}
 	}
 	void S6HttpService::on_request(HttpRequest* request, HttpRespond* respond){
+		// http rpc
+		HttpRespond* res =HttpClient::Get(STR("www.baidu.com"));
+		if(res && res->getContent()){
+			res->getContent()->appendStringNull();
+			DEBUG("%s\n", res->getContent()->c_str());
+		}
+		else{
+			DEBUG("fail to get from www.baidu.com");
+		}
+
+		// logic rpc
+		::protocol::S5FirstRequest* rpc_param =SafeNew<::protocol::S5FirstRequest>();
+		rpc_param->setParam1(4);
+		rpc_param->setParam2(false);
+		rpc_param->setParam3(STR("s4"));
+
+		auto rpc_respond =static_cast< Command* >(rpc(0, SERVICE_ID_S5_LUA, ::protocol::PROTOCOL_S5_FIRST_REQUEST, ::protocol::ID, rpc_param));
+		ASSERT(rpc_respond);
+		auto rpc_result =static_cast< ::protocol::S5FirstRespond* >(rpc_respond->getRequest());
+		ASSERT(rpc_result);
+		ASSERT(rpc_result->getResult1() == 50);
+		ASSERT(rpc_result->getResult2() == true);
+		ASSERT(rpc_result->getResult3()->is("from s5"));
+
+		// respond
 		Hash* param =0;
 		if(request->getPostTable() && request->getPostTable()->size()>0){
 			param =request->getPostTable();

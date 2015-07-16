@@ -23,7 +23,8 @@ namespace core{
 			STATUS_IDLE =5,
 		};
 		enum{
-			STACK_PROTECT_SIZE =64
+			STACK_PROTECT_SIZE =64,
+			WAITING_TIMER =30
 		};
 	public:
 		Coroutine(CoroutinePool* pool);
@@ -41,6 +42,7 @@ namespace core{
 		bool isWaiting();
 		bool isIdle();
 		bool canYield();
+		bool isWaitingAndExpire(const int64_t now);
 	public:
 		void setTask(PFN_COROUTINE_TASK pfn, Object* arg);
 		PFN_COROUTINE_TASK getTask();
@@ -48,18 +50,18 @@ namespace core{
 		ucontext_t* getContext();
 		ObjectPool* getObjectPool();
 	public:
-		bool yield(Object* yield_param);
+		bool yield(Object* yield_param, const int64_t sign);
 		Object* getYieldParam();
-		static bool Yield(Object* param);
+		static bool Yield(Object* param, const int64_t sign);
 	public:
-		int64_t resume(Object* param);
+		int64_t resume(Object* param, const int64_t sign);
 		Object* getResumeParam();
 	public:
 		static Coroutine* Running();
 	private:
 		static void _entry();
-		bool _yield(Object* yield_param, const int64_t status);
-		int64_t _resume(Object* param);
+		bool _yield(Object* yield_param, const int64_t status, const int64_t sign);
+		int64_t _resume(Object* param, const int64_t sign);
 		void _valgrind_register();
 		void _valgrind_unregister();
 		static int _swapcontext(ucontext_t *oucp, ucontext_t *ucp);
@@ -72,6 +74,8 @@ namespace core{
 		char* m_stack;
 		int64_t m_stack_size;
 		int64_t m_status;
+		int64_t m_waiting_expire_time;
+		int64_t m_sign;
 		PFN_COROUTINE_TASK m_task;
 		Object* m_arg;
 		Object* m_yield_param;

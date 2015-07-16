@@ -15,8 +15,7 @@ namespace core{
 		if(m_service_id <= 0){
 			m_service_id =HttpService::SERVICE_ID;
 		}
-		setHeartBeatTimer(2);
-		// setHeartBeatTimer(HTTP_CONNECTION_KEEP_LIVE_TIME);
+		setHeartBeatTimer(HTTP_CONNECTION_KEEP_ALIVE_TIME);
 	}
 	HttpConnection::~HttpConnection(){
 	}

@@ -22,6 +22,9 @@ namespace core{
 	public:
 		bool rpc(PACKET& packet, Object* req_param, RpcInfo* info);
 		bool rpc(const int64_t who, const int64_t to, const int64_t cmd, Object* req_param, RpcInfo* info);
+	public:
+		int64_t setRpcGroup(CallbackGroupRpcInfo* info);
+		void removeRpcGroup(const int64_t id);
 	protected:
 		virtual void register_command();
 		void on(const int64_t cmd, CallbackCommandDesc* desc);

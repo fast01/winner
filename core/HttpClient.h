@@ -37,6 +37,7 @@ namespace core{
 		int64_t m_header_length;
 		int64_t m_content_length;
 		int64_t m_packet_length;
+		int64_t m_sign;
 		Coroutine* m_coroutine;
 	};
 }

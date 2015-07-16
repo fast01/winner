@@ -340,8 +340,8 @@ namespace core{
 				lua_setfield(m_L, -2, "query_string");
 			}
 			else{
-				ERROR("lua service process http request failed, query string is null");
-				return;
+				lua_pushstring(m_L, "");
+				lua_setfield(m_L, -2, "query_string");
 			}
 		}
 		else{

@@ -349,6 +349,12 @@ namespace core{
 		offset +=n;
 		len -=n;
 
+		// encode sub sn
+		n =encode_uint64(data+offset, len, packet.sub_sn);
+		if(n < 0) return -1;
+		offset +=n;
+		len -=n;
+
 		// encode command
 		n =encode_uint64(data+offset, len, packet.command);
 		if(n < 0) return -1;
@@ -396,6 +402,12 @@ namespace core{
 
 		// decode sn
 		n =decode_uint64(data+offset, len, packet.sn);
+		if(n < 0) return -1;
+		offset +=n;
+		len -=n;
+
+		// decode sub sn
+		n =decode_uint64(data+offset, len, packet.sub_sn);
 		if(n < 0) return -1;
 		offset +=n;
 		len -=n;

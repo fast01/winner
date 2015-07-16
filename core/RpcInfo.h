@@ -14,7 +14,7 @@ namespace core{
 		typedef Object Super;
 	public:
 		enum{
-			TTL =30 // 30 secs
+			TTL =3 // 30 secs
 	   	};
 	protected:
 		RpcInfo();
@@ -32,12 +32,18 @@ namespace core{
 		void setExpireTime(const int64_t expire_time);
 		int64_t getExpireTime();
 	public:
+		bool isDone();
+		void done();
+	public:
 		void set(const int64_t id, Command* cmd, const int64_t expire_time);
+	public:
+		virtual int64_t timeout() =0;
 		virtual int64_t invoke(Object* param) =0;
 	protected:
 		int64_t m_id;
 		Command* m_command;
 		int64_t m_expire_time;
+		bool m_done;
 	};
 }
 

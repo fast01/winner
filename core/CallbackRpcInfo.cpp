@@ -8,8 +8,9 @@ namespace core{
 	/** ctor & dtor **/
 	CallbackRpcInfo::CallbackRpcInfo(const int64_t group_id, Object* context)
 		: m_protocol_group_id(group_id)
-		, m_context(0)
+		, m_context(context)
 		, m_callback(0){
+		RETAIN_POINTER(m_context);
 	}
 	CallbackRpcInfo::CallbackRpcInfo(const int64_t group_id, Object* context, PFN_CALLBACK callback)
 		: m_protocol_group_id(group_id)
@@ -44,7 +45,12 @@ namespace core{
 		return m_callback;
 	}
 	/** invoke **/
-	int64_t CallbackRpcInfo::invoke(Object* param){
+	int64_t CallbackRpcInfo::timeout(){
+		const int64_t ret =invoke(SafeNew<Error>(ErrorCode::TIMEOUT));
+		done();
+		return ret;
+	}
+	Object* CallbackRpcInfo::parse(Object* param){
 		// check
 		if(Command* respond =dynamic_cast< Command* >(param)){
 			// prepare
@@ -52,7 +58,7 @@ namespace core{
 
 			// body is object pointer
 			if(res_packet.option & OPT_BODY_IS_OBJECT_POINTER){
-				return _invoke(respond);
+				return respond;
 			}
 
 			// body is protocol
@@ -60,7 +66,7 @@ namespace core{
 				Bytes* body =respond->getBody();
 				if(!body){
 					ERROR("fail to invoke rpc, body is null");
-					return Command::STATE_ERROR;
+					return 0; 
 				}
 				const int64_t who =static_cast<int64_t>(res_packet.who);
 				const int64_t group_id =m_protocol_group_id;
@@ -68,27 +74,29 @@ namespace core{
 				ProtocolBase* param = ProtocolManager::CreateProtocol(group_id, protocol_id);
 				if(!param){
 					ERROR("%lld fail to invoke rpc, create protocol %lld %lld error", (long long)who, (long long)group_id, (long long)protocol_id);
-					return Command::STATE_ERROR;
+					return 0; 
 				}
 				if(!param->fromBytes(body)){
 					ERROR("%lld fail to invoke rpc, unmarshal protocol %s %lld %lld error", (long long)who, param->name(), (long long)group_id, (long long)protocol_id);
-					return Command::STATE_ERROR;
+					return 0; 
 				}
 				respond->setRequest(param);
 			}
-
-			// call
-			return _invoke(respond);
+			return respond;
 		}
 		else{
-			return _invoke(param);
+			return param;
 		}
 	}
-	int64_t CallbackRpcInfo::_invoke(Object* param){
+	int64_t CallbackRpcInfo::invoke(Object* param){
+		Object* res =parse(param);
 		if(m_callback){
-			return m_callback(param, m_context);
+			const int64_t ret =m_callback(res, m_context);
+			done();
+			return ret;
 		}
 		else{
+			done();
 			ERROR("CallbackRpcInfo not have callback");
 			return Command::STATE_ERROR;
 		}

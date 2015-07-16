@@ -11,8 +11,9 @@ namespace core{
 		, m_header_length(0)
 		, m_content_length(0)
 		, m_packet_length(0)
+		, m_sign(0)
 		, m_coroutine(0){
-		setHeartBeatTimer(HTTP_CONNECTION_KEEP_LIVE_TIME);
+		setHeartBeatTimer(HTTP_CONNECTION_KEEP_ALIVE_TIME);
 	}
 	HttpClient::~HttpClient(){
 	}
@@ -303,9 +304,10 @@ namespace core{
 
 		// set coroutine
 		ASSIGN_POINTER(m_coroutine, cr);
-		
+
 		// yield
-		ENSURE(cr->yield(0));
+		m_sign =CoroutineService::GenRpcId();
+		ENSURE(cr->yield(0, m_sign));
 
 		// respond
 		HttpRespond* res =dynamic_cast< HttpRespond* >(cr->getResumeParam());
@@ -318,7 +320,8 @@ namespace core{
 			ASSERT(service);
 			CoroutinePool* crp =service->getCoroutinePool();
 			ASSERT(crp);
-			crp->resume(m_coroutine->getId(), res);
+			crp->resume(m_coroutine->getId(), res, m_sign);
+			CLEAN_POINTER(m_coroutine);
 		}
 	}
 }

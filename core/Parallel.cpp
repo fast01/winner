@@ -78,7 +78,7 @@ namespace core{
 		if(m_remain_count > 0){
 			// DEBUG("parallel yield, m_remain_count > 0");
 			m_cr =cr;
-			ENSURE(m_cr->yield(0));
+			ENSURE(m_cr->yield(0, -1));
 			// DEBUG("parallel done");
 		}
 		ASSERT(0 == m_remain_count);
@@ -107,7 +107,7 @@ namespace core{
 			ASSERT(service);
 			CoroutinePool* crp =service->getCoroutinePool();
 			ASSERT(crp);
-			crp->resume(m_cr->getId(), 0);
+			crp->resume(m_cr->getId(), 0, 0);
 		}
 	}
 }

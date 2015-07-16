@@ -6,6 +6,9 @@ Config ={
 		{
 			Path ="S6HttpService://",
 		},
+		{
+			Path ="../service/s5_lua/s5_lua.lua",
+		},
 		--[[
 		]]
 	},

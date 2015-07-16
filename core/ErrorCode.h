@@ -26,6 +26,7 @@ namespace core{
 			CANCELLED = 12,
 			NOT_CONFIG = 13,
 			COROUTINE_CLEAN = 14,
+			COROUTINE_SIGN_MISSMATCH =15,
 		};
 	};
 }

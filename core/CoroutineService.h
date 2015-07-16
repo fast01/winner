@@ -34,11 +34,11 @@ namespace core{
 
 		Object* rpc(const int64_t who, const int64_t to, const int64_t cmd, const int64_t res_proto_grp_id, Object* req_param);
 		bool sleep(const int64_t secs);
-		int64_t resume_coroutine(const int64_t cr_id, Object* param);
+		int64_t resume_coroutine(const int64_t cr_id, Object* param, const int64_t sign);
 	public:
 		CoroutinePool* getCoroutinePool();
 	private:
-		int64_t _resume_coroutine(const int64_t cr_id, Object* param);
+		int64_t _resume_coroutine(const int64_t cr_id, Object* param, const int64_t sign);
 		static void _update(Object* arg);
 	protected:
 		Hash* m_command_desc_table;

@@ -28,7 +28,7 @@ namespace core{
 		// clean idle list
 		for(int64_t i=0; i<m_idle_coroutine_list->size(); ++i){
 			Coroutine* cr =static_cast< Coroutine* >(m_idle_coroutine_list->get(i));
-			cr->resume(SafeNew<Error>(ErrorCode::COROUTINE_CLEAN));
+			cr->resume(SafeNew<Error>(ErrorCode::COROUTINE_CLEAN), 0);
 			ASSERT(cr->getStatus() == Coroutine::STATUS_DEAD);
 		}
 		CLEAN_POINTER(m_idle_coroutine_list);
@@ -39,7 +39,7 @@ namespace core{
 		HashIterator* it =static_cast< HashIterator* >(active_cr_tb->iterator());
 		while(it->next()){
 			Coroutine* cr =static_cast< Coroutine* >(it->getValue());
-			cr->resume(SafeNew<Error>(ErrorCode::COROUTINE_CLEAN));
+			cr->resume(SafeNew<Error>(ErrorCode::COROUTINE_CLEAN), 0);
 			ASSERT(cr->getStatus() == Coroutine::STATUS_DEAD);
 		}
 		CLEAN_POINTER(active_cr_tb);
@@ -64,13 +64,37 @@ namespace core{
 		return m_cleaning;
 	}
 	/** coroutine manager **/
-	int64_t CoroutinePool::resume(const int64_t id, Object* param){
+	void CoroutinePool::update(const int64_t now){
+		// process timeout
+		if(m_active_coroutine_table && m_active_coroutine_table->size()>0){
+			// prepare
+			Int64Array* ls =0;
+			HashIterator* it =static_cast< HashIterator* >(m_active_coroutine_table->iterator());
+			while(it->next()){
+				Coroutine* cr =static_cast< Coroutine* >(it->getValue());
+				if(cr->isWaitingAndExpire(now)){
+					if(!ls){
+						ls =SafeNew<Int64Array>();
+					}
+					ls->push_back(cr->getId());
+				}
+			}
+			// resume
+			if(ls && ls->size()>0){
+				const int64_t n =ls->size();
+				for(int64_t i=0; i<n; ++i){
+					resume(ls->get(i), SafeNew<Error>(ErrorCode::TIMEOUT), 0);
+				}
+			}
+		}
+	}
+	int64_t CoroutinePool::resume(const int64_t id, Object* param, const int64_t sign){
 		if(m_cleaning){
 			WARN("coroutine pool resume failed, cleaning");
 			return -ErrorCode::SYSTEM_ERROR;
 		}
 		if(Coroutine* cr =static_cast< Coroutine* >(m_active_coroutine_table->get(id))){
-			return _resume(cr, param);
+			return _resume(cr, param, sign);
 		}
 		else{
 			WARN("coroutine manager resume failed, coroutine %lld not found", (long long)id);
@@ -87,7 +111,7 @@ namespace core{
 		}
 		// prepare
 		Coroutine* cr =_prepare_coroutine(pfn, arg);
-		const int64_t result =_resume(cr, 0);
+		const int64_t result =_resume(cr, 0, 0);
 		if(result == Coroutine::STATUS_WAITING){
 			cr_id =cr->getId();
 		}
@@ -112,9 +136,9 @@ namespace core{
 		cr->setTask(pfn, arg);
 		return cr;
 	}
-	int64_t CoroutinePool::_resume(Coroutine* cr, Object* param){
+	int64_t CoroutinePool::_resume(Coroutine* cr, Object* param, const int64_t sign){
 		// resume
-		const int64_t ret =cr->resume(param);
+		const int64_t ret =cr->resume(param, sign);
 		if(ret < 0){
 			return ret;
 		}

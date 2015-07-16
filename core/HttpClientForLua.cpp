@@ -14,7 +14,7 @@ namespace core{
 		, m_content_length(0)
 		, m_packet_length(0)
 		, m_lua_cr_id(0){
-		setHeartBeatTimer(HTTP_CONNECTION_KEEP_LIVE_TIME);
+		setHeartBeatTimer(HTTP_CONNECTION_KEEP_ALIVE_TIME);
 	}
 	HttpClientForLua::~HttpClientForLua(){
 	}

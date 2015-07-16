@@ -42,6 +42,8 @@ namespace core{
 		void del_rpc(const int64_t rpc_id);
 		RpcInfo* _get_rpc(const int64_t rpc_id);
 		int64_t _gen_rpc_id();
+	public:
+		static int64_t GenRpcId();
 	private:
 		void _append_request(Command* command);
 		void _process_request(const int64_t who);

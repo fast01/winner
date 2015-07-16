@@ -25,9 +25,10 @@ namespace core{
 		void setCallback(PFN_CALLBACK pfn);
 		PFN_CALLBACK getCallback();
 	public:
+		virtual int64_t timeout();
 		virtual int64_t invoke(Object* param);
-	private:
-		int64_t _invoke(Object* param);
+	public:
+		Object* parse(Object* param);
 	protected:
 		int64_t m_protocol_group_id;
 		Object* m_context;

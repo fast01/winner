@@ -10,8 +10,8 @@
 // special the first generated connection id
 #define CONNECTION_ID_GEN_BEGIN 100000
 
-// special http connection keep live time 
-#define HTTP_CONNECTION_KEEP_LIVE_TIME 10
+// special http connection keep alive time 
+#define HTTP_CONNECTION_KEEP_ALIVE_TIME 30
 
 // special lua version
 #define LUA_SCRIPT_VERSION 530

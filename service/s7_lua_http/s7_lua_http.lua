@@ -30,6 +30,23 @@ Service.On('get', '/', function(request, respond)
 	local res =Service.HttpGet("http://www.baidu.com/")
 	print(Core.sprint_table(res or {'empty'}))
 
+	-- logic rpc
+	local res, err =Service.Rpc(
+		{
+			who =who,
+			to =SERVICE_ID_S5_LUA,
+			command =protocol.S5FirstRequest
+		},
+		{
+			Param1 =4,
+			Param2 =false,
+			Param3 ="s4"
+		},
+		protocol.GroupId
+	);
+	assert(res and res.Result1==50 and res.Result2==true and res.Result3=="from s5", err)
+	DEBUG(Core.sprint_table(res))
+
 	-- respond
 	respond:write([[
 	<html>

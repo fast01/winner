@@ -108,6 +108,15 @@ namespace core{
 		GENERATE_ID(m_rpc_id);
 		return m_rpc_id;
 	}
+	int64_t CommandService::GenRpcId(){
+		CommandService* self =dynamic_cast< CommandService* >(Service::Current());
+		if(self){
+			return self->_gen_rpc_id();
+		}
+		else{
+			return -1;
+		}
+	}
 	/** private **/
 	void CommandService::_append_request(Command* command){
 		// get queue
@@ -176,6 +185,7 @@ namespace core{
 	void CommandService::_process_respond(Command* rpc_res){
 		const int64_t who =static_cast<int64_t>(rpc_res->getWho());
 		const int64_t rpc_id =static_cast<int64_t>(rpc_res->getSn());
+		bool done =true;
 		do{
 			RpcInfo* rpc =_get_rpc(rpc_id);
 			if(rpc == 0){
@@ -203,6 +213,11 @@ namespace core{
 				m_processing_command =front;
 				const int64_t result =rpc->invoke(rpc_res);
 				m_processing_command =0;
+
+				// done
+				if(rpc->isDone() == false){
+					done =false;
+				}
 
 				// process result
 				const int64_t cmd_id =front->getCommand();
@@ -243,7 +258,9 @@ namespace core{
 			}
 		}while(0);
 		// remove rpc info
-		m_rpc_tb->remove(rpc_id);
+		if(done){
+			m_rpc_tb->remove(rpc_id);
+		}
 	}
 	void CommandService::_process_timeout(const int64_t now){
 		/* clear timeout command */
@@ -298,7 +315,7 @@ namespace core{
 			for(int64_t i=0; i<n; ++i){
 				RpcInfo* ri =static_cast< RpcInfo* >(ls->get(i));
 				WARN("service %s(%lld) rpc %lld cancel", name(), (long long)m_id, (long long)ri->getId());
-				ri->invoke(SafeNew<Error>(ErrorCode::TIMEOUT));
+				ri->timeout();
 			}
 		}
 	}

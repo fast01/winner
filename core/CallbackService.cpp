@@ -108,6 +108,13 @@ namespace core{
 		packet.option =0;
 		return rpc(packet, req_param, rpc_info);
 	}
+	/** rpc group **/
+	int64_t CallbackService::setRpcGroup(CallbackGroupRpcInfo* info){
+		return set_rpc(info);
+	}
+	void CallbackService::removeRpcGroup(const int64_t id){
+		del_rpc(id);
+	}
 	/** register command **/
 	void CallbackService::on(const int64_t cmd, CallbackCommandDesc* desc){
 		m_command_desc_table->set(cmd, desc);

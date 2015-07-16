@@ -121,7 +121,7 @@ namespace core{
 			// wake up
 			const int64_t n =wake_list ? wake_list->size() : 0;
 			for(int64_t i=0; i<n; ++i){
-				_resume_coroutine(wake_list->get(i), SafeNew<Error>(ErrorCode::TIMEOUT));
+				_resume_coroutine(wake_list->get(i), SafeNew<Error>(ErrorCode::TIMEOUT), 0);
 			}
 		}
 
@@ -160,7 +160,7 @@ namespace core{
 		const int64_t cr_id =cr->getId();
 
 		// set rpc info
-		CoroutineRpcInfo* rpc_info =SafeNew<CoroutineRpcInfo>(res_proto_grp_id, cr_id, this);
+		CoroutineRpcInfo* rpc_info =SafeNew<CoroutineRpcInfo>(res_proto_grp_id, cr_id);
 		if(!set_rpc(rpc_info)){
 			return 0;
 		}
@@ -180,7 +180,8 @@ namespace core{
 			WARN("service %s(%lld) %lld fail to rpc to %lld, service not ready", name(), (long long)m_id, (long long)who, (long long)to);
 			return 0;
 		}
-		ENSURE(cr->yield(0));
+		rpc_info->set(rpc_id, this);
+		ENSURE(cr->yield(0, rpc_id));
 
 		// process respond
 		if(Command* respond =dynamic_cast< Command* >(cr->getResumeParam())){
@@ -230,22 +231,25 @@ namespace core{
 		}
 		const int64_t cr_id =cr->getId();
 		m_sleeper_table->set(cr_id, SafeNew<Int64>(DateTime::Now() + secs));
-		ASSERT(cr->yield(0));
+		ASSERT(cr->yield(0, -1));
 		m_sleeper_table->remove(cr_id);
 		return true;
 	}
 	void CoroutineService::update(const int64_t now){
+		if(m_cr_pool){
+			m_cr_pool->update(now);
+		}
 	}
-	int64_t CoroutineService::resume_coroutine(const int64_t cr_id, Object* param){
-		return _resume_coroutine(cr_id, param);
+	int64_t CoroutineService::resume_coroutine(const int64_t cr_id, Object* param, const int64_t sign){
+		return _resume_coroutine(cr_id, param, sign);
 	}
 	/** crp **/
 	CoroutinePool* CoroutineService::getCoroutinePool(){
 		return m_cr_pool;
 	}
 	/** helper **/
-	int64_t CoroutineService::_resume_coroutine(const int64_t cr_id, Object* param){
-		const int64_t result =m_cr_pool->resume(cr_id, param);
+	int64_t CoroutineService::_resume_coroutine(const int64_t cr_id, Object* param, const int64_t sign){
+		const int64_t result =m_cr_pool->resume(cr_id, param, sign);
 		if(result >= 0){
 			if(result == Coroutine::STATUS_IDLE){
 				return Command::STATE_COMPLETE;

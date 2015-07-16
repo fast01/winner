@@ -170,6 +170,12 @@ namespace core{
 			packet.sn =static_cast< uint64_t >(lua_tonumber(L, -1));
 		}
 		lua_pop(L, 1);
+		// sub sn
+		lua_getfield(L, idx, "sub_sn");
+		if(lua_isnumber(L, -1)){
+			packet.sub_sn =static_cast< uint64_t >(lua_tonumber(L, -1));
+		}
+		lua_pop(L, 1);
 		// command
 		lua_getfield(L, idx, "command");
 		if(lua_isnumber(L, -1)){
@@ -198,6 +204,9 @@ namespace core{
 
 		lua_pushnumber(L, (double)packet.sn);
 		lua_setfield(L, -2, "sn");
+
+		lua_pushnumber(L, (double)packet.sub_sn);
+		lua_setfield(L, -2, "sub_sn");
 
 		lua_pushnumber(L, (double)packet.command);
 		lua_setfield(L, -2, "command");
