@@ -53,9 +53,6 @@ namespace service{
 
 			DEBUG("S3 rpc S4 respond");
 		}
-		if(0){
-			test_parallel();
-		}
 		DEBUG("after update");
 	}
 	void S3CoroutineService::register_command(){
@@ -109,19 +106,8 @@ namespace service{
 		ASSERT(request->getParam2() == false);
 		ASSERT(request->getParam3()->is("s2"));
 
-		// rpc
-		::protocol::S4FirstRequest* rpc_param =SafeNew<::protocol::S4FirstRequest>();
-		rpc_param->setParam1(3);
-		rpc_param->setParam2(false);
-		rpc_param->setParam3(STR("s3"));
-
-		auto rpc_respond =static_cast< Command* >(self->rpc(0, SERVICE_ID_S4_LUA, ::protocol::PROTOCOL_S4_FIRST_REQUEST, ::protocol::ID, rpc_param));
-		ASSERT(rpc_respond);
-		auto rpc_result =static_cast< ::protocol::S4FirstRespond* >(rpc_respond->getRequest());
-		ASSERT(rpc_result);
-		ASSERT(rpc_result->getResult1() == 40);
-		ASSERT(rpc_result->getResult2() == true);
-		ASSERT(rpc_result->getResult3()->is("from s4"));
+		// rpc parallel
+		self->test_parallel();
 
 		// process
 		respond->setResult1(30);

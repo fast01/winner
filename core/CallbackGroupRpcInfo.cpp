@@ -6,17 +6,6 @@
 namespace core{
 	/*** impl CallbackGroupRpcInfo ***/
 	/** ctor & dtor **/
-	CallbackGroupRpcInfo::CallbackGroupRpcInfo(Object* context)
-		: m_context(context)
-		, m_callback(0)
-		, m_rpc_array(0)
-		, m_state_array(0)
-		, m_value_array(0)
-		, m_success_count(0)
-		, m_error_count(0)
-		, m_sn(0){
-		RETAIN_POINTER(m_context);
-	}
 	CallbackGroupRpcInfo::CallbackGroupRpcInfo(Object* context, PFN_CALLBACK callback)
 		: m_context(context)
 		, m_callback(callback)
@@ -25,7 +14,8 @@ namespace core{
 		, m_value_array(0)
 		, m_success_count(0)
 		, m_error_count(0)
-		, m_sn(0){
+		, m_sn(0)
+		, m_service_id(0){
 		RETAIN_POINTER(m_context);
 	}
 	CallbackGroupRpcInfo::~CallbackGroupRpcInfo(){
@@ -150,7 +140,7 @@ namespace core{
 	bool CallbackGroupRpcInfo::rpc(const int64_t who, const int64_t to, const int64_t cmd, Object* req_param, CallbackRpcInfo* rpc_info){
 		PACKET packet;
 		packet.size =0;
-		packet.from =m_id;
+		packet.from =m_service_id;
 		packet.to =to;
 		packet.who =who;
 		packet.command =cmd;
@@ -162,6 +152,7 @@ namespace core{
 		CallbackService* service =dynamic_cast< CallbackService* >(Service::Current());
 		ASSERT(service);
 		m_sn =service->setRpcGroup(this);
+		m_service_id =service->getId();
 		return m_sn > 0;
 	}
 	void CallbackGroupRpcInfo::cancel(){

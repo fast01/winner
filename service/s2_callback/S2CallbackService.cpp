@@ -115,22 +115,28 @@ namespace service{
 		ASSERT(request->getParam2() == false);
 		ASSERT(request->getParam3()->is("s1"));
 
-		// rpc
+		// rpc group
 		::protocol::S3SecondRequest* rpc_param =SafeNew<::protocol::S3SecondRequest>();
 		rpc_param->setParam1(2);
 		rpc_param->setParam2(false);
 		rpc_param->setParam3(STR("s2"));
-		auto ok =self->rpc(0, SERVICE_ID_S3_COROUTINE, ::protocol::PROTOCOL_S3_SECOND_REQUEST, rpc_param, 
-			SafeNew<CallbackRpcInfo>(::protocol::ID, command, _on_second_rpc_respond)
-		);
+
+		CallbackGroupRpcInfo* grp =SafeNew<CallbackGroupRpcInfo>(command, _on_second_rpc_respond);
+		auto ok =grp->begin();
 		ASSERT(ok);
+		grp->rpc(0, SERVICE_ID_S3_COROUTINE, ::protocol::PROTOCOL_S3_SECOND_REQUEST, rpc_param, SafeNew<CallbackRpcInfo>(::protocol::ID));
+		grp->end();
+
 		return 1;
 	}
 
-	int64_t S2CallbackService::_on_second_rpc_respond(Object* param, Object* context){
+	int64_t S2CallbackService::_on_second_rpc_respond(CallbackGroupRpcInfo* grp){
+		// check group
+		ASSERT(grp->getSuccessCount()==1 && grp->getErrorCount()==0 && grp->getCount()==1);
+
 		// paepare
-		auto rpc_respond =static_cast< Command* >(param);
-		auto req_command =static_cast< Command* >(context);
+		auto rpc_respond =static_cast< Command* >(grp->getValue(0));
+		auto req_command =static_cast< Command* >(grp->getContext());
 		auto request =dynamic_cast< ::protocol::S2SecondRequest* >(req_command->getRequest());
 		auto respond =dynamic_cast< ::protocol::S2SecondRespond* >(req_command->getRespond());
 		auto rpc_result =static_cast< ::protocol::S3SecondRespond* >(rpc_respond->getRequest());

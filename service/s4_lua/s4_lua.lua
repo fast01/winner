@@ -35,13 +35,45 @@ Service.On(
 		assert(request.Param3 == "s3")
 
 		-- request s5
+		local res, err =Service.Rpc(
+			{
+				who =who,
+				to =SERVICE_ID_S5_LUA,
+				command =protocol.S5FirstRequest
+			},
+			{
+				Param1 =4,
+				Param2 =false,
+				Param3 ="s4"
+			},
+			protocol.GroupId
+		);
+		assert(res and res.Result1==50 and res.Result2==true and res.Result3=="from s5", err)
+
+		-- reply
+		Service.ReplyEasy(requestor, packet, protocol.S4FirstRespond, {
+			Result1 =40,
+			Result2 =true,
+			Result3 ="from s4"	
+		}, true);
+	end	
+);
+Service.On(
+	protocol.S4SecondRequest,
+	function(request, packet, body, requestor)
+		-- check
+		assert(request.Param1 == 3)
+		assert(request.Param2 == false)
+		assert(request.Param3 == "s3")
+
+		-- request s5
 		Core.Parallel(
 			function()
 				local res, err =Service.Rpc(
 					{
 						who =who,
 						to =SERVICE_ID_S5_LUA,
-						command =protocol.S5FirstRequest
+						command =protocol.S5SecondRequest
 					},
 					{
 						Param1 =4,
@@ -61,39 +93,7 @@ Service.On(
 		);
 
 		-- reply
-		Service.ReplyEasy(requestor, packet, protocol.S4FirstRespond, {
-			Result1 =40,
-			Result2 =true,
-			Result3 ="from s4"	
-		}, true);
-	end	
-);
-Service.On(
-	protocol.S4SecondRequest,
-	function(request, packet, body, requestor)
-		-- check
-		assert(request.Param1 == 3)
-		assert(request.Param2 == false)
-		assert(request.Param3 == "s3")
-
-		-- request s5
-		local res, err =Service.Rpc(
-			{
-				who =who,
-				to =SERVICE_ID_S5_LUA,
-				command =protocol.S5SecondRequest
-			},
-			{
-				Param1 =4,
-				Param2 =false,
-				Param3 ="s4"
-			},
-			protocol.GroupId
-		);
-		assert(res and res.Result1==50 and res.Result2==true and res.Result3=="from s5", err)
-
-		-- reply
-		Service.ReplyEasy(requestor, packet, protocol.S4FirstRespond, {
+		Service.ReplyEasy(requestor, packet, protocol.S4SecondRespond, {
 			Result1 =40,
 			Result2 =true,
 			Result3 ="from s4"	

@@ -17,7 +17,6 @@ namespace core{
 		};
 		typedef int64_t (*PFN_CALLBACK)(CallbackGroupRpcInfo* self);
 	protected:
-		CallbackGroupRpcInfo(Object* context);
 		CallbackGroupRpcInfo(Object* context, PFN_CALLBACK callback);
 		virtual ~CallbackGroupRpcInfo();
 	public:
@@ -58,6 +57,7 @@ namespace core{
 		int64_t m_error_count;
 
 		int64_t m_sn;
+		int64_t m_service_id;
 	};
 }
 

@@ -23,8 +23,8 @@ namespace core{
 		m_node_list->retain();
 	}
 	void Parallel::finalize(){
-		if(m_node_list->size() > 0){
-			WARN("Parallel %p is not empty", (void*)this);
+		if(m_remain_count > 0){
+			WARN("Parallel %p is not done", (void*)this);
 		}
 		CLEAN_POINTER(m_node_list);
 		ASSERT(m_context == 0);
