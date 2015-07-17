@@ -37,7 +37,7 @@ namespace service{
 			if(done) return;
 			done =true;
 
-			// post
+			// http post
 			Hash* param =SafeNew<Hash>();
 			param->set("name", STR("fool"));
 			param->set("age", STR("99"));
@@ -49,19 +49,19 @@ namespace service{
 			else{
 				DEBUG("fail to post to 127.0.0.1:19871");
 			}
+
+			// http get
+			res =HttpClient::Get(STR("www.baidu.com"));
+			if(res && res->getContent()){
+				res->getContent()->appendStringNull();
+				DEBUG("%s\n", res->getContent()->c_str());
+			}
+			else{
+				DEBUG("fail to get from www.baidu.com");
+			}
 		}
 	}
 	void S6HttpService::on_request(HttpRequest* request, HttpRespond* respond){
-		// http rpc
-		HttpRespond* res =HttpClient::Get(STR("www.baidu.com"));
-		if(res && res->getContent()){
-			res->getContent()->appendStringNull();
-			DEBUG("%s\n", res->getContent()->c_str());
-		}
-		else{
-			DEBUG("fail to get from www.baidu.com");
-		}
-
 		// logic rpc
 		::protocol::S5FirstRequest* rpc_param =SafeNew<::protocol::S5FirstRequest>();
 		rpc_param->setParam1(4);
