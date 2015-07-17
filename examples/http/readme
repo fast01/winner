@@ -8,7 +8,7 @@
 材料：
 	1）`./service` 是 http service 的配置；
 	2）`./client` 是 client 的配置。
-	3）`../../service/s6` 是服务器逻辑代码。
+	3）`../../service/s6` 是服务器以及客户端逻辑代码。
 
 启动：
 	Step 1： ./server.sh

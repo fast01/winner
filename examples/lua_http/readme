@@ -1,0 +1,19 @@
+内容： 
+	lua http示例
+
+目标： 
+	1）演示创建 lua http service，以及使用模板引擎；
+	2）演示使用 lua http client 访问 lua http service。
+
+材料：
+	1）`./service` 是 http service 的配置；
+	2）`./client` 是 client 的配置。
+	3）`../../service/s7` 是服务器以及客户端逻辑代码。
+
+启动：
+	Step 1： ./server.sh
+	Step 2： ./client.sh
+	你会看到打印一些html文本格式。
+
+介绍：
+	See `../../service/s7`
