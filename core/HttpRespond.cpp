@@ -285,7 +285,6 @@ namespace core{
 					respond->setHeader(header_name, header_value);
 				}
 				else if(header_name->is("Set-Cookie")){
-					puts(header_value->c_str());
 					if(HttpCookie* cookie =HttpCookie::Parse(header_value->c_str())){
 						respond->setCookie(cookie->getName(), cookie);
 					}

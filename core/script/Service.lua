@@ -518,18 +518,24 @@ local function http_respond_flush(res)
 		if is_string(k) and is_table(v) and is_string(v.value) then
 			local s =sprintf("Set-Cookie: %s=%s", k, v.value)
 			if v.domain then
-				s =s .. sprintf(';Domain=%s', v.domain)
+				s =s .. sprintf('; domain=%s', v.domain)
 			end
 			if v.path then
-				s =s .. sprintf(';Path=%s', v.path)
+				s =s .. sprintf('; path=%s', v.path)
 			end
 			if v.secure then
-				s =s .. ';Secure'
+				s =s .. '; secure'
+			end
+			if v.http_only then
+				s =s .. '; HttpOnly'
 			end
 			if v.max_age then
-				s =s .. sprintf(';Max-Age=%d', v.max_age)
+				s =s .. sprintf('; max-age=%d', v.max_age)
 			end
-			str =str .. s
+			if v.expire_time then
+				s =s .. sprintf('; expires=%s', v.expire_time)
+			end
+			str =str .. s .. '\r\n'
 		end
 	end
 	str =str .. '\r\n'
@@ -698,7 +704,7 @@ local function http_request(desc)
 					str =str .. sprintf("%s: %s\r\n", k, v)
 				elseif is_table(v) then
 					if is_string(v.value) then
-						str =str .. sprintf('Cookie: %s=%s', k, v.value)
+						str =str .. sprintf('Cookie: %s=%s\r\n', k, v.value)
 					end
 				end
 			end
@@ -739,6 +745,9 @@ local function http_get(url)
 	return http_request({ method ="GET", url =url })
 end
 local function http_post(url, header, param)
+	---- add header
+	header =header or {}
+	header['Content-Type'] ='application/x-www-form-urlencoded'
 	---- parse content
 	local content
 	if param then

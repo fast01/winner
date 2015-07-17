@@ -99,7 +99,7 @@ namespace core{
 	/** parse **/
 	HttpCookie* HttpCookie::Parse(const char* str){
 		if(!str){
-			return false;
+			return 0;
 		}
 		// separate tokens
 		Array* ls =String::New(str)->split(";");

@@ -14,9 +14,22 @@ Service.On(
 		Service.SetProtocolGroupId(protocol.GroupId)
 	end	
 )
+local done =false
 Service.On(
 	"update",
 	function(now)
+		if done then
+			return
+		end
+		done =true
+		if string.find(DATA_PATH, 'client') then
+			DEBUG('client')
+			local res =Service.HttpPost("127.0.0.1:19871/index.lua", { name ={ value ='fool' } }, { name='fool' })
+			--local res =Service.HttpPost("127.0.0.1:19871/index.lua", { name ='fool' }, { name='fool', age=9999 })
+			print(Core.sprint_table(res or {'empty'}))
+		else
+			DEBUG('server')
+		end
 	end	
 )
 Service.On(
@@ -26,6 +39,7 @@ Service.On(
 	end	
 )
 Service.On('get', '/', function(request, respond)
+	DEBUG("get")
 	-- http rpc
 	local res =Service.HttpGet("http://www.baidu.com/")
 	print(Core.sprint_table(res or {'empty'}))
@@ -61,8 +75,18 @@ Service.On('get', '/', function(request, respond)
 end)
 
 Service.On('get', '/index.lua', function(request, respond)
+	DEBUG("get")
 	local content =Core.load_data('html/view/index.lua')
 	print(Core.sprint_table(request))
 	local str =Core.HtmlTemplate.run(content, request.request)
+	respond:write(str)
+end)
+
+Service.On('post', '/index.lua', function(request, respond)
+	DEBUG("post")
+	local content =Core.load_data('html/view/index.lua')
+	print(Core.sprint_table(request))
+	local str =Core.HtmlTemplate.run(content, request.request)
+	respond.cookie.name ={ value ='fool', max_age =1000000000, http_only =1, secure =1, path ='/', domain ='127.0.0.1', age=9999 }
 	respond:write(str)
 end)

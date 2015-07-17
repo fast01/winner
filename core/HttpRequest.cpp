@@ -177,7 +177,7 @@ namespace core{
 				}
 				else if(header_name->is("Cookie")){
 					if(HttpCookie* cookie =HttpCookie::Parse(header_value->c_str())){
-						cookie_tb->set(header_name, cookie);
+						cookie_tb->set(cookie->getName(), cookie);
 					}
 					else{
 						return 0;
