@@ -86,6 +86,7 @@ namespace core{
 			WARN("service %s(%lld) who %lld fail to rpc to %lld, can't request self", name(), (long long)m_id, (long long)packet.who, (long long)packet.to);
 		}
 		if(set_rpc(rpc_info) > 0){
+			packet.from =static_cast<uint64_t>(m_id);
 			packet.sn =static_cast<uint64_t>(rpc_info->getId());
 			if(DispatcherManager::RequestByObject(this, packet, req_param)){
 				return true;
@@ -104,17 +105,9 @@ namespace core{
 		packet.to =to;
 		packet.who =who;
 		packet.sn =0;
-		packet.sub_sn =0;
 		packet.command =cmd;
 		packet.option =0;
 		return rpc(packet, req_param, rpc_info);
-	}
-	/** rpc group **/
-	int64_t CallbackService::setRpcGroup(CallbackGroupRpcInfo* info){
-		return set_rpc(info);
-	}
-	void CallbackService::removeRpcGroup(const int64_t id){
-		del_rpc(id);
 	}
 	/** register command **/
 	void CallbackService::on(const int64_t cmd, CallbackCommandDesc* desc){
@@ -123,4 +116,3 @@ namespace core{
 	void CallbackService::register_command(){
 	}
 }
-

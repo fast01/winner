@@ -14,7 +14,6 @@ typedef struct tagPACKET{
 	uint64_t to;
 	uint64_t who;
 	uint64_t sn;
-	uint64_t sub_sn;
 	uint64_t command;
 	uint64_t option;
 }PACKET, *PPACKET;
@@ -28,17 +27,16 @@ enum{
 
 enum{
 	PACKET_HEADER_SIZE =4,
-	PACKET_ENCODE_MAX_SIZE =74
+	PACKET_ENCODE_MAX_SIZE =64
 };
 
-inline PACKET make_packet(uint64_t from, uint64_t to, uint64_t who, uint64_t sn, uint64_t sub_sn, uint64_t command, uint64_t option){
+inline PACKET make_packet(uint64_t from, uint64_t to, uint64_t who, uint64_t sn, uint64_t command, uint64_t option){
 	PACKET packet;
 	packet.size =0;
 	packet.from =from;
 	packet.to =to;
 	packet.who =who;
 	packet.sn =sn;
-	packet.sub_sn =sub_sn;
 	packet.command =command;
 	packet.option =option;
 	return packet;

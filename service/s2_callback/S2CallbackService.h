@@ -29,7 +29,7 @@ namespace service{
 		static int64_t on_second_request(Command* command);
 	private:
 		static int64_t _on_first_rpc_respond(Object* param, Object* context);
-		static int64_t _on_second_rpc_respond(CallbackGroupRpcInfo* grp);
+		static int64_t _on_second_rpc_respond(CallbackRpcGroup* grp);
 	private:
 		int64_t m_version =1;
 	};

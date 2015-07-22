@@ -121,18 +121,19 @@ namespace service{
 		rpc_param->setParam2(false);
 		rpc_param->setParam3(STR("s2"));
 
-		CallbackGroupRpcInfo* grp =SafeNew<CallbackGroupRpcInfo>(command, _on_second_rpc_respond);
+		CallbackRpcGroup* grp =SafeNew<CallbackRpcGroup>(command, _on_second_rpc_respond);
 		auto ok =grp->begin();
 		ASSERT(ok);
-		grp->rpc(0, SERVICE_ID_S3_COROUTINE, ::protocol::PROTOCOL_S3_SECOND_REQUEST, rpc_param, SafeNew<CallbackRpcInfo>(::protocol::ID));
+		grp->rpc(0, SERVICE_ID_S3_COROUTINE, ::protocol::PROTOCOL_S3_SECOND_REQUEST, rpc_param, SafeNew<CallbackItemRpcInfo>(::protocol::ID));
 		grp->end();
 
 		return 1;
 	}
 
-	int64_t S2CallbackService::_on_second_rpc_respond(CallbackGroupRpcInfo* grp){
+	int64_t S2CallbackService::_on_second_rpc_respond(CallbackRpcGroup* grp){
 		// check group
 		ASSERT(grp->getSuccessCount()==1 && grp->getErrorCount()==0 && grp->getCount()==1);
+		DEBUG("rpc group ok");
 
 		// paepare
 		auto rpc_respond =static_cast< Command* >(grp->getValue(0));

@@ -39,7 +39,8 @@ Service.On(
 	end	
 )
 Service.On('get', '/', function(request, respond)
-	DEBUG("get")
+	DEBUG("get /")
+	print(Core.sprint_table(request))
 	-- http rpc
 	local res =Service.HttpGet("http://www.baidu.com/")
 	print(Core.sprint_table(res or {'empty'}))
@@ -75,7 +76,7 @@ Service.On('get', '/', function(request, respond)
 end)
 
 Service.On('get', '/index.lua', function(request, respond)
-	DEBUG("get")
+	DEBUG("get /index.lua")
 	local content =Core.load_data('html/view/index.lua')
 	print(Core.sprint_table(request))
 	local str =Core.HtmlTemplate.run(content, request.request)
@@ -83,7 +84,7 @@ Service.On('get', '/index.lua', function(request, respond)
 end)
 
 Service.On('post', '/index.lua', function(request, respond)
-	DEBUG("post")
+	DEBUG("post /index.lua")
 	local content =Core.load_data('html/view/index.lua')
 	print(Core.sprint_table(request))
 	local str =Core.HtmlTemplate.run(content, request.request)
