@@ -26,7 +26,7 @@ Service.On(
 			DEBUG('client')
 			local res =Service.HttpPost("127.0.0.1:19871/index.lua", { name ={ value ='fool' } }, { name='fool' })
 			--local res =Service.HttpPost("127.0.0.1:19871/index.lua", { name ='fool' }, { name='fool', age=9999 })
-			print(Core.sprint_table(res or {'empty'}))
+			--print(Core.sprint_table(res or {'empty'}))
 		else
 			DEBUG('server')
 		end
@@ -40,8 +40,8 @@ Service.On(
 )
 Service.On('get', '/', function(request, respond)
 	DEBUG("get /")
-	print(Core.sprint_table(request))
-	-- http rpc
+	--print(Core.sprint_table(request))
+	--http rpc
 	local res =Service.HttpGet("http://www.baidu.com/")
 	print(Core.sprint_table(res or {'empty'}))
 
@@ -78,7 +78,7 @@ end)
 Service.On('get', '/index.lua', function(request, respond)
 	DEBUG("get /index.lua")
 	local content =Core.load_data('html/view/index.lua')
-	print(Core.sprint_table(request))
+	--print(Core.sprint_table(request))
 	local str =Core.HtmlTemplate.run(content, request.request)
 	respond:write(str)
 end)
@@ -86,7 +86,7 @@ end)
 Service.On('post', '/index.lua', function(request, respond)
 	DEBUG("post /index.lua")
 	local content =Core.load_data('html/view/index.lua')
-	print(Core.sprint_table(request))
+	--print(Core.sprint_table(request))
 	local str =Core.HtmlTemplate.run(content, request.request)
 	respond.cookie.name ={ value ='fool', max_age =1000000000, http_only =1, secure =1, path ='/', domain ='127.0.0.1', age=9999 }
 	respond:write(str)

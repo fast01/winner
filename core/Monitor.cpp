@@ -78,6 +78,7 @@ namespace core{
 			Array* data =reinterpret_cast< Array* >(pevt->data.ptr);
 			MonitorTarget* target =static_cast< MonitorTarget* >(data->get(0));
 			Int64* fd =static_cast< Int64* >(data->get(1));
+			RETAIN_POINTER(data);
 
 			// log
 			// if(dynamic_cast< TcpConnection* >(target)){
@@ -101,6 +102,9 @@ namespace core{
 					_abandon(target);
 				}
 			}
+
+			// release data
+			RELEASE_POINTER(data);
 		}
 
 		// reborn
@@ -312,7 +316,11 @@ namespace core{
 			WARN("monitor already cleaned");
 			return;
 		}
+
+		// remove
 		m_fd_tb->remove(fd);
+
+		// delete
 		if(0 != epoll_ctl(m_epoll_fd, EPOLL_CTL_DEL, fd, 0)){
 			if(get_last_error() == ENOENT){
 				return;
@@ -426,7 +434,7 @@ namespace core{
 			if(evts->getValue() == events){
 				already_set =true;
 				// log
-				// printf("already set\n");
+				// printf("already set %d\n", fd);
 				// end
 				return data;
 			}

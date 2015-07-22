@@ -147,7 +147,9 @@ namespace core{
 			memcpy(m_data, p+tail, s-tail);
 		}
 		m_write_cursor +=s;
-		m_write_cursor %=m_capacity;
+		if(m_capacity > 0){
+			m_write_cursor %=m_capacity;
+		}
 		m_size +=s;
 		return true;
 	}
@@ -197,7 +199,9 @@ namespace core{
 		}
 		if(_pick(p, s)){
 			m_read_cursor += s;
-			m_read_cursor %= m_capacity;
+			if(m_capacity > 0){
+				m_read_cursor %= m_capacity;
+			}
 			m_size -=s;
 			if(m_size == 0){
 				m_read_cursor =0;

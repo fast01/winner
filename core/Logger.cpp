@@ -8,7 +8,7 @@ namespace core{
 
 	/** ctor & dtor **/
 	Logger::Logger()
-		: m_level(Logger::SHOW_ALL)
+		: m_level(Logger::SHOW_NONE)
 		, m_szName(0)
 		, m_file(0)
 		, m_file_open_time(0)
